@@ -3,7 +3,7 @@ import kotlin.math.abs
 
 /**
  * Verifica si un array está ordenado
- *
+ * 
  * @param A Array<Int> Array a verificar
  * @return Boolean True si está ordenado, False si no
  */
