@@ -24,26 +24,52 @@ fun isSorted(A: Array<Int>): Boolean {
  * @param b Valor máximo
  * @return Array<Int> Array de n elementos aleatorios entre a y b
  */
-fun randArray(n: Int, a: Int, b: Int): IntArray {
-    var array = IntArray(n) { 
+fun randArray(n: Int, a: Int, b: Int): Array<Int> {
+    var array = Array<Int>(n) { 
         abs(Random.nextInt()) % (b - a + 1) + a
     }
 
     return array
 }
 
+fun eArray(n: Int): Array<Int> {
+    val array = Array<Int>(n) { it + 1 }
+    return array
+}
+
+fun concatenate(a: Array<Int>, b: Array<Int>): Array<Int> {
+    return a + b
+}
+
+fun mediaArray(n: Int): Array<Int> {
+    var am = eArray(abs(n/2))
+    var amInv = am.clone()
+    amInv.sortDescending()
+    val concat = concatenate(am, amInv)
+    return concat
+}
+
 fun main(args: Array<String>) {
-    val chus = arrayOf(12, 33, 1, 3, -6, 0)
-    insertionSort(chus)
-
-    // Verifica si está correctamente ordenado
-    if (isSorted(chus)) { println("Sorted") } else { println("Not sorted") }
-
+    
     // Get n, a, b from args
     val n = args[0].toInt()
-    val a = args[1].toInt()
-    val b = args[2].toInt()
 
-    println(randArray(n, a, b).joinToString(", "))
-    println(chus.joinToString(", "))
+    // Arrays
+    val arrayAleatorio = randArray(n,1,n)
+    val arrayZu = randArray(n,0,1)
+    val arraySorted = eArray(n)
+    val arrayInv = eArray(n)
+    arrayInv.sortDescending()
+    val arrayMedia = mediaArray(n)
+
+    
+    val begin = System.nanoTime()
+    insertionSort(arrayAleatorio)
+    val end = System.nanoTime()
+   
+    println("Tiempo de ejecucion: ${(end-begin)/(1000000000.0)
+    } segundos, funcion: insertionSort")
+    if (isSorted(arrayAleatorio)) { println("Sorted") } else { println("Not sorted") }
+
+
 }
