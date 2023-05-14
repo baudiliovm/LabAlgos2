@@ -32,17 +32,45 @@ fun randArray(n: Int, a: Int, b: Int): Array<Int> {
     return array
 }
 
-fun eArray(n: Int): Array<Int> {
+/**
+ * sortedArray()
+ *
+ * This function returns an array of integers that are sorted in ascending order.
+ *
+ * @param n The number of elements in the array.
+ * @return An array of integers that are sorted in ascending order.
+ */
+fun sortedArray(n: Int): Array<Int> {
     val array = Array<Int>(n) { it + 1 }
     return array
 }
 
+/**
+ * concatenate()
+ *
+ * This function concatenates two arrays of integers.
+ *
+ * @param a The first array of integers.
+ * @param b The second array of integers.
+ * @return A new array that contains the elements of both a and b.
+ */
 fun concatenate(a: Array<Int>, b: Array<Int>): Array<Int> {
     return a + b
 }
 
-fun mediaArray(n: Int): Array<Int> {
-    var am = eArray(abs(n/2))
+
+/**
+ * midArray()
+ * 
+ * This function return an array of integers that are sorted in 
+ * ascending orden until n/2, then reversed
+ * 
+ * @param n The number of elements in the array.
+ * @return An array of integers that are sorted in 
+ * ascending orden until n/2, then reversed.
+ */
+fun midArray(n: Int): Array<Int> {
+    var am = sortedArray(abs(n/2))
     var amInv = am.clone()
     amInv.sortDescending()
     val concat = concatenate(am, amInv)
@@ -57,19 +85,17 @@ fun main(args: Array<String>) {
     // Arrays
     val arrayAleatorio = randArray(n,1,n)
     val arrayZu = randArray(n,0,1)
-    val arraySorted = eArray(n)
-    val arrayInv = eArray(n)
+    val arraySorted = sortedArray(n)
+    val arrayInv = sortedArray(n)
     arrayInv.sortDescending()
-    val arrayMedia = mediaArray(n)
+    val arrayMedia = midArray(n)
 
     
     val begin = System.nanoTime()
     insertionSort(arrayAleatorio)
     val end = System.nanoTime()
    
-    println("Tiempo de ejecucion: ${(end-begin)/(1000000000.0)
-    } segundos, funcion: insertionSort")
+    println("Execution time: ${(end-begin)/(1000000000.0)
+    } seconds, function: insertionSort")
     if (isSorted(arrayAleatorio)) { println("Sorted") } else { println("Not sorted") }
-
-
 }

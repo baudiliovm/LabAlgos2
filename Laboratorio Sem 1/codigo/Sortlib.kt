@@ -1,9 +1,19 @@
+/* ------------------------------ Sortlib.kt ---------------------------------
+
+Aquí encontraremos los distintos algoritmos de ordenamiento basados en el libro
+Data Structures and Algorithms de A. Aho, J. Hopcroft, J. Ullman; usados para el 
+programa encontrado en Main.kt
+
+ */
+
 /**
- * Intercambia dos elementos de un arreglo de enteros
+ * swap()
  * 
- * @param A Arreglo de enteros 
- * @param i Índice del primer elemento a intercambiar
- * @param j Índice del segundo elemento a intercambiar
+ * * This function swaps the values at two given indexes in an array.
+ *
+ * @param A The array to swap the values in.
+ * @param i The index of the first value to swap.
+ * @param j The index of the second value to swap.
  */
 fun swap(A: Array<Int>, i: Int, j: Int) {
     var temp = A[i]
@@ -12,10 +22,11 @@ fun swap(A: Array<Int>, i: Int, j: Int) {
 }
 
 /**
- * Ordena un arreglo de enteros usando el algoritmo de Bubble Sort
- * 
- * @param A Arreglo de enteros a ordenar
- * @return Arreglo de enteros ordenado
+ * bubbleSort()
+ *
+ * This function sorts an array of integers using the bubble sort algorithm.
+ *
+ * @param A The array to sort.
  */
 fun bubbleSort(A: Array<Int>) {
     var n = A.size
@@ -29,6 +40,13 @@ fun bubbleSort(A: Array<Int>) {
     }
 }
 
+/**
+ * insertionSort()
+ *
+ * This function sorts an array of integers using the insertion sort algorithm.
+ *
+ * @param A The array to sort.
+ */
 fun insertionSort(A: Array<Int>) {
     val n = A.size
     for (i in 1 until n) {
@@ -40,6 +58,13 @@ fun insertionSort(A: Array<Int>) {
     }
 }
 
+/**
+ * selectionSort()
+ *
+ * This function sorts an array of integers using the selection sort algorithm.
+ *
+ * @param A The array to sort.
+ */
 fun selectionSort(A: Array<Int>) {
     var n = A.size
     for (i in 0 until n) {
@@ -55,6 +80,13 @@ fun selectionSort(A: Array<Int>) {
     }
 }
 
+/**
+ * shellSort()
+ *
+ * This function sorts an array of integers using the shell sort algorithm.
+ *
+ * @param A The array to sort.
+ */
 fun shellSort(A: Array<Int>) {
     val n = A.size
     var incr = n.div(2)
