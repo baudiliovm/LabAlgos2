@@ -35,6 +35,8 @@ fun randArray(n: Int, a: Int, b: Int): IntArray {
 fun main(args: Array<String>) {
     val chus = arrayOf(12, 33, 1, 3, -6, 0)
     insertionSort(chus)
+
+    // Verifica si está correctamente ordenado
     if (isSorted(chus)) { println("Sorted") } else { println("Not sorted") }
 
     // Get n, a, b from args
