@@ -1,3 +1,3 @@
 #!/usr/bin/bash
 
-# Realizar!
+java -jar TestSort.jar $*

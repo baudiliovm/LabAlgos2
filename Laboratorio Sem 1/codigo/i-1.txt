@@ -1,0 +1,44 @@
+random: BubbleSort:
+  Execution time: 0.525616 ms
+zu: BubbleSort:
+  Execution time: 0.012732 ms
+sorted: BubbleSort:
+  Execution time: 0.006849 ms
+inv: BubbleSort:
+  Execution time: 0.026469 ms
+media: BubbleSort:
+  Execution time: 0.017032 ms
+
+random: InsertionSort:
+  Execution time: 0.037372 ms
+zu: InsertionSort:
+  Execution time: 0.00752 ms
+sorted: InsertionSort:
+  Execution time: 0.002414 ms
+inv: InsertionSort:
+  Execution time: 0.023735 ms
+media: InsertionSort:
+  Execution time: 0.01925 ms
+
+random: SelectionSort:
+  Execution time: 0.028583 ms
+zu: SelectionSort:
+  Execution time: 0.00969 ms
+sorted: SelectionSort:
+  Execution time: 0.00838 ms
+inv: SelectionSort:
+  Execution time: 0.010047 ms
+media: SelectionSort:
+  Execution time: 0.00833 ms
+
+random: ShellSort:
+  Execution time: 0.040445 ms
+zu: ShellSort:
+  Execution time: 0.006378 ms
+sorted: ShellSort:
+  Execution time: 0.004733 ms
+inv: ShellSort:
+  Execution time: 0.008638 ms
+media: ShellSort:
+  Execution time: 0.007527 ms
+

@@ -63,7 +63,7 @@ fun insertionSort(A: Array<Int>) {
  */
 fun selectionSort(A: Array<Int>) {
     var n = A.size
-    for (i in 0 until n) {
+    for (i in 0 until n-1) {
         var lowIndex = i
         var lowKey = A[i]
         for (j in i+1 until n) {
@@ -71,8 +71,8 @@ fun selectionSort(A: Array<Int>) {
                 lowKey = A[j]
                 lowIndex = j
             }
-        swap(A, i, lowIndex)
         }
+        swap(A, i, lowIndex)
     }
 }
 

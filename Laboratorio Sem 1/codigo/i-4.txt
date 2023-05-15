@@ -1,0 +1,64 @@
+random: BubbleSort:
+  Standard deviation: 0.1955015780787891 ms
+  Average time: 0.13535275 ms
+zu: BubbleSort:
+  Standard deviation: 0.0016684099606736349 ms
+  Average time: 0.01208925 ms
+sorted: BubbleSort:
+  Standard deviation: 6.001179050819931E-4 ms
+  Average time: 0.006162 ms
+inv: BubbleSort:
+  Standard deviation: 0.006785963816723093 ms
+  Average time: 0.034554249999999995 ms
+media: BubbleSort:
+  Standard deviation: 8.212899438535703E-4 ms
+  Average time: 0.01497775 ms
+
+random: InsertionSort:
+  Standard deviation: 0.008401547806617242 ms
+  Average time: 0.014803749999999997 ms
+zu: InsertionSort:
+  Standard deviation: 5.611187485728844E-4 ms
+  Average time: 0.006416 ms
+sorted: InsertionSort:
+  Standard deviation: 2.948273594410804E-4 ms
+  Average time: 0.00180975 ms
+inv: InsertionSort:
+  Standard deviation: 9.488231773491829E-4 ms
+  Average time: 0.01689575 ms
+media: InsertionSort:
+  Standard deviation: 5.369468520021325E-4 ms
+  Average time: 0.00914125 ms
+
+random: SelectionSort:
+  Standard deviation: 0.007613309542340965 ms
+  Average time: 0.010496499999999999 ms
+zu: SelectionSort:
+  Standard deviation: 5.250601751228141E-4 ms
+  Average time: 0.0054725 ms
+sorted: SelectionSort:
+  Standard deviation: 4.6674770687706653E-4 ms
+  Average time: 0.005139250000000001 ms
+inv: SelectionSort:
+  Standard deviation: 4.7412437384614613E-4 ms
+  Average time: 0.00704775 ms
+media: SelectionSort:
+  Standard deviation: 9.767846167400467E-4 ms
+  Average time: 0.0067095 ms
+
+random: ShellSort:
+  Standard deviation: 0.0069732046468517625 ms
+  Average time: 0.01081075 ms
+zu: ShellSort:
+  Standard deviation: 5.654804925901511E-4 ms
+  Average time: 0.004566499999999999 ms
+sorted: ShellSort:
+  Standard deviation: 3.7408745217529005E-4 ms
+  Average time: 0.00396325 ms
+inv: ShellSort:
+  Standard deviation: 5.504291507542094E-4 ms
+  Average time: 0.0056949999999999995 ms
+media: ShellSort:
+  Standard deviation: 6.261514767809782E-4 ms
+  Average time: 0.00512175 ms
+
