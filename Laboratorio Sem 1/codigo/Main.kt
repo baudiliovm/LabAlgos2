@@ -1,5 +1,7 @@
 import kotlin.random.Random
-import kotlin.math.abs
+import kotlin.math.*
+import kotlin.system.exitProcess
+
 
 /**
  * This function checks if an array of integers is sorted.
@@ -71,10 +73,159 @@ fun midArray(n: Int): Array<Int> {
     return concat
 }
 
+fun standardDeviation(a: Double, b: Array<Double>): Double{
+    var deviations = 0.0
+    for (i in 0 until (b.size - 1)){
+        deviations += Math.pow((b[i] - a).toDouble(), 2.0)
+    }
+    deviations = Math.sqrt(deviations / b.size)
+    return deviations
+}
+
+fun runBubbleSort(a: Array<Int>, t: Int): Array<Int>{
+    if (t == 1){
+        val begin = System.nanoTime()
+        bubbleSort(a)
+        val end = System.nanoTime()
+         println("Execution time: ${(end-begin)/(1000000000.0)} seconds, function: bubbleSort")
+        return a 
+    }
+    else {
+        var averageTime: Double = 0.0
+        var arrayTimes = Array<Double>(t) { it*0.0 }
+        for (i in 0 until t){
+            val aClone = a.clone()
+            val begin = System.nanoTime()
+            bubbleSort(aClone)
+            val end = System.nanoTime()
+            arrayTimes[i] = (end-begin)/(1000000000.0)
+            averageTime += ((end-begin)/1000000000.0)
+            println("Execution time: ${(end-begin)/(1000000000.0)}, function: bubbleSort")
+        }
+        val sD = standardDeviation(averageTime, arrayTimes)
+        println("Execution time: ${averageTime} seconds, function: bubbleSort, standard deviation: ${sD}")
+        return a
+    }
+}
+
+fun runInsertionSort(a: Array<Int>, t: Int): Array<Int>{
+    if (t == 1){
+        val begin = System.nanoTime()
+        insertionSort(a)
+        val end = System.nanoTime()
+         println("Execution time: ${(end-begin)/(1000000000.0)} seconds, function: insertionSort")
+        return a 
+    }
+    else {
+        var averageTime: Double = 0.0
+        var arrayTimes = Array<Double>(t) { it*0.0 }
+        for (i in 0 until t){
+            val aClone = a.clone()
+            val begin = System.nanoTime()
+            insertionSort(aClone)
+            val end = System.nanoTime()
+            arrayTimes[i] = (end-begin)/(1000000000.0)
+            averageTime += ((end-begin)/1000000000.0)
+            println("Execution time: ${(end-begin)/(1000000000.0)}, function: insertionSort")
+        }
+        val sD = standardDeviation(averageTime, arrayTimes)
+        println("Execution time: ${averageTime} seconds, function: insertionSort, standard deviation: ${sD}")
+        return a
+    }
+}
+
+
+fun runSelectionSort(a: Array<Int>, t: Int): Array<Int>{
+    if (t == 1){
+        val begin = System.nanoTime()
+        selectionSort(a)
+        val end = System.nanoTime()
+         println("Execution time: ${(end-begin)/(1000000000.0)} seconds, function: selectionSort")
+        return a 
+    }
+    else {
+        var averageTime: Double = 0.0
+        var arrayTimes = Array<Double>(t) { it*0.0 }
+        for (i in 0 until t){
+            val aClone = a.clone()
+            val begin = System.nanoTime()
+            selectionSort(aClone)
+            val end = System.nanoTime()
+            arrayTimes[i] = (end-begin)/(1000000000.0)
+            averageTime += ((end-begin)/1000000000.0)
+            println("Execution time: ${(end-begin)/(1000000000.0)}, function: selectionSort")
+        }
+        val sD = standardDeviation(averageTime, arrayTimes)
+        println("Execution time: ${averageTime} seconds, function: selectionSort, standard deviation: ${sD}")
+        return a
+    }
+}
+
+fun runShellSort(a: Array<Int>, t: Int): Array<Int>{
+    if (t == 1){
+        val begin = System.nanoTime()
+        shellSort(a)
+        val end = System.nanoTime()
+         println("Execution time: ${(end-begin)/(1000000000.0)} seconds, function: shellSort")
+        return a 
+    }
+    else {
+        var averageTime: Double = 0.0
+        var arrayTimes = Array<Double>(t) { it*0.0 }
+        for (i in 0 until t){
+            val aClone = a.clone()
+            val begin = System.nanoTime()
+            shellSort(aClone)
+            val end = System.nanoTime()
+            arrayTimes[i] = (end-begin)/(1000000000.0)
+            averageTime += ((end-begin)/1000000000.0)
+            println("Execution time: ${(end-begin)/(1000000000.0)}, function: shellSort")
+        }
+        val sD = standardDeviation(averageTime, arrayTimes)
+        println("Execution time: ${averageTime} seconds, function: shellSort, standard deviation: ${sD}")
+        return a
+    }
+}
+
+fun runAllSorts(a: Array<Int>, b: Array<Int>, c: Array<Int>, d: Array<Int>, e: Array<Int>, t: Int): Unit{
+    println("random array")
+    runBubbleSort(a,t)
+    runInsertionSort(a,t)
+    runSelectionSort(a,t)
+    runShellSort(a,t)
+
+    println("sorted array")
+    runBubbleSort(b,t)
+    runInsertionSort(b,t)
+    runSelectionSort(b,t)
+    runShellSort(b,t)
+
+    println("inv array")
+    runBubbleSort(c,t)
+    runInsertionSort(c,t)
+    runSelectionSort(c,t)
+    runShellSort(c,t)
+
+    println("zu array")
+    runBubbleSort(d,t)
+    runInsertionSort(d,t)
+    runSelectionSort(d,t)
+    runShellSort(d,t)
+
+    println("media array")
+    runBubbleSort(e,t)
+    runInsertionSort(e,t)
+    runSelectionSort(e,t)
+    runShellSort(e,t)
+}
+
+
+
 fun main(args: Array<String>) {
     
-    // Get n, a, b from args
+    // Get n, t from args
     val n = args[0].toInt()
+    val t = args[1].toInt()
 
     // Arrays
     val arrayAleatorio = randArray(n,1,n)
@@ -84,12 +235,9 @@ fun main(args: Array<String>) {
     arrayInv.sortDescending()
     val arrayMedia = midArray(n)
 
-    
-    val begin = System.nanoTime()
-    insertionSort(arrayAleatorio)
-    val end = System.nanoTime()
-   
-    println("Execution time: ${(end-begin)/(1000000000.0)
-    } seconds, function: insertionSort")
+    runAllSorts(arrayAleatorio,arraySorted,arrayInv,arrayZu,arrayMedia,t)
     if (isSorted(arrayAleatorio)) { println("Sorted") } else { println("Not sorted") }
+    
 }
+   
+ 
