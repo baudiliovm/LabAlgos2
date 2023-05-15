@@ -143,10 +143,10 @@ fun seg(
     println("${sortFunctionName}Sort:")
 
     if (t == 1) {
-        println("  Execution time: ${averageTime} seg")
+        println("  Execution time: ${averageTime} sec")
     } else {
         val stDev = standardDeviation(averageTime, arrayTimes)
-        println("  Standard deviation: ${stDev} seg\n  Average time: ${averageTime} seg")
+        println("  Standard deviation: ${stDev} sec\n  Average time: ${averageTime} sec")
     }
 }
 
