@@ -1,44 +1,44 @@
 random: BubbleSort:
-  Execution time: 0.525616 ms
+  Execution time: 6.9916E-4 seg
 zu: BubbleSort:
-  Execution time: 0.012732 ms
+  Execution time: 1.8551E-5 seg
 sorted: BubbleSort:
-  Execution time: 0.006849 ms
+  Execution time: 7.352E-6 seg
 inv: BubbleSort:
-  Execution time: 0.026469 ms
+  Execution time: 3.7514E-5 seg
 media: BubbleSort:
-  Execution time: 0.017032 ms
+  Execution time: 2.37E-5 seg
 
 random: InsertionSort:
-  Execution time: 0.037372 ms
+  Execution time: 3.4614E-5 seg
 zu: InsertionSort:
-  Execution time: 0.00752 ms
+  Execution time: 1.0282E-5 seg
 sorted: InsertionSort:
-  Execution time: 0.002414 ms
+  Execution time: 2.52E-6 seg
 inv: InsertionSort:
-  Execution time: 0.023735 ms
+  Execution time: 2.3882E-5 seg
 media: InsertionSort:
-  Execution time: 0.01925 ms
+  Execution time: 2.6736E-5 seg
 
 random: SelectionSort:
-  Execution time: 0.028583 ms
+  Execution time: 5.0578E-5 seg
 zu: SelectionSort:
-  Execution time: 0.00969 ms
+  Execution time: 1.3149E-5 seg
 sorted: SelectionSort:
-  Execution time: 0.00838 ms
+  Execution time: 1.1893E-5 seg
 inv: SelectionSort:
-  Execution time: 0.010047 ms
+  Execution time: 1.3435E-5 seg
 media: SelectionSort:
-  Execution time: 0.00833 ms
+  Execution time: 1.1959E-5 seg
 
 random: ShellSort:
-  Execution time: 0.040445 ms
+  Execution time: 3.3717E-5 seg
 zu: ShellSort:
-  Execution time: 0.006378 ms
+  Execution time: 9.498E-6 seg
 sorted: ShellSort:
-  Execution time: 0.004733 ms
+  Execution time: 4.902E-6 seg
 inv: ShellSort:
-  Execution time: 0.008638 ms
+  Execution time: 1.6457E-5 seg
 media: ShellSort:
-  Execution time: 0.007527 ms
+  Execution time: 1.0881E-5 seg
 

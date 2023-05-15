@@ -114,7 +114,7 @@ fun errorMessage(message: String) {
  * @param sortFunctionName The name of the sorting algorithm.
  * @param t The number of times to run the sorting algorithm.
  */
-fun timeSort(
+fun seg(
     A: Array<Int>,
     sortFunction: (Array<Int>) -> Unit,
     sortFunctionName: String,
@@ -132,10 +132,10 @@ fun timeSort(
         // Check if the array is sorted
         checkIsSorted(aClone)
 
-        val timeInMs = (end-begin) / 1000000.0
+        val timeInSeg = (end-begin) / 1e9
 
-        arrayTimes[it] = timeInMs
-        averageTime += timeInMs
+        arrayTimes[it] = timeInSeg
+        averageTime += timeInSeg
     }
 
     averageTime /= t
@@ -143,10 +143,10 @@ fun timeSort(
     println("${sortFunctionName}Sort:")
 
     if (t == 1) {
-        println("  Execution time: ${averageTime} ms")
+        println("  Execution time: ${averageTime} seg")
     } else {
         val stDev = standardDeviation(averageTime, arrayTimes)
-        println("  Standard deviation: ${stDev} ms\n  Average time: ${averageTime} ms")
+        println("  Standard deviation: ${stDev} seg\n  Average time: ${averageTime} seg")
     }
 }
 
@@ -187,7 +187,7 @@ fun runAllSorts(args: Array<String>) {
         for (i in 0 until sortFunctions.size) {
             for (j in 0 until testCases.size) {
                 print("${testCasesNames[j]}: ")
-                timeSort(testCases[j], sortFunctions[i], sortFunctionNames[i], t)
+                seg(testCases[j], sortFunctions[i], sortFunctionNames[i], t)
             }
             println()
         }
