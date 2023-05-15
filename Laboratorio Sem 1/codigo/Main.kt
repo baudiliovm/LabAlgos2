@@ -2,10 +2,10 @@ import kotlin.random.Random
 import kotlin.math.abs
 
 /**
- * Verifica si un array está ordenado
- * 
- * @param A Array<Int> Array a verificar
- * @return Boolean True si está ordenado, False si no
+ * This function checks if an array of integers is sorted.
+ *
+ * @param A The array to check.
+ * @return true if the array is sorted, false otherwise.
  */
 fun isSorted(A: Array<Int>): Boolean {
     for (i in 0 until (A.size - 1)) {
@@ -17,24 +17,22 @@ fun isSorted(A: Array<Int>): Boolean {
 }
 
 /**
- * Genera un array de n elementos aleatorios entre a y b
- * 
- * @param n Cantidad de elementos
- * @param a Valor mínimo
- * @param b Valor máximo
- * @return Array<Int> Array de n elementos aleatorios entre a y b
+ * This function generates an array of integers with random values between a 
+ * and b, inclusive.
+ *
+ * @param n The number of elements in the array.
+ * @param a The minimum value of the random integers.
+ * @param b The maximum value of the random integers.
+ * @return An array of integers with random values between a and b, inclusive.
  */
 fun randArray(n: Int, a: Int, b: Int): Array<Int> {
     var array = Array<Int>(n) { 
         abs(Random.nextInt()) % (b - a + 1) + a
     }
-
     return array
 }
 
 /**
- * sortedArray()
- *
  * This function returns an array of integers that are sorted in ascending order.
  *
  * @param n The number of elements in the array.
@@ -46,8 +44,6 @@ fun sortedArray(n: Int): Array<Int> {
 }
 
 /**
- * concatenate()
- *
  * This function concatenates two arrays of integers.
  *
  * @param a The first array of integers.
@@ -60,8 +56,6 @@ fun concatenate(a: Array<Int>, b: Array<Int>): Array<Int> {
 
 
 /**
- * midArray()
- * 
  * This function return an array of integers that are sorted in 
  * ascending orden until n/2, then reversed
  * 
