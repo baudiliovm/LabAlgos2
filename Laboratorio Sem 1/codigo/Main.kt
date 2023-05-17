@@ -71,40 +71,6 @@ fun standardDeviation(a: Double, b: Array<Double>): Double{
     return Math.sqrt(deviations / b.size)
 }
 
-// Error handling hasta verify()
-/**
- * Prints an error message and exits the program.
- *
- * @param message The error message to print.
- */
-fun errorMessage(message: String) {
-    println(message)
-    println("Error\nUse syntax -> ./runSortlib.sh [-t num] [-s <secuencia>] [-n num]")
-    exitProcess(1)
-}
-
-
-/* fun verify(args: Array<String>): {
-    // tengo [-t #num] intentos [-s <secuencia>] secuencia [-n #num] numero de array
-    // para -t
-
-    val validFlags = arrayOf("-t", "-s", "-n")
-
-    var t = args[0].toInt()
-    var s = args[1].toInt()
-    var n = args[2].toInt()
-
-
-    for (i in args) {
-        when {
-            "-i" ->
-        }
-            if (t is Int ) {
-                return "Error"
-            }
-    }
-}
-*/
 
 /**
  * Prints the execution time of a sorting algorithm.
@@ -114,7 +80,7 @@ fun errorMessage(message: String) {
  * @param sortFunctionName The name of the sorting algorithm.
  * @param t The number of times to run the sorting algorithm.
  */
-fun seg(
+fun timeSort(
     A: Array<Int>,
     sortFunction: (Array<Int>) -> Unit,
     sortFunctionName: String,
@@ -150,9 +116,57 @@ fun seg(
     }
 }
 
+// Error handling hasta verify()
+/**
+ * Prints an error message and exits the program.
+ *
+ * @param message The error message to print.
+ */
+fun errorMessage(message: String) {
+    println(message)
+    println("Error\nUse syntax -> ./runSortlib.sh [-t num] [-s <secuencia>] [-n num]")
+    exitProcess(1)
+}
+
+
+fun verify(a: Array<String>): {
+    // tengo [-t #num] intentos [-s <secuencia>] secuencia [-n #num] tamaño de array
+    
+    
+    /*  Hacer funcion o tomar de args 
+     */
+
+    var t = a[0].toInt()
+    var s = a[1].toString()
+    var n = a[2].toInt()
+
+    val validFlags = arrayOf("-t", "-s", "-n")
+    val validSecuences = arrayOf("random", "zu", "sorted", "inv", "media")
+
+    var flag = 1
+
+
+    when {
+        flag == t ->  {
+            // Verificar si -t es un Int>-1
+        }
+        flag == s -> {
+            for (i in 0 until validSecuences.size) {
+                if (s != validSecuences[i]) {
+                    errorMessage("mal")
+                }
+            }
+        }
+        flag == n -> {
+            // Verficar que -n sea Int>0
+        }
+    }
+    return Triple(t, s, n)
+}
+
 
 fun runAllSorts(args: Array<String>) {
-        // Get n, t from args
+        // Get n, t, s from args
         val n = args[0].toInt()
         val t = args[1].toInt()
 
@@ -187,12 +201,13 @@ fun runAllSorts(args: Array<String>) {
         for (i in 0 until sortFunctions.size) {
             for (j in 0 until testCases.size) {
                 print("${testCasesNames[j]}: ")
-                seg(testCases[j], sortFunctions[i], sortFunctionNames[i], t)
+                timeSort(testCases[j], sortFunctions[i], sortFunctionNames[i], t)
             }
             println()
         }
 }
 
 fun main(args: Array<String>) {
+    // verify(args)
     runAllSorts(args)
 }
