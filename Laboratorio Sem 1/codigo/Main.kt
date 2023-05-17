@@ -164,6 +164,38 @@ fun verify(a: Array<String>): {
     return Triple(t, s, n)
 }
 
+fun verificar(a: Array<String>): {
+    val validSequences = arrayOf("random", "zu", "sorted", "inv", "media")
+    var s: String? = null
+    var t: Int? = null
+    var n: Int? = null
+
+    for (i in args.indices) {
+        when (args[i]) {
+            "-s" -> s = args[i + 1]
+            "-t" -> t = args[i + 1].toInt()
+            "-n" -> n = args[i + 1].toInt()
+        }
+    }
+
+    if (s == null || t == null || n == null) {
+        println("Error: missing argument")
+        exitProcess(1)
+    }
+
+    if (t <= 0 || n <= 0) {
+        println("Error: integer arguments must be positive")
+        exitProcess(1)
+    }
+
+    if (!validSequences.contains(s)) {
+        println("Error: invalid sequence")
+        exitProcess(1)
+    }
+}
+
+
+
 
 fun runAllSorts(args: Array<String>) {
         // Get n, t, s from args
