@@ -1,7 +1,7 @@
-import kotlin.random.Random
+import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
-import kotlin.math.abs
+import kotlin.random.Random
 import kotlin.system.exitProcess
 
 /**
@@ -11,7 +11,7 @@ import kotlin.system.exitProcess
  */
 fun checkIsSorted(A: Array<Int>) {
     for (i in 0 until (A.size - 1)) {
-        if (A[i] > A[i+1]) {
+        if (A[i] > A[i + 1]) {
             println("\nNot sorted! Returning...\n")
             exitProcess(1)
         }
@@ -19,8 +19,7 @@ fun checkIsSorted(A: Array<Int>) {
 }
 
 /**
- * Generates an array of integers with random values between a
- * and b, inclusive.
+ * Generates an array of integers with random values between a and b, inclusive.
  *
  * @param n The number of elements in the array.
  * @param a The minimum value of the random integers.
@@ -28,9 +27,7 @@ fun checkIsSorted(A: Array<Int>) {
  * @return An array of integers with random values between a and b, inclusive.
  */
 fun randArray(n: Int, a: Int, b: Int): Array<Int> {
-    var array = Array<Int>(n) {
-        abs(Random.nextInt()) % (b - a + 1) + a
-    }
+    var array = Array<Int>(n) { abs(Random.nextInt()) % (b - a + 1) + a }
     return array
 }
 
@@ -43,15 +40,13 @@ fun randArray(n: Int, a: Int, b: Int): Array<Int> {
 fun sortedArray(n: Int): Array<Int> = Array<Int>(n) { it + 1 }
 
 /**
- * Creates an array of integers that are sorted in
- * ascending orden until n/2, then reversed
+ * Creates an array of integers that are sorted in ascending orden until n/2, then reversed
  *
  * @param n The number of elements in the array.
- * @return An array of integers that are sorted in
- * ascending orden until n/2, then reversed.
+ * @return An array of integers that are sorted in ascending orden until n/2, then reversed.
  */
 fun midArray(n: Int): Array<Int> {
-    var am = sortedArray(abs(n/2))
+    var am = sortedArray(abs(n / 2))
     var amInv = am.clone()
     amInv.sortDescending()
     return am + amInv
@@ -63,14 +58,13 @@ fun midArray(n: Int): Array<Int> {
  * @param a The average of the array.
  * @param b The array of doubles.
  */
-fun standardDeviation(a: Double, b: Array<Double>): Double{
+fun standardDeviation(a: Double, b: Array<Double>): Double {
     var deviations = 0.0
-    for (i in 0 until (b.size - 1)){
+    for (i in 0 until (b.size - 1)) {
         deviations += Math.pow((b[i] - a).toDouble(), 2.0)
     }
     return Math.sqrt(deviations / b.size)
 }
-
 
 /**
  * Prints the execution time of a sorting algorithm.
@@ -80,12 +74,7 @@ fun standardDeviation(a: Double, b: Array<Double>): Double{
  * @param sortFunctionName The name of the sorting algorithm.
  * @param t The number of times to run the sorting algorithm.
  */
-fun timeSort(
-    A: Array<Int>,
-    sortFunction: (Array<Int>) -> Unit,
-    sortFunctionName: String,
-    t: Int
-) {
+fun timeSort(A: Array<Int>, sortFunction: (Array<Int>) -> Unit, sortFunctionName: String, t: Int) {
     var averageTime = 0.0
     val arrayTimes = Array<Double>(t) { 0.0 }
 
@@ -98,7 +87,7 @@ fun timeSort(
         // Check if the array is sorted
         checkIsSorted(aClone)
 
-        val timeInSeg = (end-begin) / 1e9
+        val timeInSeg = (end - begin) / 1e9
 
         arrayTimes[it] = timeInSeg
         averageTime += timeInSeg
@@ -123,48 +112,12 @@ fun timeSort(
  * @param message The error message to print.
  */
 fun errorMessage(message: String) {
-    println(message)
-    println("Error\nUse syntax -> ./runSortlib.sh [-t num] [-s <secuencia>] [-n num]")
+    println("Error: $message")
+    println("Use syntax -> ./runSortlib.sh [-t int] [-s <secuence>] [-n int]")
     exitProcess(1)
 }
 
-
-fun verify(a: Array<String>): {
-    // tengo [-t #num] intentos [-s <secuencia>] secuencia [-n #num] tamaño de array
-    
-    
-    /*  Hacer funcion o tomar de args 
-     */
-
-    var t = a[0].toInt()
-    var s = a[1].toString()
-    var n = a[2].toInt()
-
-    val validFlags = arrayOf("-t", "-s", "-n")
-    val validSecuences = arrayOf("random", "zu", "sorted", "inv", "media")
-
-    var flag = 1
-
-
-    when {
-        flag == t ->  {
-            // Verificar si -t es un Int>-1
-        }
-        flag == s -> {
-            for (i in 0 until validSecuences.size) {
-                if (s != validSecuences[i]) {
-                    errorMessage("mal")
-                }
-            }
-        }
-        flag == n -> {
-            // Verficar que -n sea Int>0
-        }
-    }
-    return Triple(t, s, n)
-}
-
-fun verificar(a: Array<String>): {
+fun verify(a: Array<String>): Array<String> {
     val validSequences = arrayOf("random", "zu", "sorted", "inv", "media")
     var s: String? = null
     var t: Int? = null
@@ -172,74 +125,89 @@ fun verificar(a: Array<String>): {
 
     for (i in 0 until a.size) {
         when (a[i]) {
-            "-s" -> s = a[i + 1]
-            "-t" -> t = a[i + 1].toInt()
-            "-n" -> n = a[i + 1].toInt()
+            "-s" -> s = a[i + 1].toString()
+            "-t" -> {
+                try {
+                    t = a[i + 1].toInt()
+                } catch (ex: NumberFormatException) {
+                    errorMessage("t must be a number.")
+                    exitProcess(1)
+                }
+            }
+            "-n" -> {
+                try {
+                    n = a[i + 1].toInt()
+                } catch (ex: NumberFormatException) {
+                    errorMessage("n must be a number.")
+                    exitProcess(1)
+                }
+            }
         }
     }
 
     if (s == null || t == null || n == null) {
-        println("Error: missing argument")
+        errorMessage("missing argument.")
         exitProcess(1)
     }
 
-    if (t <= 0 || n <= 0) {
-        println("Error: integer arguments must be positive")
+    if (t <= 0 || n < 0) {
+        errorMessage("integer arguments must be positive.")
         exitProcess(1)
     }
 
     if (!validSequences.contains(s)) {
-        println("Error: invalid sequence")
+        errorMessage("invalid sequence \nMust be the follow options: 'random', 'zu', 'sorted', 'inv', 'media'")
         exitProcess(1)
+    }
+
+    var x = t.toString()
+    var y = n.toString()
+
+    return arrayOf(s, x, y)
+}
+
+fun runAllSorts(args: Array<String>) {
+    // Get n, t, s from args
+    var s = args[0]
+    val t = args[1].toInt()
+    val n = args[2].toInt()
+
+    val sortFunctions = arrayOf(::bubbleSort, ::insertionSort, ::selectionSort, ::shellSort)
+
+    val sortFunctionNames = arrayOf("Bubble", "Insertion", "Selection", "Shell")
+
+    // Test arrays
+    val sortedA = sortedArray(n)
+    val invA = sortedA.reversedArray()
+
+    /*
+            val testCases = arrayOf(
+                randArray(n, 1, n), // "random"
+                randArray(n, 0, 1), // "zu"
+                sortedA,            // "sorted"
+                invA,               // "inv"
+                midArray(n)         // "media"
+                )
+            val testCasesNames = arrayOf("random", "zu", "sorted", "inv", "media")
+    */
+    var w = invA
+
+    when (s) {
+        "random" -> w = randArray(n, 1, n)
+        "zu" -> w = randArray(n, 0, 1)
+        "sorted" -> w = sortedA
+        "inv" -> w = invA
+        "media" -> w = midArray(n)
+    }
+
+    println("Sequence: ${s}")
+    for (i in 0 until sortFunctions.size) {
+        print("\n")
+        timeSort(w, sortFunctions[i], sortFunctionNames[i], t)
     }
 }
 
-
-
-
-fun runAllSorts(args: Array<String>) {
-        // Get n, t, s from args
-        val n = args[0].toInt()
-        val t = args[1].toInt()
-
-        val sortFunctions = arrayOf(
-        ::bubbleSort,
-        ::insertionSort,
-        ::selectionSort,
-        ::shellSort
-        )
-
-        val sortFunctionNames = arrayOf(
-        "Bubble",
-        "Insertion",
-        "Selection",
-        "Shell"
-        )
-
-        // Test arrays
-        val sortedA = sortedArray(n)
-        val invA = sortedA.reversedArray()
-
-        val testCases = arrayOf(
-            randArray(n, 1, n), // "random"
-            randArray(n, 0, 1), // "zu"
-            sortedA,            // "sorted"
-            invA,               // "inv"
-            midArray(n)         // "media"
-        )
-
-        val testCasesNames = arrayOf("random", "zu", "sorted", "inv", "media")
-
-        for (i in 0 until sortFunctions.size) {
-            for (j in 0 until testCases.size) {
-                print("${testCasesNames[j]}: ")
-                timeSort(testCases[j], sortFunctions[i], sortFunctionNames[i], t)
-            }
-            println()
-        }
-}
-
 fun main(args: Array<String>) {
-    // verify(args)
-    runAllSorts(args)
+    var data = verify(args)
+    runAllSorts(data)
 }
