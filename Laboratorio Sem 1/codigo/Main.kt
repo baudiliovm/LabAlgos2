@@ -170,11 +170,11 @@ fun verificar(a: Array<String>): {
     var t: Int? = null
     var n: Int? = null
 
-    for (i in args.indices) {
-        when (args[i]) {
-            "-s" -> s = args[i + 1]
-            "-t" -> t = args[i + 1].toInt()
-            "-n" -> n = args[i + 1].toInt()
+    for (i in 0 until a.size) {
+        when (a[i]) {
+            "-s" -> s = a[i + 1]
+            "-t" -> t = a[i + 1].toInt()
+            "-n" -> n = a[i + 1].toInt()
         }
     }
 
