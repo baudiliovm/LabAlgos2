@@ -113,7 +113,7 @@ fun timeSort(A: Array<Int>, sortFunction: (Array<Int>) -> Unit, sortFunctionName
  */
 fun errorMessage(message: String) {
     println("Error: $message")
-    println("Use syntax -> ./runSortlib.sh [-t int] [-s <secuence>] [-n int]")
+    println("Usage: syntax -> ./runSortlib.sh [-t int] [-s <sequence>] [-n int]")
     exitProcess(1)
 }
 
@@ -125,10 +125,20 @@ fun verify(a: Array<String>): Array<String> {
 
     for (i in 0 until a.size) {
         when (a[i]) {
-            "-s" -> s = a[i + 1].toString()
+            "-s" -> {
+                try {
+                    s = a[i + 1].toString()
+                } catch (ex: IndexOutOfBoundsException) {
+                    errorMessage("missing value to [${a[i]}].")
+                    exitProcess(1)
+                }
+            }
             "-t" -> {
                 try {
                     t = a[i + 1].toInt()
+                } catch (ex: IndexOutOfBoundsException) {
+                    errorMessage("missing value to [${a[i]}].")
+                    exitProcess(1)
                 } catch (ex: NumberFormatException) {
                     errorMessage("t must be a number.")
                     exitProcess(1)
@@ -137,6 +147,9 @@ fun verify(a: Array<String>): Array<String> {
             "-n" -> {
                 try {
                     n = a[i + 1].toInt()
+                } catch (ex: IndexOutOfBoundsException) {
+                    errorMessage("missing value to [${a[i]}].")
+                    exitProcess(1)
                 } catch (ex: NumberFormatException) {
                     errorMessage("n must be a number.")
                     exitProcess(1)
@@ -156,7 +169,7 @@ fun verify(a: Array<String>): Array<String> {
     }
 
     if (!validSequences.contains(s)) {
-        errorMessage("invalid sequence \nMust be the follow options: 'random', 'zu', 'sorted', 'inv', 'media'")
+        errorMessage("invalid sequence \nMust be one of the following: 'random', 'zu', 'sorted', 'inv', 'media'")
         exitProcess(1)
     }
 
@@ -168,7 +181,7 @@ fun verify(a: Array<String>): Array<String> {
 
 fun runAllSorts(args: Array<String>) {
     // Get n, t, s from args
-    var s = args[0]
+    val s = args[0]
     val t = args[1].toInt()
     val n = args[2].toInt()
 
