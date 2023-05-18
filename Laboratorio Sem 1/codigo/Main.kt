@@ -74,7 +74,12 @@ fun standardDeviation(a: Double, b: Array<Double>): Double {
  * @param sortFunctionName The name of the sorting algorithm.
  * @param t The number of times to run the sorting algorithm.
  */
-fun timeSort(A: Array<Int>, sortFunction: (Array<Int>) -> Unit, sortFunctionName: String, t: Int) {
+fun timeSort(
+    A: Array<Int>,
+    sortFunction: (Array<Int>) -> Unit,
+    sortFunctionName: String,
+    t: Int
+) {
     var averageTime = 0.0
     val arrayTimes = Array<Double>(t) { 0.0 }
     
@@ -105,7 +110,6 @@ fun timeSort(A: Array<Int>, sortFunction: (Array<Int>) -> Unit, sortFunctionName
     }
 }
 
-// Error handling hasta verify()
 /**
  * Prints an error message and exits the program.
  *
@@ -117,7 +121,15 @@ fun errorMessage(message: String) {
     exitProcess(1)
 }
 
-fun arg(args: Array<String>): Array<String> {
+/**
+ * Check if the arguments given by the user are correctly for the function
+ * runAllSorts() regardless of orden of input in the array.
+ * 
+ * @param Array The arguments to check
+ * @return Array of strings that contain the sequence to use, the number of
+ * attempts and the number of elements of the array.
+ */  
+fun checkArgs(args: Array<String>): Array<String> {
     val validSequences = arrayOf("random", "zu", "sorted", "inv", "media")
     var s: String? = null
     var t: Int? = null
@@ -192,13 +204,26 @@ fun arg(args: Array<String>): Array<String> {
     return arrayOf(s, x, y)
 }
 
+/**
+ * Sorts an array with multiple sorting algorithms given the sequence, the 
+ * elements of array, and attempts for the sort; and print in an order way the
+ * time os sorting for each sort algorithm
+ * 
+ * @param Array The verified data to sort the array: sequence of array, number 
+ * of attempts and elements of the array
+ */
 fun runAllSorts(args: Array<String>) {
     // Get n, t, s from args
     val s = args[0]
     val t = args[1].toInt()
     val n = args[2].toInt()
 
-    val sortFunctions = arrayOf(::bubbleSort, ::insertionSort, ::selectionSort, ::shellSort)
+    val sortFunctions = arrayOf(
+        ::bubbleSort,
+        ::insertionSort,
+        ::selectionSort,
+        ::shellSort
+        )
 
     val sortFunctionNames = arrayOf("Bubble", "Insertion", "Selection", "Shell")
 
@@ -230,10 +255,15 @@ fun runAllSorts(args: Array<String>) {
         print("\n")
         timeSort(w, sortFunctions[i], sortFunctionNames[i], t)
     }
-    println("\n--${s} sequence of $n element(s), for $t attempt(s)--")
+    println("\n~~${s} sequence of $n element(s), for $t attempt(s)~~")
 }
 
+/**
+ * Main program that executes the sorting for a unique sequence, applying the 
+ * different sorting algorithms thats locates in Sortlib.kt
+ * 
+ * Printing the time for each individual sort algorithm, and the given input info
+ */
 fun main(args: Array<String>) {
-    val data = arg(args)
-    runAllSorts(data)
+    runAllSorts(checkArgs(args))
 }
