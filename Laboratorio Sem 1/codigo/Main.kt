@@ -117,7 +117,7 @@ fun timeSort(
  */
 fun errorMessage(message: String) {
     println("Error: $message")
-    println("Usage: syntax -> ./runSortlib.sh [-t int] [-s <sequence>] [-n int]")
+    println("Usage: ./runSortlib.sh [-t int] [-s <sequence>] [-n int]")
     exitProcess(1)
 }
 

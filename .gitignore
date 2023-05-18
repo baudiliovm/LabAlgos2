@@ -1,8 +1,12 @@
-/Test
 
+Test
 *.class
 *.kotlin_module
 codigo.tar.xz
+pruebas
+tests
+
+
 
 .DS_Store
 .idea/shelf
