@@ -1,0 +1,17 @@
+Sequence: zu
+Element(s): 100
+Attempt(s): 1
+
+BubbleSort:
+  Execution time: 0.00163712 sec
+
+InsertionSort:
+  Execution time: 2.89744E-4 sec
+
+SelectionSort:
+  Execution time: 3.40427E-4 sec
+
+ShellSort:
+  Execution time: 1.39148E-4 sec
+
+~~zu sequence of 100 element(s), for 1 attempt(s)~~
