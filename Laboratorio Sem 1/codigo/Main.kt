@@ -77,6 +77,8 @@ fun standardDeviation(a: Double, b: Array<Double>): Double {
 fun timeSort(A: Array<Int>, sortFunction: (Array<Int>) -> Unit, sortFunctionName: String, t: Int) {
     var averageTime = 0.0
     val arrayTimes = Array<Double>(t) { 0.0 }
+    
+    println("${sortFunctionName}Sort:")
 
     repeat(t) { it ->
         val aClone = A.clone()
@@ -94,8 +96,6 @@ fun timeSort(A: Array<Int>, sortFunction: (Array<Int>) -> Unit, sortFunctionName
     }
 
     averageTime /= t
-
-    println("${sortFunctionName}Sort:")
 
     if (t == 1) {
         println("  Execution time: ${averageTime} sec")
@@ -117,42 +117,57 @@ fun errorMessage(message: String) {
     exitProcess(1)
 }
 
-fun verify(a: Array<String>): Array<String> {
+fun arg(args: Array<String>): Array<String> {
     val validSequences = arrayOf("random", "zu", "sorted", "inv", "media")
     var s: String? = null
     var t: Int? = null
     var n: Int? = null
+    var nReceived = false
+    var sReceived = false
+    var tReceived = false
 
-    for (i in 0 until a.size) {
-        when (a[i]) {
+    for (i in 0 until args.size) {
+        for (char in args[i]) {
+            if (!char.isLetterOrDigit() && char != '-') {
+                errorMessage("invalid character in argument: ${args[i]}")
+            }
+        }
+        when (args[i]) {
             "-s" -> {
                 try {
-                    s = a[i + 1].toString()
+                    if (sReceived) {
+                        errorMessage("[${args[i]}] already received.")
+                    }
+                    s = args[i + 1].toString()
+                    sReceived = true
                 } catch (ex: IndexOutOfBoundsException) {
-                    errorMessage("missing value to [${a[i]}].")
-                    exitProcess(1)
+                    errorMessage("missing value to [${args[i]}].")
                 }
             }
             "-t" -> {
                 try {
-                    t = a[i + 1].toInt()
+                    if (tReceived) {
+                        errorMessage("[${args[i]}] already received.")
+                    }
+                    t = args[i + 1].toInt()
+                    tReceived = true
                 } catch (ex: IndexOutOfBoundsException) {
-                    errorMessage("missing value to [${a[i]}].")
-                    exitProcess(1)
+                    errorMessage("missing value to [${args[i]}].")
                 } catch (ex: NumberFormatException) {
                     errorMessage("t must be a number.")
-                    exitProcess(1)
                 }
             }
             "-n" -> {
                 try {
-                    n = a[i + 1].toInt()
+                    if (nReceived) {
+                        errorMessage("[${args[i]}] already received.")
+                    }
+                    n = args[i + 1].toInt()
+                    nReceived = true
                 } catch (ex: IndexOutOfBoundsException) {
-                    errorMessage("missing value to [${a[i]}].")
-                    exitProcess(1)
+                    errorMessage("missing value to [${args[i]}].")
                 } catch (ex: NumberFormatException) {
                     errorMessage("n must be a number.")
-                    exitProcess(1)
                 }
             }
         }
@@ -165,12 +180,10 @@ fun verify(a: Array<String>): Array<String> {
 
     if (t <= 0 || n < 0) {
         errorMessage("integer arguments must be positive.")
-        exitProcess(1)
     }
 
     if (!validSequences.contains(s)) {
         errorMessage("invalid sequence \nMust be one of the following: 'random', 'zu', 'sorted', 'inv', 'media'")
-        exitProcess(1)
     }
 
     var x = t.toString()
@@ -192,7 +205,6 @@ fun runAllSorts(args: Array<String>) {
     // Test arrays
     val sortedA = sortedArray(n)
     val invA = sortedA.reversedArray()
-
     /*
             val testCases = arrayOf(
                 randArray(n, 1, n), // "random"
@@ -213,14 +225,15 @@ fun runAllSorts(args: Array<String>) {
         "media" -> w = midArray(n)
     }
 
-    println("Sequence: ${s}")
+    println("Sequence: ${s}\nElement(s): $n\nAttempt(s): $t")
     for (i in 0 until sortFunctions.size) {
         print("\n")
         timeSort(w, sortFunctions[i], sortFunctionNames[i], t)
     }
+    println("\n--${s} sequence of $n element(s), for $t attempt(s)--")
 }
 
 fun main(args: Array<String>) {
-    var data = verify(args)
+    val data = arg(args)
     runAllSorts(data)
 }
