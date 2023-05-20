@@ -5,7 +5,7 @@
  * usados para el programa encontrado en Main.kt 
  * 
  * 
- * Autores: Baudilio Velasquez, Arthur 
+ * Autores: Baudilio Velasquez, Arthur Ortega
  * Fecha: mayo 2023
  * Universidad Simon Bolivar
  */
