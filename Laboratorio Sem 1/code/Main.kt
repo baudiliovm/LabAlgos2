@@ -212,11 +212,11 @@ fun checkArgs(args: Array<String>): Array<String> {
  * @param Array The verified data to sort the array: sequence of array, number 
  * of attempts and elements of the array
  */
-fun runAllSorts(args: Array<String>) {
+fun runAllSorts(argument: Array<String>) {
     // Get n, t, s from args
-    val s = args[0]
-    val t = args[1].toInt()
-    val n = args[2].toInt()
+    val s = argument[0]
+    val t = argument[1].toInt()
+    val n = argument[2].toInt()
 
     val sortFunctions = arrayOf(
         ::bubbleSort,
