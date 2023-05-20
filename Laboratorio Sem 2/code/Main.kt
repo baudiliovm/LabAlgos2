@@ -267,16 +267,16 @@ fun runAllSorts(arguments: Array<String>) {
  */
 fun main(args: Array<String>) {
     // runAllSorts(checkArgs(args))
-    
+
     val n = args[0].toInt()
     var random = randArray(n, 1, n)
     println(random.joinToString(", "))
     mergesortInsertion(random)
     println(random.joinToString(", "))
-   
-    /* var t = arrayOf(0,0,0,0,0,0,0,0,0)
-    var x = arrayOf(1, 2, 3, 4, 5)
-    var y = arrayOf(6, 7, 8, 9)
+    
+   /*  var t = arrayOf(0,0,0,0,0,0,0,0,0)
+    var x = arrayOf(1, 2, 3,4,5,6, 7)
+    var y = arrayOf( 8, 9)
     merge(x, y, t)
     println(t.joinToString(", ")) */
 }

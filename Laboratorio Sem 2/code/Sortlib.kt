@@ -104,32 +104,44 @@ fun shellSort(A: Array<Int>) {
     }
 }
 
+/**
+ * Merge algorithm for merge sort.
+ * 
+ * @param U The first array to merge.
+ * @param V The second array to merge.
+ * @param T The array to merge into.
+ */
 fun merge(U: Array<Int>, V: Array<Int>, T: Array<Int>) {
     val m = U.size
     val n = V.size
     var i = 0
     var j = 0
-    for (k in 0 until (m+n)) {
-        if (U[i] < V[j]) {
+    
+    for (k in 0 until T.size) {
+        if ((i < m && j >= n) || (i < m && U[i] < V[j])) {
             T[k] = U[i]
-            i = i + 1
+            i += 1
         } else {
             T[k] = V[j]
-            j = j + 1 
+            j += 1
         }
-    }            
+    }
 }
 
+/**
+ * This function sorts an array of integers using the merge sort algorithm.
+ * 
+ * @param T The array to sort.
+ */
 fun mergesortInsertion(T: Array<Int>) {
     var n = T.size
     if (n < 10) {
         insertionSort(T)
     } else {
         val piso = n/2
-        val U = T.copyOfRange(0, piso+1)
-        // Array<Int>(floor((n.toDouble()/2)).toInt()) {1}
-        val V = T.copyOfRange(piso+1, n)
-        // Array<Int>(ceil((n.toDouble()/2)).toInt()) {1}
+        var U = T.copyOfRange(0, piso)
+        var V = T.copyOfRange(piso, n)
+
         mergesortInsertion(U)
         mergesortInsertion(V)
         merge(U, V, T)
