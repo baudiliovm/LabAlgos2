@@ -1,4 +1,3 @@
-
 /**
  * ------------------------------ MultiplicacionMatrices.kt ------------------------------------
  * Aqui se encuentra dos formas de multiplicar dos matrices de tamano NxN, basadas en los libros
@@ -113,7 +112,6 @@ fun multiplicacionStrassen(a: Array<IntArray>, b: Array<IntArray>, n: Int): Arra
             b22[i][j] = b[i + n / 2][j + n / 2]
         }
     }
-
 
     // Calculate the seven recursive matrix products.
     val p1 = multiplicacionStrassen(a11, sub(b12,b22), n / 2)

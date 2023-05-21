@@ -47,11 +47,16 @@ fun standardDeviation(a: Double, b: Array<Double>): Double {
 }
 
 /**
- * Computes the time
+ * Computes the time it takes to sort an array of integers using the mergesortInsetionPrueba algorithm.
+ * 
+ * @param A The array to sort.
+ * @param tam The size of the array.
+ * @param t The number of times to run the algorithm.
+ */
  */
 fun timeSortIns(
     A: Array<Int>,
-    tam: Int,
+    size: Int,
     t: Int
 ) {
     var averageTime = 0.0
@@ -60,7 +65,7 @@ fun timeSortIns(
     repeat(t) { it ->
         val aClone = A.clone()
         val begin = System.nanoTime()
-        mergesortInsertionPrueba(aClone, tam)
+        mergesortInsertionPrueba(aClone, size)
         val end = System.nanoTime()
 
         // Check if the array is sorted
@@ -81,8 +86,6 @@ fun timeSortIns(
         println("  Standard deviation: ${stDev} sec\n  Average time: ${averageTime} sec")
     }
 }
-
-
 
 /**
  * Main program that executes the insertion test.

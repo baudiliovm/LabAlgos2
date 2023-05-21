@@ -2,16 +2,13 @@
  * ------------------------------ Sortlib.kt ---------------------------------
  * Aquí encontraremos los distintos algoritmos de ordenamiento basados en el 
  * libro Data Structures and Algorithms de A. Aho, J. Hopcroft, J. Ullman;
- * usados para el programa encontrado en Main.kt 
+ * usados para los labs del curso CI2692.
  * 
  * 
  * Autores: Baudilio Velasquez, Arthur Ortega
  * Fecha: mayo 2023
  * Universidad Simon Bolivar
  */
-
-import kotlin.math.ceil
-import kotlin.math.floor
 
 /**
  * This function swaps the values at two given indexes in an array.
@@ -134,13 +131,12 @@ fun merge(U: Array<Int>, V: Array<Int>, T: Array<Int>) {
  * @param T The array to sort.
  */
 fun mergesortInsertion(T: Array<Int>) {
-    var n = T.size
-    if (n < 20) {
+    if (T.size < 20) {
         insertionSort(T)
     } else {
-        val floor = n/2
+        val floor = T.size/2
         var U = T.copyOfRange(0, floor)
-        var V = T.copyOfRange(floor, n)
+        var V = T.copyOfRange(floor, T.size)
         mergesortInsertion(U)
         mergesortInsertion(V)
         merge(U, V, T)
