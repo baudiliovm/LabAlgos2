@@ -23,12 +23,13 @@ fun mergesortInsertionPrueba(T: Array<Int>, x: Int) {
  * Print the time of the test of mergesort, with insertion sort for different 
  * sizes of arrays.
  */
-fun insertionTest() {
+fun mergesortTest() {
     var A = randArray(1000000, 0, 900000)
     val t = 5
+    println("Test for $t tries")
     for (i in 10..100 step 10) {
-        println("tamaño de arreglo: $i")
-        timeSortIns(A, i, t)
         println("")
+        println("Array size: $i")
+        timeSortIns(A, i, t)
     }
 }

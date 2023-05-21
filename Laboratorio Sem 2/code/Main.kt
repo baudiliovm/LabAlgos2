@@ -50,9 +50,8 @@ fun standardDeviation(a: Double, b: Array<Double>): Double {
  * Computes the time it takes to sort an array of integers using the mergesortInsetionPrueba algorithm.
  * 
  * @param A The array to sort.
- * @param tam The size of the array.
+ * @param size The size of the array.
  * @param t The number of times to run the algorithm.
- */
  */
 fun timeSortIns(
     A: Array<Int>,
@@ -91,5 +90,5 @@ fun timeSortIns(
  * Main program that executes the insertion test.
  */
 fun main() {
-    insertionTest()
+    mergesortTest()
 }
