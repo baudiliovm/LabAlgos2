@@ -1,13 +1,15 @@
-fun multiplicacionSimpleDeMatrices(a: Array<Array<Int>>, b: Array<Array<Int>>, n: Int): Array<Array<Int>> {
-    val product = Array(n) { Array(n) { 0 } }
-    for (i in 0 until n) {
-        for (j in 0 until n) {
-            for (k in 0 until n) {
-                product[i][j] += a[i][k] * b[k][j]
-            }
-        }
+
+
+fun multiplicacionSimpleDeMatrices(a: Array<IntArray>, b: Array<IntArray>, n: Int): Array<IntArray> {
+  val product = Array(n) { IntArray(n) }
+  for (i in 0 until n) {
+    for (j in 0 until n) {
+      for (k in 0 until n) {
+        product[i][j] += a[i][k] * b[k][j]
+      }
     }
-    return product
+  }
+  return product
 }
 
 fun sum(a: Array<IntArray>, b: Array<IntArray>): Array<IntArray>{
@@ -33,8 +35,6 @@ fun sub(a: Array<IntArray>, b:Array<IntArray>): Array<IntArray> {
 }
 
 fun multiplicacionStrassen(a: Array<IntArray>, b: Array<IntArray>, n: Int): Array<IntArray>{
-    
-     // If the input matrix is 1x1
     if (n == 1) {
         val result = Array(n) { IntArray(n) }
         for (i in 0 until n) {
@@ -45,7 +45,6 @@ fun multiplicacionStrassen(a: Array<IntArray>, b: Array<IntArray>, n: Int): Arra
         return result
     }
 
-    // Divide the input matrices into four submatrices
     // Divide the input matrices into four submatrices
     val a11 = Array(n / 2) { IntArray(n / 2) }
     val a12 = Array(n / 2) { IntArray(n / 2) }
@@ -88,5 +87,25 @@ fun multiplicacionStrassen(a: Array<IntArray>, b: Array<IntArray>, n: Int): Arra
     val c12 = sum(p1, p2)
     val c21 = sum(p3, p4)
     val c22 = sub(sub(sum(p5, p1), p3), p7)
-    return arrayOf(c11, c12, c21, c22)
+    val c = Array(n) { IntArray(n) }
+    for (i in 0 until n) {
+        for (j in 0 until n) {
+            if (i < n / 2) {
+                if (j < n / 2) {
+                    c[i][j] = c11[i][j]
+                } else {
+                    c[i][j] = c12[i][j - n / 2]
+                }
+            } else {
+                if (j < n / 2) {
+                    c[i][j] = c21[i - n / 2][j]
+                } else {
+                    c[i][j] = c22[i - n / 2][j - n / 2]
+                }
+            }
+        }
+    } 
+    return c
 }
+
+
