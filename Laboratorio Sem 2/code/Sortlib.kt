@@ -135,7 +135,7 @@ fun merge(U: Array<Int>, V: Array<Int>, T: Array<Int>) {
  */
 fun mergesortInsertion(T: Array<Int>) {
     var n = T.size
-    if (n < 10) {
+    if (n < 20) {
         insertionSort(T)
     } else {
         val floor = n/2
