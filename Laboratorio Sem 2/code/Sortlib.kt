@@ -141,8 +141,8 @@ fun mergesortInsertion(T: Array<Int>) {
         val floor = n/2
         var U = T.copyOfRange(0, floor)
         var V = T.copyOfRange(floor, n)
-        mergesortInsertion(U, U.size)
-        mergesortInsertion(V, V.size)
+        mergesortInsertion(U)
+        mergesortInsertion(V)
         merge(U, V, T)
     }
 }
