@@ -129,7 +129,7 @@ fun merge(U: Array<Int>, V: Array<Int>, T: Array<Int>) {
 }
 
 /**
- * This function sorts an array of integers using the merge sort algorithm.
+ * Sorts an array of integers using the merge sort algorithm.
  * 
  * @param T The array to sort.
  */

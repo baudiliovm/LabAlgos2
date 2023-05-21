@@ -1,4 +1,10 @@
-
+/**
+ * Test for mergeSort with insertion sort for arrays that are smaller than a 
+ * x value.
+ * 
+ * @param T The array to be sorted.
+ * @param x The value that determines when to use insertion sort.
+ */
 fun mergesortInsertionPrueba(T: Array<Int>, x: Int) {
     var n = T.size
     if (n < x) {
@@ -13,7 +19,11 @@ fun mergesortInsertionPrueba(T: Array<Int>, x: Int) {
     }
 }
 
-fun InsertionPrueba() {
+/**
+ * Print the time of the test of mergesort, with insertion sort for different 
+ * sizes of arrays.
+ */
+fun insertionTest() {
     var A = randArray(1000000, 0, 900000)
     val t = 5
     for (i in 10..100 step 10) {
