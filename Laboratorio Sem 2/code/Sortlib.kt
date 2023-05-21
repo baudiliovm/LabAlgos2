@@ -118,7 +118,7 @@ fun merge(U: Array<Int>, V: Array<Int>, T: Array<Int>) {
     var j = 0
     
     for (k in 0 until T.size) {
-        if ((i < m && j >= n) || (i < m && U[i] < V[j])) {
+        if (i < m && (j >= n || U[i] < V[j])) {
             T[k] = U[i]
             i += 1
         } else {
@@ -138,12 +138,11 @@ fun mergesortInsertion(T: Array<Int>) {
     if (n < 10) {
         insertionSort(T)
     } else {
-        val piso = n/2
-        var U = T.copyOfRange(0, piso)
-        var V = T.copyOfRange(piso, n)
-
-        mergesortInsertion(U)
-        mergesortInsertion(V)
+        val floor = n/2
+        var U = T.copyOfRange(0, floor)
+        var V = T.copyOfRange(floor, n)
+        mergesortInsertion(U, U.size)
+        mergesortInsertion(V, V.size)
         merge(U, V, T)
     }
 }

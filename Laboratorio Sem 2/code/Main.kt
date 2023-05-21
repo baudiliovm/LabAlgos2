@@ -110,6 +110,40 @@ fun timeSort(
     }
 }
 
+
+fun timeSortIns(
+    A: Array<Int>,
+    tam: Int,
+    t: Int
+) {
+    var averageTime = 0.0
+    val arrayTimes = Array<Double>(t) { 0.0 }
+
+    repeat(t) { it ->
+        val aClone = A.clone()
+        val begin = System.nanoTime()
+        mergesortInsertionPrueba(aClone, tam)
+        val end = System.nanoTime()
+
+        // Check if the array is sorted
+        checkIsSorted(aClone)
+
+        val timeInSeg = (end - begin) / 1e9
+
+        arrayTimes[it] = timeInSeg
+        averageTime += timeInSeg
+    }
+
+    averageTime /= t
+
+    if (t == 1) {
+        println("  Execution time: ${averageTime} sec")
+    } else {
+        val stDev = standardDeviation(averageTime, arrayTimes)
+        println("  Standard deviation: ${stDev} sec\n  Average time: ${averageTime} sec")
+    }
+}
+
 /**
  * Prints an error message and exits the program.
  *
@@ -268,15 +302,17 @@ fun runAllSorts(arguments: Array<String>) {
 fun main(args: Array<String>) {
     // runAllSorts(checkArgs(args))
 
-    val n = args[0].toInt()
+    /* val n = args[0].toInt()
     var random = randArray(n, 1, n)
     println(random.joinToString(", "))
     mergesortInsertion(random)
     println(random.joinToString(", "))
     
-   /*  var t = arrayOf(0,0,0,0,0,0,0,0,0)
+    var t = arrayOf(0,0,0,0,0,0,0,0,0)
     var x = arrayOf(1, 2, 3,4,5,6, 7)
     var y = arrayOf( 8, 9)
     merge(x, y, t)
     println(t.joinToString(", ")) */
+
+    InsertionPrueba()
 }
