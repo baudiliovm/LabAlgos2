@@ -1,5 +1,25 @@
 
+/**
+ * ------------------------------ MultiplicacionMatrices.kt ------------------------------------
+ * Aqui se encuentra dos formas de multiplicar dos matrices de tamano NxN, basadas en los libros
+ * Brassard, G., and Bratley, P. Fundamentals of Algorithmics. Prentice Hall, 1996 y  
+ * T. Cormen, C. Leirserson, R. R., and Stein, C. Introduction to Algorithms. McGraw Hill, 2022.
+ * 
+ *
+ * Autores: Baudilio Velasquez, Arthur Ortega
+ * Fecha: mayo 2023
+ * Universidad Simon Bolivar
+ */
 
+
+/**
+ * This function multiply two matrices.
+ *
+ * @param a the first matrix of size Nxn.
+ * @param b the second matrix of size Nxn.
+ * @param n The size of matrix.
+ * @return the matrix resulting from the multiplication.
+ */
 fun multiplicacionSimpleDeMatrices(a: Array<IntArray>, b: Array<IntArray>, n: Int): Array<IntArray> {
   val product = Array(n) { IntArray(n) }
   for (i in 0 until n) {
@@ -12,6 +32,13 @@ fun multiplicacionSimpleDeMatrices(a: Array<IntArray>, b: Array<IntArray>, n: In
   return product
 }
 
+/**
+ * This function adds two matrices.
+ *
+ * @param a the first matrix of size Nxn.
+ * @param b the second matrix of size Nxn.
+ * @return the matrix resulting from the sum.
+ */
 fun sum(a: Array<IntArray>, b: Array<IntArray>): Array<IntArray>{
     val n = a.size
     val c = Array(n) { IntArray(n) }
@@ -23,6 +50,13 @@ fun sum(a: Array<IntArray>, b: Array<IntArray>): Array<IntArray>{
     return c
 }
 
+/**
+ * This function subtracts two matrices.
+ *
+ * @param a the first matrix of size Nxn.
+ * @param b the second matrix of size Nxn.
+ * @return the matrix resulting from the subtraction.
+ */
 fun sub(a: Array<IntArray>, b:Array<IntArray>): Array<IntArray> {
     val n = a.size
     val c = Array(n) { IntArray(n) }
@@ -34,6 +68,14 @@ fun sub(a: Array<IntArray>, b:Array<IntArray>): Array<IntArray> {
     return c
 }
 
+/**
+ * This function multiply two matrices with strassen algorithm.
+ *
+ * @param a the first matrix of size Nxn.
+ * @param b the second matrix of size Nxn.
+ * @param n The size of matrix.
+ * @return the matrix resulting from the multiplication.
+ */
 fun multiplicacionStrassen(a: Array<IntArray>, b: Array<IntArray>, n: Int): Array<IntArray>{
     if (n == 1) {
         val result = Array(n) { IntArray(n) }
