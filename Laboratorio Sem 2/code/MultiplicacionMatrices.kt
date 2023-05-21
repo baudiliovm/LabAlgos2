@@ -10,7 +10,7 @@ fun multiplicacionSimpleDeMatrices(a: Array<Array<Int>>, b: Array<Array<Int>>, n
     return product
 }
 
-fun sum(a: Array<Array<Int>>, b: Array<Array<Int>>): Array<Array<Int>>{
+fun sum(a: Array<IntArray>, b: Array<IntArray>): Array<IntArray>{
     val n = a.size
     val c = Array(n) { IntArray(n) }
     for (i in 0 until n) {
@@ -21,7 +21,7 @@ fun sum(a: Array<Array<Int>>, b: Array<Array<Int>>): Array<Array<Int>>{
     return c
 }
 
-fun sub(a: Array<Array<Int>>, b: Array<Array<Int>>): Array<Array<Int>> {
+fun sub(a: Array<IntArray>, b:Array<IntArray>): Array<IntArray> {
     val n = a.size
     val c = Array(n) { IntArray(n) }
     for (i in 0 until n) {
@@ -32,13 +32,20 @@ fun sub(a: Array<Array<Int>>, b: Array<Array<Int>>): Array<Array<Int>> {
     return c
 }
 
-fun multiplicacionStrassen(a: Array<Array<Int>>, b: Array<Array<Int>>, n: Int): Array<Array<Int>>{
+fun multiplicacionStrassen(a: Array<IntArray>, b: Array<IntArray>, n: Int): Array<IntArray>{
     
      // If the input matrix is 1x1
     if (n == 1) {
-        return arrayOf(arrayOf(a[0][0] * b[0][0]))
+        val result = Array(n) { IntArray(n) }
+        for (i in 0 until n) {
+            for (j in 0 until n) {
+                result[i][j] = a[i][j] * b[i][j]
+            }
+        }
+        return result
     }
 
+    // Divide the input matrices into four submatrices
     // Divide the input matrices into four submatrices
     val a11 = Array(n / 2) { IntArray(n / 2) }
     val a12 = Array(n / 2) { IntArray(n / 2) }
@@ -77,9 +84,9 @@ fun multiplicacionStrassen(a: Array<Array<Int>>, b: Array<Array<Int>>, n: Int): 
     val p7 = multiplicacionStrassen(sub(a11,a21), sum(b11,b12), n / 2)
 
     // Combine the seven recursive results to form the final result.
-    val c11 = sum(sub(sum(p5,p4),p2),p6)
-    val c12 = sum(p1,p2)
-    val c21 = sum(p3,p4)
-    val c22 = sub(sub(sum(p5,p1),p3),p7)
+    val c11 = sum(sub(sum(p5, p4), p2), p6)
+    val c12 = sum(p1, p2)
+    val c21 = sum(p3, p4)
+    val c22 = sub(sub(sum(p5, p1), p3), p7)
     return arrayOf(c11, c12, c21, c22)
 }
