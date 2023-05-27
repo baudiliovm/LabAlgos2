@@ -176,3 +176,149 @@ fun heapSort(A: Array<Int>, n: Int) {
   }
 }
 
+
+fun up1(A: Array<Int>, b1: Int, c1: Int) {
+    b1 = b1 + c1 + 1
+    c1 = b1
+}
+
+fun down1(A: Array<Int>, b1: Int, c1: Int) {
+    b1 = c1
+    c1 = b1 - c1 - 1
+}
+
+fun even(x: Int): Boolean {if ((x % 2) == 0) {return true} else {return false}}
+
+fun sift() {
+    while (b1 >= 3) {
+        var r2 = r1 - b1 + c1
+        if (m[r2] >= m[r1 - 1]) {
+            continue
+        } else if (m[r2] <= m[r1 - 1]) {
+            r2 = r1 - 1
+            down1 // para pensar
+        }
+        if (m[r1] <= m[r2]) {
+            b1 = 1
+        } else if (m[r1] < m[r2]) {
+            swap(m, r1, r2)
+            r1 = r2
+            down1(m, b1, c1) // para pensar
+        }
+    }
+}
+
+fun trinkle(m: Array<Int>, p: Int, b: Int, c: Int, r) {
+    var p1 = p
+    var b1 = b
+    var c1 = c
+
+    while (p1 > 0) {
+
+        while (even(p1)) {
+            p1 = p1 / 2
+            up1(m, b1, c1)
+        }
+        var r3 = r1 - b1
+
+        if (p1 == 1 || (m[r3] <= m[r1])) {
+            p1 = 0
+        } else if (p1 > 1 && (m[r3] > m[r1])) {
+            p1 -= 1
+        }
+
+        if (b1 == 1) {
+            swap(m, r1, r3)
+            r1 = r3
+        } else if (b1 >= 3) {
+            var r2 = r1 - b1 + c1
+            if (m[r2] >= m[r1 - 1]) {
+                continue
+            } else if (m[r2] <= m[r1 - 1]) {
+                r2 = r1 - 1
+                down1(m, b1, c1)
+                p1 *= 2
+            }
+            if (m[r3] >= m[r2]) {
+                swap(m, r1, r3)
+                r1 = r3
+            } else if (m[r3] <= m[r2]) {
+                swap(m, r1, r2)
+                r1 = r2
+                down1(m, b1, c1)
+                p1 = 0
+            }
+        }
+    }
+    sift
+}
+
+fun semitrinkle() {
+    r1 = r - c
+    if (m[r1] <= m[r]) {
+        swap(m, r, r1)
+        trinkle()
+    }
+}
+
+fun smoothSort(A: Array<Int>) {
+    var q = 1
+    var r = 0
+    var p = 1
+    var b = 1
+    var c = 1 
+    var n = A.size
+
+    while (q != n) {
+        var r1 = r
+        if (p % 8 == 3) {
+            var b1 = b
+            var c1 = c
+            sift()
+            p = (p + 1) / 4
+            up1(m, b1, c1)
+            up1(A, b1, c1)
+        } else if (p % 4 == 1) {
+            if ((q + c) < n) {
+                var b1 = b
+                var c1 = c
+                sift()
+            } else {
+                trinkle(m, p, b, c, r)
+            }
+            down1()
+            p *= 2
+            while (b != 1) {
+                down1(a, b1, c1)
+                p *= 2
+            }
+            p += 1
+        }
+        q += 1
+        r += 1
+    }
+    var r1 = r
+    trinkle(m, p, b, c, r)
+    
+    while (q != 1) {
+        q -= 1
+
+        if (b == 1) {
+            r -= 1
+            p -= 1
+            while (even(p)) {
+                p = p / 2
+                up1 
+            }
+        } else if (b >= 3) {
+            p -= 1
+            r -= b + c
+
+            if (p = 0) {
+                continue
+            } else if (p > 0)
+        }
+    }
+}
+
+
