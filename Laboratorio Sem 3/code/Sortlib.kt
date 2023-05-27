@@ -142,3 +142,37 @@ fun mergesortInsertion(T: Array<Int>) {
         merge(U, V, T)
     }
 }
+
+fun maxHeapify(A: Array<Int>, i: Int, n: Int) {
+  var largest = i
+  val left = (2 * i) + 1
+  val right = (2 * i) + 2
+
+  if (left <= n-1 && A[left] > A[largest]) {
+    largest = left
+  }
+
+  if (right <= n-1 && A[right] > A[largest]) {
+    largest = right
+  }
+
+  if (largest != i) {
+    swap(A, i, largest)
+    maxHeapify(A, largest, n)
+  }
+}
+
+fun buildMaxHeap(A: Array<Int>, n: Int) {
+  for (i in ((n / 2) - 1) downTo 0) {
+    maxHeapify(A, i, n)
+  }
+}
+
+fun heapSort(A: Array<Int>, n: Int) {
+  buildMaxHeap(A, n)
+  for (i in n-1 downTo 1) {
+    swap(A, 0, i)
+    maxHeapify(A, 0, i-1)
+  }
+}
+
