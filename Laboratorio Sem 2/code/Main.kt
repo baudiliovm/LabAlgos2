@@ -89,6 +89,15 @@ fun timeSortIns(
 /**
  * Main program that executes the insertion test.
  */
-fun main() {
+
+ fun main(args: Array<String>) {
+    val n = args[0].toInt()
+    val a = createRandomMatrix(n)
+    val b = createRandomMatrix(n)
+    timeMatrices(a, b, "simple", n, 1)
+    timeMatrices(a, b, "strassen", n, 1)
+  }
+/* fun main() {
     mergesortTest()
 }
+ */

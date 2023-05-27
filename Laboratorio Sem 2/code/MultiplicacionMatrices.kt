@@ -10,7 +10,6 @@
  * Universidad Simon Bolivar
  */
 
-
 /**
  * This function multiply two matrices.
  *
@@ -127,6 +126,7 @@ fun multiplicacionStrassen(a: Array<IntArray>, b: Array<IntArray>, n: Int): Arra
     val c12 = sum(p1, p2)
     val c21 = sum(p3, p4)
     val c22 = sub(sub(sum(p5, p1), p3), p7)
+    
     val c = Array(n) { IntArray(n) }
     for (i in 0 until n) {
         for (j in 0 until n) {
@@ -149,3 +149,53 @@ fun multiplicacionStrassen(a: Array<IntArray>, b: Array<IntArray>, n: Int): Arra
 }
 
 
+fun createRandomMatrix(n: Int): Array<IntArray> {
+    val matrix = Array(n) { IntArray(n) }
+    for (i in 0 until n) {
+      for (j in 0 until n) {
+        matrix[i][j] = (Math.random() * (n * n)).toInt()
+      }
+    }
+    return matrix
+  }
+
+  fun printMatrix(matrix: Array<IntArray>) {
+    for (row in matrix) {
+      println(row.joinToString(" "))
+    }
+  }
+
+fun timeMatrices(
+    A: Array<IntArray>,
+    B: Array<IntArray>,
+    type: String,
+    size: Int,
+    t: Int
+) {
+    var averageTime = 0.0
+    val arrayTimes = Array<Double>(t) { 0.0 }
+
+    repeat(t) { it ->
+        val begin = System.nanoTime()
+        when (type) {
+            "simple" -> multiplicacionSimpleDeMatrices(A, B, size)
+            "strassen" -> multiplicacionStrassen(A, B, size)
+        }
+        val end = System.nanoTime()
+        println("For $type:")
+        
+        val timeInSeg = (end - begin) / 1e9
+
+        arrayTimes[it] = timeInSeg
+        averageTime += timeInSeg
+    }
+
+    averageTime /= t
+
+    if (t == 1) {
+        println("  Execution time: ${averageTime} sec")
+    } else {
+        val stDev = standardDeviation(averageTime, arrayTimes)
+        println("  Standard deviation: ${stDev} sec\n  Average time: ${averageTime} sec")
+    }
+}
