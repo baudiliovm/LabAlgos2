@@ -139,6 +139,13 @@ fun mergesortInsertion(T: Array<Int>) {
     }
 }
 
+/**
+ * To heapify a subtree rooted.
+ *
+ * @param A The array to sort.
+ * @param i The index into the array.
+ * @param n The size of heap.
+ */
 fun maxHeapify(A: Array<Int>, i: Int, n: Int) {
     var largest = i
     val left = (2 * i) + 1
@@ -158,12 +165,24 @@ fun maxHeapify(A: Array<Int>, i: Int, n: Int) {
     }
 }
 
+/**
+ * Converts an array into a max-heap
+ *
+ * @param A The array to sort.
+ * @param n The size array to sort.
+ */
 fun buildMaxHeap(A: Array<Int>, n: Int) {
     for (i in ((n / 2) - 1) downTo 0) {
         maxHeapify(A, i, n)
     }
 }
 
+/**
+ * Sorts an array of integers using the heap sort algorithm.
+ *
+ * @param A The array to sort.
+ * @param n The size array to sort.
+ */
 fun heapSort(A: Array<Int>, n: Int) {
     buildMaxHeap(A, n)
     for (i in n - 1 downTo 1) {
