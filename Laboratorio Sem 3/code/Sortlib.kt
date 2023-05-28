@@ -177,20 +177,25 @@ fun heapSort(A: Array<Int>, n: Int) {
 }
 
 
-fun up1(b: Int, c: Int) {
-    var b1 = b
-    var c1 = c
-
-    b1 = b1 + c1 + 1
-    c1 = b1
+fun up1(a: Array<Int>) {
+    // a[0] es b
+    // a[1] es 
+    var b = a[0]
+    var c = a[1]
+    
+    a[0] = b + c + 1
+    a[1] = b
 }
 
-fun down1(b: Int, c: Int) {
-    var b1 = b
-    var c1 = c
+fun down1(a: Array<Int>) {
+    // a[0] es b
+    // a[1] es c
+    var b = a[0]
+    var c = a[1]
     
-    b1 = c1
-    c1 = b1 - c1 - 1
+    a[0] = c
+    a[1] = b - c - 1
+    
 }
 
 fun even(x: Int): Boolean {if ((x % 2) == 0) {return true} else {return false}}
@@ -199,20 +204,23 @@ fun sift(m: Array<Int>, b: Int, r: Int, c: Int) {
     var b1 = b
     var c1 = c
     var r1 = r
+    var array = arrayOf(b1,c1)
     while (b1 >= 3) {
         var r2 = r1 - b1 + c1
-        if (m[r2] >= m[r1 - 1]) {
-            continue
-        } else if (m[r2] <= m[r1 - 1]) {
+        if (m[r2] <= m[r1 - 1]) {
             r2 = r1 - 1
-            down1(b1, c1) // para pensar
+            down1(array) // para pensar
+            b1 = array[0]
+            c1 = array[1]
         }
         if (m[r1] <= m[r2]) {
             b1 = 1
         } else if (m[r1] < m[r2]) {
             swap(m, r1, r2)
             r1 = r2
-            down1(b1, c1) // para pensar
+            down1(array) // para pensar
+            b1 = array[0]
+            c1 = array[1]
         }
     }
 }
@@ -222,12 +230,15 @@ fun trinkle(m: Array<Int>, p: Int, b: Int, c: Int, r: Int) {
     var b1 = b
     var c1 = c
     var r1 = r
+    var array = arrayOf(b1,c1)
 
     while (p1 > 0) {
 
         while (even(p1)) {
             p1 = p1 / 2
-            up1(b1, c1)
+            up1(array)
+            b1 = array[0]
+            c1 = array[1]
         }
         var r3 = r1 - b1
 
@@ -242,20 +253,23 @@ fun trinkle(m: Array<Int>, p: Int, b: Int, c: Int, r: Int) {
             r1 = r3
         } else if (b1 >= 3) {
             var r2 = r1 - b1 + c1
-            if (m[r2] >= m[r1 - 1]) {
-                continue
-            } else if (m[r2] <= m[r1 - 1]) {
+        
+            if (m[r2] <= m[r1 - 1]) {
                 r2 = r1 - 1
-                down1(b1, c1)
+                down1(array)
+                b1 = array[0]
+                c1 = array[1]
                 p1 *= 2
             }
             if (m[r3] >= m[r2]) {
                 swap(m, r1, r3)
                 r1 = r3
-            } else if (m[r3] <= m[r2]) {
+            } else if (m[r3] < m[r2]) {
                 swap(m, r1, r2)
                 r1 = r2
-                down1(b1, c1)
+                down1(array)
+                b1 = array[0]
+                c1 = array[1]
                 p1 = 0
             }
         }
@@ -265,7 +279,7 @@ fun trinkle(m: Array<Int>, p: Int, b: Int, c: Int, r: Int) {
 
 fun semitrinkle(m: Array<Int>, r: Int, c: Int, p: Int, b: Int) {
     var r1 = r - c
-    if (m[r1] <= m[r]) {
+    if (m[r1] > m[r]) {
         swap(m, r, r1)
         trinkle(m, p, b, c, r)
     }
@@ -278,47 +292,75 @@ fun smoothSort(m: Array<Int>) {
     var b = 1
     var c = 1 
     var n = m.size
-
+    
+    var aber = m.joinToString(", ") 
+    println("inicio $aber")
+    
     while (q != n) {
         var r1 = r
         if (p % 8 == 3) {
             var b1 = b
             var c1 = c
-            sift(m, b, r, c)
+
+            var array = arrayOf(b,c)
+
+            sift(m, b1, r1, c1)
             p = (p + 1) / 4
-            up1(b1, c1)
-            up1(b1, c1)
+
+            up1(array)
+            b = array[0]
+            c = array[1]
+
+            up1(array)
+            b = array[0]
+            c = array[1]
+
         } else if (p % 4 == 1) {
             if ((q + c) < n) {
                 var b1 = b
-                var c1 = c
-                sift(m, b, r, c)
+                var c1 = c 
+                sift(m, b1, r1, c1)
             } else {
                 trinkle(m, p, b, c, r)
             }
-            down1(b1, c1)
+
+            var array = arrayOf(b,c)
+
+            down1(array)
+            b = array[0]
+            c = array[1]
+
             p *= 2
+
             while (b != 1) {
-                down1(b1, c1)
+                down1(array)
+                b = array[0]
+                c = array[1]
                 p *= 2
             }
             p += 1
         }
+        println("pase $q: $aber")
+
         q += 1
         r += 1
     }
 
-    var r1 = r
-    trinkle(m, p, b, c, r)
+    var r1 = r  // Revisar invariantes
+
+    trinkle(m, p, b, c, r1)
     
     while (q != 1) {
         q -= 1
+        var array = arrayOf(b, c)
         if (b == 1) {
             r -= 1
             p -= 1
             while (even(p)) {
                 p = p / 2
-                up1(b1, c1)
+                up1(array)
+                b = array[0]
+                c = array[1]
             }
         } else if (b >= 3) {
             p -= 1
@@ -329,11 +371,17 @@ fun smoothSort(m: Array<Int>) {
             } else if (p > 0) {
                 semitrinkle(m, r, c, p, b)
             }
-            down1(b1, c1)
-            p = p * 2 + 1 ; r += c ; semitrinkle(m, r, c, p, b)
-            down1(b1, c1) ; p = p * 2 + 1
+            down1(array)
+            b = array[0]
+            c = array[1]
+            p = p * 2 + 1
+            r += c
+            semitrinkle(m, r, c, p, b)
+            down1(array)
+            b = array[0]
+            c = array[1] 
+            p = p * 2 + 1
         }
     }
 }
-
 
