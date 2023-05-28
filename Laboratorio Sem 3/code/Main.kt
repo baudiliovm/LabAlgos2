@@ -14,7 +14,8 @@ fun randArray(n: Int, a: Int, b: Int): Array<Int> {
 }
 
 
-fun main(args: Array<String>) {
-    val a = arrayOf(1,5,2,4,3,6,8,9,7,10)
+fun main() {
+    val a = arrayOf(11,5,22,4,3,6,8,9,7,10)
     smoothSort(a)
+    println(a.joinToString(", "))
 }
