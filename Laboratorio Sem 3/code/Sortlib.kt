@@ -153,7 +153,7 @@ fun maxHeapify(A: Array<Int>, i: Int, n: Int) {
 
     if (left <= n - 1 && A[left] > A[largest]) {
         largest = left
-    }
+    } 
 
     if (right <= n - 1 && A[right] > A[largest]) {
         largest = right
@@ -172,7 +172,7 @@ fun maxHeapify(A: Array<Int>, i: Int, n: Int) {
  * @param n The size array to sort.
  */
 fun buildMaxHeap(A: Array<Int>, n: Int) {
-    for (i in ((n / 2) - 1) downTo 0) {
+    for (i in ((n - 1  / 2)) downTo 0) {
         maxHeapify(A, i, n)
     }
 }
@@ -185,9 +185,9 @@ fun buildMaxHeap(A: Array<Int>, n: Int) {
  */
 fun heapSort(A: Array<Int>, n: Int) {
     buildMaxHeap(A, n)
-    for (i in n - 1 downTo 1) {
+    for (i in n - 1 downTo 0) {
         swap(A, 0, i)
-        maxHeapify(A, 0, i - 1)
+        maxHeapify(A, 0, i)
     }
 }
 
