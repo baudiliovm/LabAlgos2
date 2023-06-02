@@ -444,15 +444,15 @@ fun smoothSort(m: Array<Int>) {
 
 fun partition(A: Array<Int>, p: Int, r: Int): Int {
     var x = A[r]
-    var i = p
-    for (j in p+1 until r-1) {
+    var i = p-1
+    for (j in p..(r - 1)) {
         if (A[j] <= x) {
             i++
             swap(A, i, j)
         }
     }
     swap(A, i + 1, r)
-    return i + 1
+    return (i + 1)
 }
 
 fun quicksortClasico(A: Array<Int>, p: Int, r: Int) {
@@ -460,6 +460,109 @@ fun quicksortClasico(A: Array<Int>, p: Int, r: Int) {
         var q = partition(A, p, r)
         quicksortClasico(A, p, q - 1)
         quicksortClasico(A, q + 1, r)
+    }
+}
+
+
+/* fun quicksortThreeWay(A: Array<Int>, l: Int, r: Int) {
+    var i = l-1
+    var j = r
+    var p = l-1
+    var q = r
+    var v = A[r]
+
+    if (r <= 1){
+        return
+    }
+
+    for (true) {
+        while (A[i] < v) { 
+            i++
+        }
+
+        while (v < A[--j]) {
+            if (j == 1) {
+                break
+            }
+        }
+
+        if (i >= j) {
+            break
+        }
+
+        swap(A, i, j)
+
+
+        if (A[i] == v) {
+            p++
+            swap(A, p, i)
+        }
+        if (v == A[j]) {
+            q--
+            swap(A, j, q)
+        }
+    }
+
+    swap(A, i, r)
+    j = i - 1
+    i++
+
+    for (k in 1 until p) {
+        swap(A, k, j)
+        j--
+    }
+    for (k in r-1 downTo q) {
+        swap(A, i, k)
+        i++
+    }
+
+    quicksortThreeWay(A, l, j)
+    quicksortThreeWay(A, i, r)
+
+}   
+ */
+
+fun quicksortDualPivot(A: Array<Int>, left: Int, right: Int) {
+    if ((right - left) >= 1) {
+        var p = A[left]
+        var q = A[right]
+
+        
+        if (p > q) {
+            p = A[right]
+            q = A[left]
+        }
+
+        var l = (left + 1)
+        var g = (right - 1)
+        var k = l
+
+        while (k <= g) {
+            if (A[k] < p) {
+                swap(A, k, l)
+                l++
+            } else {
+                if (A[k] > q) {
+                    while (k < g && A[g] > q) {
+                        g--
+                    }
+                    swap(A, k, g)
+                    g--
+                    if (A[k] < p) {
+                        swap(A, k, l)
+                        l++
+                    }
+                }    
+            }
+            k++
+        }
+        l--
+        g++
+        swap(A, left, l)
+        swap(A, right, g)
+        quicksortDualPivot(A, left, l - 1)
+        quicksortDualPivot(A, l + 1, g - 1)
+        quicksortDualPivot(A, g + 1, right)
     }
 }
 
