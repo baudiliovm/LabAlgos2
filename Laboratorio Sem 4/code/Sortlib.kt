@@ -1,9 +1,12 @@
 /**
- * ------------------------------ Sortlib.kt --------------------------------- Aquí encontraremos
- * los distintos algoritmos de ordenamiento basados en el libro Data Structures and Algorithms de A.
- * Aho, J. Hopcroft, J. Ullman; usados para los labs del curso CI2692.
+ * ------------------------------ Sortlib.kt --------------------------------- 
+ * Aquí encontraremos los distintos algoritmos de ordenamiento basados en el 
+ * libro Data Structures and Algorithms de A. Aho, J. Hopcroft, J. Ullman; 
+ * usados para los labs del curso CI2692.
  *
- * Autores: Baudilio Velasquez, Arthur Ortega Fecha: mayo 2023 Universidad Simon Bolivar
+ * Autores: Baudilio Velasquez, Arthur Ortega 
+ * Fecha: mayo 2023
+ * Universidad Simon Bolivar
  */
 
 /**
@@ -434,3 +437,29 @@ fun smoothSort(m: Array<Int>) {
         }
     }
 }
+
+
+
+// QuickSort
+
+fun partition(A: Array<Int>, p: Int, r: Int): Int {
+    var x = A[r]
+    var i = p
+    for (j in p+1 until r-1) {
+        if (A[j] <= x) {
+            i++
+            swap(A, i, j)
+        }
+    }
+    swap(A, i + 1, r)
+    return i + 1
+}
+
+fun quicksortClasico(A: Array<Int>, p: Int, r: Int) {
+    if (p < r) {
+        var q = partition(A, p, r)
+        quicksortClasico(A, p, q - 1)
+        quicksortClasico(A, q + 1, r)
+    }
+}
+
