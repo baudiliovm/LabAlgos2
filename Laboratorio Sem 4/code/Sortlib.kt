@@ -464,39 +464,27 @@ fun quicksortClasico(A: Array<Int>, p: Int, r: Int) {
 }
 
 
-/* fun quicksortThreeWay(A: Array<Int>, l: Int, r: Int) {
-    var i = l-1
+fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
+    if (r <= l) return
+    var i = l - 1
     var j = r
-    var p = l-1
+    var p = l - 1
     var q = r
     var v = A[r]
 
-    if (r <= 1){
-        return
-    }
-
-    for (true) {
-        while (A[i] < v) { 
-            i++
-        }
-
+    while (true) {
+        while (A[++i] < v) ;
         while (v < A[--j]) {
-            if (j == 1) {
-                break
-            }
+            if (j == l) break
         }
-
-        if (i >= j) {
-            break
-        }
-
+        if (i >= j) break
         swap(A, i, j)
-
 
         if (A[i] == v) {
             p++
             swap(A, p, i)
         }
+
         if (v == A[j]) {
             q--
             swap(A, j, q)
@@ -505,22 +493,26 @@ fun quicksortClasico(A: Array<Int>, p: Int, r: Int) {
 
     swap(A, i, r)
     j = i - 1
-    i++
+    i = i + 1
 
-    for (k in 1 until p) {
+    for (k in l until p) {
         swap(A, k, j)
         j--
     }
-    for (k in r-1 downTo q) {
+
+    for (k in r downTo q + 1) {
         swap(A, i, k)
         i++
     }
 
-    quicksortThreeWay(A, l, j)
-    quicksortThreeWay(A, i, r)
+    quicksortThreeWayx(A, l, j)
+    quicksortThreeWayx(A, i, r)
 
+}
+
+fun quicksortThreeWay(A: Array<Int>){
+    quicksortThreeWayx(A,0,A.size-1)
 }   
- */
 
 fun quicksortDualPivot(A: Array<Int>, left: Int, right: Int) {
     if ((right - left) >= 1) {
