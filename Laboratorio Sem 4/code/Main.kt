@@ -46,7 +46,7 @@ fun timeSortIns(
     println("")
     repeat(10) { it ->
         val a = randArray(n, 0, n)
-        println("\nArray ${i}: ${a.joinToString(", ")}")
+        // println("\nArray ${i}: ${a.joinToString(", ")}")
         print("Time for Array ${i}: ")
         val begin = System.nanoTime()
         sortFunction(a)
@@ -54,7 +54,7 @@ fun timeSortIns(
         
         val timeInSeg = (end - begin) / 1e9
         print("${timeInSeg} sec\n")
-        print("Array ${i}: ${a.joinToString(", ")}")
+        //print("Array ${i}: ${a.joinToString(", ")}")
         
         // Check if the array is sorted
         checkIsSorted(a)

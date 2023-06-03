@@ -449,7 +449,6 @@ fun smoothSort(m: Array<Int>) {
  * @param p The first index of the array.
  * @param r The last index of the array.
  */
- */
 fun partition(A: Array<Int>, p: Int, r: Int): Int {
     val x = A[r]
     var i = p - 1
