@@ -537,13 +537,13 @@ fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
     i = i + 1
 
     for (k in l until p) {
-        j--
         swap(A, k, j)
+        j--
     }
 
     for (k in r downTo q + 1) {
-        i++
         swap(A, i, k)
+        i++
     }
 
     quicksortThreeWayx(A, l, j)
