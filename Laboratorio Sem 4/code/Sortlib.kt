@@ -482,7 +482,6 @@ fun quicksortClasicox(A: Array<Int>, p: Int, r: Int) {
  * 
  * @param A The array to sort.
  */
- */
 fun quicksortClasico(A: Array<Int>) = quicksortClasicox(A, 0, A.size - 1)
 
 /**
@@ -556,7 +555,6 @@ fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
  * 
  * @param A The array to sort.
  */
- */
 fun quicksortThreeWay(A: Array<Int>) = quicksortThreeWayx(A, 0, A.size - 1)
 
 /**
@@ -622,6 +620,5 @@ fun quicksortDualPivotx(A: Array<Int>, left: Int, right: Int) {
  * Calls the quicksortDualPivotx function with the correct parameters.
  * 
  * @param A The array to sort.
- */
  */
 fun quicksortDualPivot(A: Array<Int>) = quicksortDualPivotx(A, 0, A.size - 1)
