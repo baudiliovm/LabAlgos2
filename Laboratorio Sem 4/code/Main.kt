@@ -18,6 +18,19 @@ fun checkIsSorted(A: Array<Int>) {
     }
 }
 
+/**
+ * Computes the standard deviation of an array of doubles.
+ *
+ * @param a The average of the array.
+ * @param b The array of doubles.
+ */
+fun standardDeviation(a: Double, b: Array<Double>): Double {
+    var deviations = 0.0
+    for (i in 0 until (b.size - 1)) {
+        deviations += Math.pow((b[i] - a).toDouble(), 2.0)
+    }
+    return Math.sqrt(deviations / b.size)
+}
 
 /**
  * Generates an array of integers with random values between a and b, inclusive.
@@ -35,10 +48,7 @@ fun randArray(n: Int, a: Int, b: Int): Array<Int> {
 /**
  *
  */
-fun timeSortIns(
-    sortFunction: (Array<Int>) -> Unit, 
-    n: Int
-) {
+fun timeSort(sortFunction: (Array<Int>) -> Unit, n: Int) {
     var averageTime = 0.0
     val arrayTimes = Array<Double>(10) { 0.0 }
 
@@ -46,47 +56,43 @@ fun timeSortIns(
     println("")
     repeat(10) { it ->
         val a = randArray(n, 0, n)
-        // println("\nArray ${i}: ${a.joinToString(", ")}")
-        print("Time for Array ${i}: ")
+        print("Time for Array ${i++}: ")
         val begin = System.nanoTime()
         sortFunction(a)
         val end = System.nanoTime()
         
         val timeInSeg = (end - begin) / 1e9
         print("${timeInSeg} sec\n")
-        //print("Array ${i}: ${a.joinToString(", ")}")
         
         // Check if the array is sorted
         checkIsSorted(a)
-        print("       SORTED\n")
-        i++
         arrayTimes[it] = timeInSeg
         averageTime += timeInSeg
     }
 
     averageTime /= 10
     
-    println("\nAverage time: ${averageTime} sec")
+    val stDev = standardDeviation(averageTime, arrayTimes)
+    println("\n  Standard deviation: ${stDev} sec\n  Average time: ${averageTime} sec")
 }
 
 fun runAllQuick(argument: Array<String>) {
     var n = argument[0].toInt()
 
     val sortFunctions = arrayOf(
-        //::quicksortClasico,
+        ::quicksortClasico,
         ::quicksortThreeWay,
-        //::quicksortDualPivot
+        ::quicksortDualPivot
         )
         
         println("For size: $n")
     for (i in 0 until sortFunctions.size) {
         print("\n")
         println("Function $i -> ${sortFunctions[i].toString()}")
-        timeSortIns(sortFunctions[i], n)
+        timeSort(sortFunctions[i], n)
     }
 }
 
 fun main(args: Array<String>) {
     runAllQuick(args)
-
 }

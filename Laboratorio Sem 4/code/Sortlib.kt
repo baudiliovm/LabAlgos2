@@ -496,8 +496,8 @@ fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
     if (r <= l) {
         return
     }
-    
-    var i = l - 1
+
+    var i = l-1
     var j = r
     var p = l - 1
     var q = r
@@ -506,7 +506,7 @@ fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
     while (true) {
 
         while (A[++i] < v) {
-            // Do nothing
+
         }
 
         while (v < A[--j]) {
@@ -541,7 +541,7 @@ fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
         j--
     }
 
-    for (k in r downTo q + 1) {
+    for (k in r-1 downTo q + 1) {
         swap(A, i, k)
         i++
     }
