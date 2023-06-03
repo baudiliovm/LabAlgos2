@@ -514,41 +514,56 @@ fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
 fun quicksortThreeWay(A: Array<Int>) = quicksortThreeWayx(A, 0, A.size-1)
 
 fun quicksortDualPivotx(A: Array<Int>, left: Int, right: Int) {
+    
     if ((right - left) >= 1) {
         var p = A[left]
         var q = A[right]
 
         
         if (p > q) {
-            A[right] = p
-            A[left] = q
+            var temp = p
+            p = q
+            q = temp
         }
 
         var l = (left + 1)
-        var g = (right - 1)
         var k = l
+        var g = (right - 1)
+
 
         while (k <= g) {
+            
+
             if (A[k] < p) {
                 swap(A, k, l)
-                l++
+                l = l + 1
+
             } else {
+
                 if (A[k] > q) {
-                    while (k < g && A[g] > q) {
-                        g--
+                    
+                    while (A[g] > q && k < g) {
+
+                        g = g - 1
                     }
+
                     swap(A, k, g)
-                    g--
+                    g = g - 1
+                    
                     if (A[k] < p) {
                         swap(A, k, l)
-                        l++
+                        l = l + 1
+
                     }
                 }    
             }
-            k++
+
+            k = k + 1
+
         }
-        l--
-        g++
+        
+        l = l - 1
+        g = g + 1
         swap(A, left, l)
         swap(A, right, g)
         quicksortDualPivotx(A, left, l - 1)
