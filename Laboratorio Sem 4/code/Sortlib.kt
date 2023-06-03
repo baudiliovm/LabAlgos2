@@ -443,9 +443,9 @@ fun smoothSort(m: Array<Int>) {
 // QuickSort
 
 fun partition(A: Array<Int>, p: Int, r: Int): Int {
-    var x = A[r]
-    var i = p-1
-    for (j in p..(r - 1)) {
+    val x = A[r]
+    var i = p - 1
+    for (j in p until r) {
         if (A[j] <= x) {
             i++
             swap(A, i, j)
@@ -455,12 +455,16 @@ fun partition(A: Array<Int>, p: Int, r: Int): Int {
     return (i + 1)
 }
 
-fun quicksortClasico(A: Array<Int>, p: Int, r: Int) {
+fun quicksortClasicox(A: Array<Int>, p: Int, r: Int) {
     if (p < r) {
         var q = partition(A, p, r)
-        quicksortClasico(A, p, q - 1)
-        quicksortClasico(A, q + 1, r)
+        quicksortClasicox(A, p, q - 1)
+        quicksortClasicox(A, q + 1, r)
     }
+}
+
+fun quicksortClasico(A: Array<Int>) {
+    quicksortClasicox(A, 0, A.size-1)
 }
 
 
@@ -511,18 +515,18 @@ fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
 }
 
 fun quicksortThreeWay(A: Array<Int>){
-    quicksortThreeWayx(A,0,A.size-1)
+    quicksortThreeWayx(A, 0, A.size-1)
 }   
 
-fun quicksortDualPivot(A: Array<Int>, left: Int, right: Int) {
+fun quicksortDualPivotx(A: Array<Int>, left: Int, right: Int) {
     if ((right - left) >= 1) {
         var p = A[left]
         var q = A[right]
 
         
         if (p > q) {
-            p = A[right]
-            q = A[left]
+            A[right] = p
+            A[left] = q
         }
 
         var l = (left + 1)
@@ -552,9 +556,13 @@ fun quicksortDualPivot(A: Array<Int>, left: Int, right: Int) {
         g++
         swap(A, left, l)
         swap(A, right, g)
-        quicksortDualPivot(A, left, l - 1)
-        quicksortDualPivot(A, l + 1, g - 1)
-        quicksortDualPivot(A, g + 1, right)
+        quicksortDualPivotx(A, left, l - 1)
+        quicksortDualPivotx(A, l + 1, g - 1)
+        quicksortDualPivotx(A, g + 1, right)
     }
+}
+
+fun quicksortDualPivot(A: Array<Int>){
+    quicksortDualPivotx(A, 0, A.size - 1)
 }
 
