@@ -46,7 +46,7 @@ fun timeSortIns(
     println("")
     repeat(10) { it ->
         val a = randArray(n, 0, n)
-        println("Array ${i}: ${a.joinToString(", ")}")
+        println("\nArray ${i}: ${a.joinToString(", ")}")
         print("Time for Array ${i}: ")
         val begin = System.nanoTime()
         sortFunction(a)
@@ -54,11 +54,12 @@ fun timeSortIns(
         
         val timeInSeg = (end - begin) / 1e9
         print("${timeInSeg} sec\n")
-        println("Array ${i++}: ${a.joinToString(", ")}       SORTED\n")
+        print("Array ${i}: ${a.joinToString(", ")}")
         
         // Check if the array is sorted
         checkIsSorted(a)
-        
+        print("       SORTED\n")
+        i++
         arrayTimes[it] = timeInSeg
         averageTime += timeInSeg
     }
@@ -72,9 +73,9 @@ fun runAllQuick(argument: Array<String>) {
     var n = argument[0].toInt()
 
     val sortFunctions = arrayOf(
-        ::quicksortClasico,
+        //::quicksortClasico,
         ::quicksortThreeWay,
-        ::quicksortDualPivot
+        //::quicksortDualPivot
         )
         
         println("For size: $n")
@@ -87,4 +88,5 @@ fun runAllQuick(argument: Array<String>) {
 
 fun main(args: Array<String>) {
     runAllQuick(args)
+
 }

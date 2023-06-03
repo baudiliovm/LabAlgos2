@@ -442,6 +442,14 @@ fun smoothSort(m: Array<Int>) {
 
 // QuickSort
 
+/**
+ * Partition algorithm for quick sort.
+ * 
+ * @param A The array to sort.
+ * @param p The first index of the array.
+ * @param r The last index of the array.
+ */
+ */
 fun partition(A: Array<Int>, p: Int, r: Int): Int {
     val x = A[r]
     var i = p - 1
@@ -455,6 +463,13 @@ fun partition(A: Array<Int>, p: Int, r: Int): Int {
     return (i + 1)
 }
 
+/**
+ * This function sorts an array of integers using the quick sort algorithm.
+ * 
+ * @param A The array to sort.
+ * @param p The first index of the array.
+ * @param r The last index of the array.
+ */
 fun quicksortClasicox(A: Array<Int>, p: Int, r: Int) {
     if (p < r) {
         var q = partition(A, p, r)
@@ -463,22 +478,49 @@ fun quicksortClasicox(A: Array<Int>, p: Int, r: Int) {
     }
 }
 
-fun quicksortClasico(A: Array<Int>) = quicksortClasicox(A, 0, A.size-1)
+/**
+ * Calls the quicksortClasicox function with the correct parameters.
+ * 
+ * @param A The array to sort.
+ */
+ */
+fun quicksortClasico(A: Array<Int>) = quicksortClasicox(A, 0, A.size - 1)
 
+/**
+ * This function sorts an array of integers using the quick sort algorithm with 
+ * 3-way partitioning.
+ * 
+ * @param A The array to sort.
+ * @param p The first index of the array.
+ * @param r The last index of the array.
+ */
 fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
-    if (r <= l) return
+    if (r <= l) {
+        return
+    }
+    
     var i = l - 1
     var j = r
     var p = l - 1
     var q = r
-    var v = A[r]
-
+    val v = A[r]
+    
     while (true) {
-        while (A[++i] < v) ;
-        while (v < A[--j]) {
-            if (j == l) break
+
+        while (A[++i] < v) {
+            // Do nothing
         }
-        if (i >= j) break
+
+        while (v < A[--j]) {
+            if (j == l) {
+                break
+            }
+        }
+
+        if (i >= j) {
+            break
+        }
+
         swap(A, i, j)
 
         if (A[i] == v) {
@@ -497,30 +539,43 @@ fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
     i = i + 1
 
     for (k in l until p) {
-        swap(A, k, j)
         j--
+        swap(A, k, j)
     }
 
     for (k in r downTo q + 1) {
-        swap(A, i, k)
         i++
+        swap(A, i, k)
     }
 
     quicksortThreeWayx(A, l, j)
     quicksortThreeWayx(A, i, r)
-
 }
 
-fun quicksortThreeWay(A: Array<Int>) = quicksortThreeWayx(A, 0, A.size-1)
+/**
+ * Calls the quicksortThreeWayx function with the correct parameters.
+ * 
+ * @param A The array to sort.
+ */
+ */
+fun quicksortThreeWay(A: Array<Int>) = quicksortThreeWayx(A, 0, A.size - 1)
 
+/**
+ * This function sorts an array of integers using the quick sort algorithm with 
+ * dual-pivot using the Yaroslavskiy's partitioning scheme.
+ * 
+ * @param A The array to sort.
+ * @param left The first index of the array.
+ * @param right The last index of the array.
+ */
 fun quicksortDualPivotx(A: Array<Int>, left: Int, right: Int) {
     
     if ((right - left) >= 1) {
         var p = A[left]
         var q = A[right]
 
-        
         if (p > q) {
+            swap(A, left, right)
             var temp = p
             p = q
             q = temp
@@ -530,47 +585,44 @@ fun quicksortDualPivotx(A: Array<Int>, left: Int, right: Int) {
         var k = l
         var g = (right - 1)
 
-
         while (k <= g) {
-            
-
+        
             if (A[k] < p) {
                 swap(A, k, l)
                 l = l + 1
 
             } else {
-
                 if (A[k] > q) {
-                    
                     while (A[g] > q && k < g) {
-
                         g = g - 1
                     }
-
                     swap(A, k, g)
                     g = g - 1
-                    
                     if (A[k] < p) {
                         swap(A, k, l)
                         l = l + 1
-
                     }
                 }    
             }
-
             k = k + 1
-
         }
         
         l = l - 1
         g = g + 1
+
         swap(A, left, l)
         swap(A, right, g)
         quicksortDualPivotx(A, left, l - 1)
         quicksortDualPivotx(A, l + 1, g - 1)
         quicksortDualPivotx(A, g + 1, right)
+
     }
 }
 
+/**
+ * Calls the quicksortDualPivotx function with the correct parameters.
+ * 
+ * @param A The array to sort.
+ */
+ */
 fun quicksortDualPivot(A: Array<Int>) = quicksortDualPivotx(A, 0, A.size - 1)
-
