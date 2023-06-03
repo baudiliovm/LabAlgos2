@@ -463,10 +463,7 @@ fun quicksortClasicox(A: Array<Int>, p: Int, r: Int) {
     }
 }
 
-fun quicksortClasico(A: Array<Int>) {
-    quicksortClasicox(A, 0, A.size-1)
-}
-
+fun quicksortClasico(A: Array<Int>) = quicksortClasicox(A, 0, A.size-1)
 
 fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
     if (r <= l) return
@@ -514,9 +511,7 @@ fun quicksortThreeWayx(A: Array<Int>, l: Int, r: Int) {
 
 }
 
-fun quicksortThreeWay(A: Array<Int>){
-    quicksortThreeWayx(A, 0, A.size-1)
-}   
+fun quicksortThreeWay(A: Array<Int>) = quicksortThreeWayx(A, 0, A.size-1)
 
 fun quicksortDualPivotx(A: Array<Int>, left: Int, right: Int) {
     if ((right - left) >= 1) {
@@ -562,7 +557,5 @@ fun quicksortDualPivotx(A: Array<Int>, left: Int, right: Int) {
     }
 }
 
-fun quicksortDualPivot(A: Array<Int>){
-    quicksortDualPivotx(A, 0, A.size - 1)
-}
+fun quicksortDualPivot(A: Array<Int>) = quicksortDualPivotx(A, 0, A.size - 1)
 
