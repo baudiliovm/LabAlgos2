@@ -45,36 +45,35 @@ fun randArray(n: Int, a: Int, b: Int): Array<Int> {
     return array
 }
 
-/**
- *
- */
-fun timeSort(sortFunction: (Array<Int>) -> Unit, n: Int) {
-    var averageTime = 0.0
-    val arrayTimes = Array<Double>(10) { 0.0 }
-
-    var i = 1
-    println("")
-    repeat(10) { it ->
-        val a = randArray(n, 0, n)
-        print("Time for Array ${i++}: ")
-        val begin = System.nanoTime()
-        sortFunction(a)
-        val end = System.nanoTime()
-        
-        val timeInSeg = (end - begin) / 1e9
-        print("${timeInSeg} sec\n")
-        
-        // Check if the array is sorted
-        checkIsSorted(a)
-        arrayTimes[it] = timeInSeg
-        averageTime += timeInSeg
-    }
-
-    averageTime /= 10
-    
-    val stDev = standardDeviation(averageTime, arrayTimes)
-    println("\n  Standard deviation: ${stDev} sec\n  Average time: ${averageTime} sec")
+fun timeSort(
+    a: Array<Int>,
+    sortFunction: (Array<Int>) -> Unit, 
+    timeA: Array<Array<Double>>,
+    sortTime: Int,
+    timePos: Int
+) {
+    var aClone = a.clone()
+    val begin = System.nanoTime()
+    sortFunction(aClone)
+    val end = System.nanoTime()
+    val timeInSeg = (end - begin) / 1e9
+    // Check if the array is sorted
+    checkIsSorted(aClone)
+    timeA[sortTime][timePos] += timeInSeg // Se agrega tiempo a la posicion del timeA
 }
+
+fun printAverageStandard(timeArray: Array<Array<Double>>) {
+    for (i in 0 until timeArray.size) {
+        var averageTime = 0.0
+        for (j in 0 until timeArray[i].size) {
+            averageTime += timeArray[i][j]
+        }
+        averageTime /= 10
+        val stDev = standardDeviation(averageTime, timeArray[i])
+        println("\n  Standard deviation: ${stDev} sec\n  Average time: ${averageTime} sec")
+    }
+}
+
 
 fun runAllQuick(argument: Array<String>) {
     var n = argument[0].toInt()
@@ -85,12 +84,17 @@ fun runAllQuick(argument: Array<String>) {
         ::quicksortDualPivot
         )
         
-        println("For size: $n")
-    for (i in 0 until sortFunctions.size) {
-        print("\n")
-        println("Function $i -> ${sortFunctions[i].toString()}")
-        timeSort(sortFunctions[i], n)
+    println("For size: $n")
+
+    var timeArray = Array<Array<Double>>(3) {Array<Double>(10) {0.0}}
+
+    for (j in 0 until 10) {
+        val a = randArray(n, 0, n)
+        for (i in 0 until sortFunctions.size) {
+            timeSort(a, sortFunctions[i], timeArray, i, j)
+        }
     }
+    printAverageStandard(timeArray)
 }
 
 fun main(args: Array<String>) {
