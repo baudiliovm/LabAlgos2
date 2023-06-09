@@ -186,7 +186,8 @@ fun buildMaxHeap(A: Array<Int>, n: Int) {
  * @param A The array to sort.
  * @param n The size array to sort.
  */
-fun heapSort(A: Array<Int>, n: Int) {
+fun heapSort(A: Array<Int>) {
+    val n = A.size
     buildMaxHeap(A, n)
     for (i in n - 1 downTo 0) {
         swap(A, 0, i)
