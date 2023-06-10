@@ -625,66 +625,88 @@ fun quicksortDualPivotx(A: Array<Int>, left: Int, right: Int) {
 fun quicksortDualPivot(A: Array<Int>) = quicksortDualPivotx(A, 0, A.size - 1)
 
 
-fun countingSortx(a: Array<Int>, n: Int, k: Int) {
+/* 
+fun Countingsort(A, B, k) {
+
+
+} */
+
+/**
+ * Sorts an array of integers using the counting sort algorithm.
+ * 
+ * @param A The array to sort.
+ * @param n The size of the array.
+ * @param k The maximum value of the array.
+ */
+fun countingSortx(A: Array<Int>, n: Int, k: Int) {
 
     // Create two new arrays
-    val array = a.clone()
-    val c = Array<Int>(k+1) {it * 0}
-
-    // Initialize the count array
-    for (i in 0 until k+1) {
-        c[i] = 0
-    }
+    val array = A.clone()
+    val C = Array<Int>(k+1) {it * 0}
 
     // Count the occurrences of each element in the input array
-    for (i in 0 until n) {
-        c[array[i]]++
+    for (j in 0 until n) {
+        C[array[j]]++
     }
 
     // Cumulatively sum the count array
     for (i in 1 until k+1) {
-        c[i] += c[i - 1]
+        C[i] += C[i - 1]
     }
 
     // Iterate over the input array from the end
-    for (i in n - 1 downTo 0) {
-        val index = c[array[i]] - 1
-        a[index] = array[i]
-        c[array[i]]--
+    for (j in n - 1 downTo 0) {
+        val index = C[array[j]] - 1
+        A[index] = array[j]
+        C[array[j]]--
     }
 
 }
 
+/**
+ * Calls the countingSortx function with the correct parameters.
+ * 
+ * @param A The array to sort.
+ */
 fun countingSort(A: Array<Int>){
-    countingSortx(A,A.size,A.max())
+    countingSortx(A, A.size, A.max())
 }
 
-fun countingSortRedix(A: Array<Int>, n: Int, k: Int, posicion: Int) {
+/**
+ * Modified version of the counting sort algorithm for the radix sort algorithm.
+ * 
+ * @param A The array to sort.
+ * @param n The size of the array.
+ * @param k The maximum value of the array.
+ * @param index The index of the digit to sort.
+ */
+fun countingSortRedix(A: Array<Int>, n: Int, k: Int, index: Int) {
         val array = A.clone()
-        var c = Array<Int>(k+1) {it * 0}
-        // Initialize the count array
-        for (i in 0 until k+1) {
-            c[i] = 0
-        }
+        val C = Array<Int>(k+1) {it * 0}
 
         // Count the occurrences of each element in the input array
         for (i in 0 until n) {
-            val digit = (array[i] / posicion) % 10
-            c[digit]++
+            val digit = (array[i] / index) % 10
+            C[digit]++
         }
 
         // Cumulatively sum the count array
         for (i in 1 until k+1) {
-            c[i] += c[i - 1]
+            C[i] += C[i - 1]
         }
 
         // Iterate over the input array from the end
         for (i in n - 1 downTo 0) {
-            val digit = (array[i] / posicion) % 10
-            A[c[digit] - 1] = array[i]
-            c[digit]--
+            val digit = (array[i] / index) % 10
+            A[C[digit] - 1] = array[i]
+            C[digit]--
         }
 
+/**
+ * Sorts an array of integers using the radix sort algorithm.
+ * 
+ * @param A The array to sort.
+ */
 }
 fun radixSort(A: Array<Int>){
     val max = A.max()

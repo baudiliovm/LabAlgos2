@@ -63,14 +63,27 @@ fun timeSort(
 }
 
 fun printAverageStandard(timeArray: Array<Array<Double>>) {
+
+    val sortFunctionNames = arrayOf(
+        "quicksortClasico",
+        "quicksortThreeWay",
+        "quicksortDualPivot",
+        "countingSort",
+        "radixSort",
+        "mergesortInsertion",
+        "heapSort", 
+        "smoothSort"
+    )
+
     for (i in 0 until timeArray.size) {
         var averageTime = 0.0
         for (j in 0 until timeArray[i].size) {
             averageTime += timeArray[i][j]
         }
         averageTime /= 10
+        println("\nFunction: ${sortFunctionNames[i]}\n")
         val stDev = standardDeviation(averageTime, timeArray[i])
-        println("\n  Standard deviation: ${stDev} sec\n  Average time: ${averageTime} sec")
+        println("  Standard deviation: ${stDev} sec\n  Average time: ${averageTime} sec")
     }
 }
 
@@ -88,17 +101,20 @@ fun runAllQuick(argument: Array<String>) {
         ::heapSort,
         ::smoothSort
         )
-        
-    println("For size: $n")
+
+
+    println("For size: $n\n")
 
     var timeArray = Array<Array<Double>>(8) {Array<Double>(3) {0.0}}
-
+    
+    println("Sorting...")
     for (j in 0 until 3) {
         val a = randArray(n, 0, 1000000)
         for (i in 0 until sortFunctions.size) {
             timeSort(a, sortFunctions[i], timeArray, i, j)
         }
     }
+    println("All sorted!")
     printAverageStandard(timeArray)
 }
 
