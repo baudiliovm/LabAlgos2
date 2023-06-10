@@ -627,31 +627,31 @@ fun quicksortDualPivot(A: Array<Int>) = quicksortDualPivotx(A, 0, A.size - 1)
 
 fun countingSortx(a: Array<Int>, n: Int, k: Int) {
 
-  // Create two new arrays
-  val array = a.clone()
-  val c = Array<Int>(k+1) {it * 0}
+    // Create two new arrays
+    val array = a.clone()
+    val c = Array<Int>(k+1) {it * 0}
 
-  // Initialize the count array
-  for (i in 0 until k+1) {
-    c[i] = 0
-  }
+    // Initialize the count array
+    for (i in 0 until k+1) {
+        c[i] = 0
+    }
 
-  // Count the occurrences of each element in the input array
-  for (i in 0 until n) {
-    c[array[i]]++
-  }
+    // Count the occurrences of each element in the input array
+    for (i in 0 until n) {
+        c[array[i]]++
+    }
 
-  // Cumulatively sum the count array
-  for (i in 1 until k+1) {
-    c[i] += c[i - 1]
-  }
+    // Cumulatively sum the count array
+    for (i in 1 until k+1) {
+        c[i] += c[i - 1]
+    }
 
-  // Iterate over the input array from the end
-  for (i in n - 1 downTo 0) {
-    val index = c[array[i]] - 1
-    a[index] = array[i]
-    c[array[i]]--
-  }
+    // Iterate over the input array from the end
+    for (i in n - 1 downTo 0) {
+        val index = c[array[i]] - 1
+        a[index] = array[i]
+        c[array[i]]--
+    }
 
 }
 
