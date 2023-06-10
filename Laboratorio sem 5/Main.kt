@@ -83,15 +83,18 @@ fun runAllQuick(argument: Array<String>) {
         ::quicksortThreeWay,
         ::quicksortDualPivot,
         ::countingSort,
-        ::radixSort
+        ::radixSort,
+        ::mergesortInsertion,
+        ::heapSort,
+        ::smoothSort
         )
         
     println("For size: $n")
 
-    var timeArray = Array<Array<Double>>(5) {Array<Double>(10) {0.0}}
+    var timeArray = Array<Array<Double>>(8) {Array<Double>(3) {0.0}}
 
-    for (j in 0 until 10) {
-        val a = randArray(n, 0, n)
+    for (j in 0 until 3) {
+        val a = randArray(n, 0, 1000000)
         for (i in 0 until sortFunctions.size) {
             timeSort(a, sortFunctions[i], timeArray, i, j)
         }
