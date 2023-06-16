@@ -1,111 +1,92 @@
-fun obtenerRectangulo(array: Array<Array<Int>>): Array<Int> {
-  val minX = array.map { it[0] }.min()!!
-  val minY = array.map { it[1] }.min()!!
-  val maxX = array.map { it[0] }.max()!!
-  val maxY = array.map { it[1] }.max()!!
-
-  val rectangulo = arrayOf(minX, minY, maxX - minX, maxY - minY)
-  return rectangulo
+fun obtenerCoordenadasRectangulo(P: Array<Pair<Int, Int>>): Pair<Pair<Int, Int>, Pair<Int, Int>> {
+    val xCoords = P.map { it.first }
+    val yCoords = P.map { it.second }
+    val xMin = xCoords.minOrNull() ?: 0
+    val xMax = xCoords.maxOrNull() ?: 0
+    val yMin = yCoords.minOrNull() ?: 0
+    val yMax = yCoords.maxOrNull() ?: 0
+    return Pair(Pair(xMin, yMin), Pair(xMax, yMax))
 }
 
 
-fun obtenerPuntoDeCorte(array: Array<Array<Int>>, ejeDeCorte: String): Array<Int> {
-    val n = array.size
-    val pos = (n/2) - 1
-    if (ejeDeCorte == "X"){
-        for (i in 0 until n-1){
-            if (array[i][0] > array[i+1][0]){
-                val temp = array[i]
-                array[i] = array[i+1]
-                array[i+1] = temp
-            }
-            if (array[i][0] == array[i+1][0]){
-                if (array[i][1] > array[i+1][1]){
-                    val temp = array[i]
-                    array[i] = array[i+1]
-                    array[i+1] = temp
-                }
-            }
-        }
+fun obtenerPuntoDeCorte(P: Array<Pair<Int, Int>>, ejeDeCorte: String): Pair<Int, Int> {
+    val n = P.size
+    val pos = (n / 2) - 1
+    if (ejeDeCorte == "X") {
+        P.sortWith(compareBy({ it.first }, { it.second }))
+    } else {
+        P.sortWith(compareBy({ it.second }, { it.first }))
     }
-    else {
-        for (i in 0 until n-1){
-            if (array[i][1] > array[i+1][1]){
-                val temp = array[i]
-                array[i] = array[i+1]
-                array[i+1] = temp
-            }
-            if (array[i][0] == array[i+1][0]){
-                if (array[i][0] > array[i+1][0]){
-                    val temp = array[i]
-                    array[i] = array[i+1]
-                    array[i+1] = temp
-                }
-            }
-        }
+    return P[pos]
+}
+
+fun aplicarCorte(ejeDeCorte: String, corte: Pair<Int, Int>, rectangulo: Pair<Pair<Int, Int>, Pair<Int, Int>>): Pair<Pair<Pair<Int, Int>, Pair<Int, Int>>, Pair<Pair<Int, Int>, Pair<Double, Double>>> {
+    val (xc, yc) = corte
+    val (rectanguloIzq, rectanguloDer) = if (ejeDeCorte == "X") {
+        val rectanguloIzq = Pair(rectangulo.first, Pair(xc, rectangulo.second.second))
+        val rectanguloDer = Pair(Pair(xc, rectangulo.first.second), rectangulo.second)
+        Pair(rectanguloIzq, rectanguloDer)
+    } else {
+        val rectanguloIzq = Pair(rectangulo.first, Pair(rectangulo.second.first, yc))
+        val rectanguloDer = Pair(Pair(rectangulo.first.first, yc), rectangulo.second)
+        Pair(rectanguloIzq, rectanguloDer)
     }
-    return array[pos]
+    return Pair(rectanguloIzq, rectanguloDer)
 }
 
-/*fun aplicarCorte(P: Array<Array<Int>>, ejeDeCorte: String, puntoDeCorte: Array<Int>, rectangle: Array<Int>): Pair<Array<Int, Array<Int> {
-  
-}
- */
+fun obtenerPuntoDeCorteMitad(rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>, eje: String): Pair<Double, Double> {
+    val (xMin, yMin) = rectangulo.first
+    val (xMax, yMax) = rectangulo.second
 
-fun obtenerPuntosRectangulo(P: Array<Array<Int>>, rectangulo: Array<Int>): Array<Array<Int>>{
-    val minX = xmin = rectangulo[0]
-    val maxX = rectangulo[0] + rectangulo[2]
-     val points = mutableListOf<Array<Int>>()
-    for (x in minX..maxX) {
-        for (y in P.indices) {
-            if (P[y][0] <= x && x < P[y][1]) {
-            points.add(arrayOf(x, y))
-            }
-        }
-    } 
-  return points.toTypedArray()
+    val puntoDeCorte = if (eje == "X") {
+        val xDim = xMax - xMin
+        Pair(xMin + xDim / 2, yMin)
+    } else {
+        val yDim = yMax - yMin
+        Pair(xMin, yMin + yDim / 2)
+    }
+    return puntoDeCorte
 }
 
-fun obtenerPuntoDeCorteMitad(rectangulo: Array<Int>, eje: String): Array<Int> {
-  val xmin = rectangulo[0]
-  val ymin = rectangulo[1]
-
-  val ancho = rectangulo[2]
-  val altura = rectangulo[3]
-
-  val puntoDeCorte = when (eje) {
-    "X" -> arrayOf(xmin + ancho / 2, ymin)
-    "Y" -> arrayOf(xmin, ymin + altura / 2)
-    else -> throw IllegalArgumentException("Invalid axis")
-  }
-  return puntoDeCorte
+fun obtenerPuntosRectangulo(P: Array<Pair<Double, Double>>, rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>): Array<Pair<Double, Double>> {
+    val (xMin, yMin) = rectangulo.first
+    val (xMax, yMax) = rectangulo.second
+    val particion = P.filter { (x, y) -> x >= xMin && x <= xMax && y >= yMin && y <= yMax }.toTypedArray()
+    return particion
 }
 
-fun obtenerParticiones(P: Array<Array<Int>>): Pair<Array<Int>, Array<Int>> {
-    val rectangulo = obtenerRectangulo(p)
-    val (Xdim, Ydim) = rectangulo.dimensions
+fun obtenerDimensiones(rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>): Pair<Double,Double>{
+    val (xMin, yMin) = rectangulo.first
+    val (xMax, yMax) = rectangulo.second
+    val xDim = xMax - xMin
+    val yDim = yMax - yMin
+    return Pair(xDim,yDim) 
+}
+
+fun obtenerParticiones(P: Array<Pair<Double, Double>>): Pair<Array<Pair<Double, Double>>, Array<Pair<Double, Double>>> {
+    val rectangulo = obtenerCoordenadasRectangulo(P)
+    val (Xdim, Ydim) = obtenerDimensiones(rectangulo)
     val ejeDeCorte = if (Xdim > Ydim) "X" else "Y"
-    val puntoDeCorte = obtenerPuntoDeCorte(P, ejeDeCorte)
-    val (rectanguloIzq, rectanguloDer ) = aplicarCorte(P,ejeDeCorte,puntoDeCorte,rectangulo)
-    var particionIzq = obtenerPuntosRectangulo(P , rectanguloIzq) 
-    var particionDer = obtenerPuntosRectangulo(P , rectanguloDer) 
-    
+    val (xc, yc) = obtenerPuntoDeCorte(P, ejeDeCorte)
+    var (rectanguloIzq, rectanguloDer) = aplicarCorte(ejeDeCorte, Pair(xc, yc), rectangulo)
+    var particionIzq = obtenerPuntosRectangulo(P, rectanguloIzq)
+    var particionDer = obtenerPuntosRectangulo(P, rectanguloDer)
+
     if ((particionIzq.size == 0 && particionDer.size > 3) || (particionIzq.size > 3 && particionDer.size == 0)) {
         val nuevoEjeDeCorte = if (ejeDeCorte == "X") "Y" else "X"
-        val nuevoPuntoDeCorte = obtenerPuntoDeCorte(P, nuevoEjeDeCorte)
-        val (nuevoRectanguloIzq, nuevoRectanguloDer) = aplicarCorte(P, nuevoEjeDeCorte, nuevoPuntoDeCorte, rectangulo)
+        val (nuevoXc, nuevoYc) = obtenerPuntoDeCorte(P, nuevoEjeDeCorte)
+        val (nuevoRectanguloIzq, nuevoRectanguloDer) = aplicarCorte(nuevoEjeDeCorte, Pair(nuevoXc, nuevoYc), rectangulo)
         particionIzq = obtenerPuntosRectangulo(P, nuevoRectanguloIzq)
         particionDer = obtenerPuntosRectangulo(P, nuevoRectanguloDer)
-        
+
         if ((particionIzq.size == 0 && particionDer.size > 3) || (particionIzq.size > 3 && particionDer.size == 0)) {
-            val puntoCorteMitad = obtenerPuntoDeCorteMitad(rectangulo, nuevoEjeDeCorte)
-            val (nuevoRectanguloIzq2, nuevoRectanguloDer2) = aplicarCorte(P, nuevoEjeDeCorte, puntoCorteMitad, rectangulo)
-            particionIzq = obtenerPuntosRectangulo(P,nuevoRectanguloIzq2)
-            particionDer = obtenerPuntosRectangulo(P,nuevoRectanguloDer2)
+            val (nuevoXc2, nuevoYc2) = obtenerPuntoDeCorteMitad(rectangulo, nuevoEjeDeCorte)
+            val (nuevoRectanguloIzq2, nuevoRectanguloDer2) = aplicarCorte(nuevoEjeDeCorte, Pair(nuevoXc2, nuevoYc2), rectangulo)
+            particionIzq = obtenerPuntosRectangulo(P, nuevoRectanguloIzq2)
+            particionDer = obtenerPuntosRectangulo(P, nuevoRectanguloDer2)
         }
     }
-    return pair(particionIzq, particionDer)
+    return Pair(particionIzq, particionDer)
 }
-
 
 
