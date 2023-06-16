@@ -1,21 +1,28 @@
+import kotlin.math.sqrt
 
-fun distanciaGanada(dOLD1: Int, dOLD2: Int, dNEW1: Int, dNEW2: Int): Int {
+fun distanciaGanada(
+    dOLD1: Double, 
+    dOLD2: Double, 
+    dNEW1: Double, 
+    dNEW2: Double
+): Double {
     return (dNEW1 + dNEW2) - (dOLD1 + dOLD2)
 }
 
-fun distancia(a: Int, b: Int): Int {
-    return (a + b)
+fun distancia(a: Pair<Double,Double>, b: Pair<Double, Double>): Double {
+    val x = a.first - b.first
+    val y = a.second - b.second
+    return sqrt(x*x + y*y)
 }
 
-fun min(a: Int, b: Int): Int {
-    if (a < b) {
-        return a
-    } else {
-        return b
-    }
+fun min(a: Double, b: Double): Double {
+    return if (a < b) a else b
 }
 
-fun combinarCiclos(A: Array<Array<Int>>, B: Array<Array<Int>>): Array<Array<Int>> {
+fun combinarCiclos(
+    A: Array<Array<Pair<Double, Double>>>, 
+    B: Array<Array<Pair<Double, Double>>>
+): Array<Array<Pair<Double, Double>>> {
 
     if (A.size == 0) {
         return B
@@ -25,16 +32,17 @@ fun combinarCiclos(A: Array<Array<Int>>, B: Array<Array<Int>>): Array<Array<Int>
         return A
     }
 
-    var minG = 1  // INfinito REVISAR
+    var minG = 1.0  // INfinito REVISAR
 
-    var ladosAgregarC1 = arrayOf<Array<Int>>()
-    var ladosAgregarC2 = arrayOf<Array<Int>>()
-    var ladosEliminarC1 = arrayOf<Array<Int>>()
-    var ladosEliminarC2 = arrayOf<Array<Int>>()
+    var ladosAgregarC1 = arrayOf<Array<Pair<Double, Double>>>()
+    var ladosAgregarC2 = arrayOf<Array<Pair<Double, Double>>>()
+    var ladosEliminarC1 = arrayOf<Array<Pair<Double, Double>>>()
+    var ladosEliminarC2 = arrayOf<Array<Pair<Double, Double>>>()
 
-    for (lado in A) { 
+    for (lado in A) {
         do {
             val dOLD1 = distancia(lado[0], lado[1])
+
             for (ladoB in B) {
 
                 val dOLD2 = distancia(ladoB[0], ladoB[1])
@@ -51,14 +59,14 @@ fun combinarCiclos(A: Array<Array<Int>>, B: Array<Array<Int>>): Array<Array<Int>
                     minG = ganancia
 
                     if (g1 < g2) {
-                        ladosAgregarC1 += arrayOf<Int>(lado[0], ladoB[0])
-                        ladosAgregarC2 += arrayOf<Int>(lado[1], ladoB[1])
+                        ladosAgregarC1 += arrayOf<Pair<Double, Double>>(lado[0], ladoB[0])
+                        ladosAgregarC2 += arrayOf<Pair<Double, Double>>(lado[1], ladoB[1])
                     } else {
-                        ladosAgregarC1 += arrayOf<Int>(lado[0], ladoB[1])
-                        ladosAgregarC2 += arrayOf<Int>(lado[1], ladoB[0])
+                        ladosAgregarC1 += arrayOf<Pair<Double, Double>>(lado[0], ladoB[1])
+                        ladosAgregarC2 += arrayOf<Pair<Double, Double>>(lado[1], ladoB[0])
                     }
-                    ladosEliminarC1 += arrayOf<Int>(lado[0], lado[1])
-                    ladosEliminarC2 += arrayOf<Int>(ladoB[0], ladoB[1])
+                    ladosEliminarC1 += arrayOf<Pair<Double, Double>>(lado[0], lado[1])
+                    ladosEliminarC2 += arrayOf<Pair<Double, Double>>(ladoB[0], ladoB[1])
                 }
             }
         }
@@ -76,4 +84,10 @@ fun combinarCiclos(A: Array<Array<Int>>, B: Array<Array<Int>>): Array<Array<Int>
     
     return C
     
+}
+
+
+fun divideAndConquerAndLocalSearchTSP(P: Array<Pair<Double, Double>>) {
+    val c1 = divideAndConquerTSP(P)
+    return busquedaLocalCon20PT(c1) // Por hacer está en wikipedia link en pdf
 }

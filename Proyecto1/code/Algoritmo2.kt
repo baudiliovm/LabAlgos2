@@ -87,8 +87,8 @@ fun obtenerParticiones(P: Array<Array<Int>>): Pair<Array<Int>, Array<Int>> {
     val ejeDeCorte = if (Xdim > Ydim) "X" else "Y"
     val puntoDeCorte = obtenerPuntoDeCorte(P, ejeDeCorte)
     val (rectanguloIzq, rectanguloDer ) = aplicarCorte(P,ejeDeCorte,puntoDeCorte,rectangulo)
-    val particionIzq = obtenerPuntosRectangulo(P , rectanguloIzq) 
-    val particionDer = obtenerPuntosRectangulo(P , rectanguloDer) 
+    var particionIzq = obtenerPuntosRectangulo(P , rectanguloIzq) 
+    var particionDer = obtenerPuntosRectangulo(P , rectanguloDer) 
     
     if ((particionIzq.size == 0 && particionDer.size > 3) || (particionIzq.size > 3 && particionDer.size == 0)) {
         val nuevoEjeDeCorte = if (ejeDeCorte == "X") "Y" else "X"
@@ -104,7 +104,7 @@ fun obtenerParticiones(P: Array<Array<Int>>): Pair<Array<Int>, Array<Int>> {
             particionDer = obtenerPuntosRectangulo(P,nuevoRectanguloDer2)
         }
     }
-    return particionIzq to particionDer
+    return pair(particionIzq, particionDer)
 }
 
 
