@@ -32,7 +32,7 @@ fun combinarCiclos(
         return A
     }
 
-    var minG = 1.0  // INfinito REVISAR
+    var minG = Double.MAX_VALUE  // INfinito REVISAR
 
     var ladosAgregarC1 = arrayOf<Array<Pair<Double, Double>>>()
     var ladosAgregarC2 = arrayOf<Array<Pair<Double, Double>>>()
@@ -40,7 +40,7 @@ fun combinarCiclos(
     var ladosEliminarC2 = arrayOf<Array<Pair<Double, Double>>>()
 
     for (lado in A) {
-        do {
+        
             val dOLD1 = distancia(lado[0], lado[1])
 
             for (ladoB in B) {
@@ -68,26 +68,12 @@ fun combinarCiclos(
                     ladosEliminarC1 += arrayOf<Pair<Double, Double>>(lado[0], lado[1])
                     ladosEliminarC2 += arrayOf<Pair<Double, Double>>(ladoB[0], ladoB[1])
                 }
-            }
         }
-
-    }
-    for (lados in ladosEliminarC1) {
-        A.remove(lados) // No sé si esto funciona
     }
     
-    for (lados in ladosEliminarC2) {
-        B.remove(lados)
-    }
+    val C = A.filter { it != ladosEliminarC1 } + ladosAgregarC1 + ladosAgregarC2 + B.filter { it != ladosEliminarC2 }
     
-    var C = A + ladosAgregarC1 + ladosAgregarC2 + B
-    
-    return C
+    return C.toTypedArray()
     
 }
 
-
-fun divideAndConquerAndLocalSearchTSP(P: Array<Pair<Double, Double>>) {
-    val c1 = divideAndConquerTSP(P)
-    return busquedaLocalCon20PT(c1) // Por hacer está en wikipedia link en pdf
-}
