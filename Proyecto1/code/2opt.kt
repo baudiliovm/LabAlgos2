@@ -1,7 +1,7 @@
 fun distanciaTotal(P: Array<Array<Pair<Double, Double>>>): Double {
     var distanciaTotal = 0.0
     for (i in 0 until P.size - 1) {
-        distanciaTotal += distancia(P[i], P[i + 1])
+        distanciaTotal += distancia(P[i][0], P[i + 1][0])
     }
     return distanciaTotal
 }
