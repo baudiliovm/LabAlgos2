@@ -8,15 +8,8 @@ fun distanciaTotal(P: Array<Array<Pair<Double, Double>>>): Double {
 
 fun optswap(P: Array<Array<Pair<Double, Double>>>, i: Int, j: Int): Array<Array<Pair<Double, Double>>> {
     var nuevaRuta = P.clone()
-
-    for (k in 0 until i) {
-        nuevaRuta[k] = P[k]
-    }
     for (k in i..j) {
         nuevaRuta[k] = P[j - k + i]  // Reversa
-    }
-    for (k in j+1 until P.size) {
-        nuevaRuta[k] = P[k]
     }
     return nuevaRuta
 }
