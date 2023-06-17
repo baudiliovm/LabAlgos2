@@ -268,11 +268,62 @@ fun divideAndConquerTSP(P: Array<Pair<Double, Double>>): Array<Array<Pair<Double
     }
 }
 
+fun distanciaTotal(P: Array<Array<Pair<Double, Double>>>): Double {
+    var distanciaTotal = 0.0
+    for (i in 0 until P.size - 1) {
+        distanciaTotal += distancia(P[i][0], P[i + 1][0])
+    }
+    return distanciaTotal
+}
+
+fun optswap(P: Array<Array<Pair<Double, Double>>>, i: Int, j: Int): Array<Array<Pair<Double, Double>>> {
+    var nuevaRuta = P.clone()
+    for (k in i..j) {
+        nuevaRuta[k] = P[j - k + i]  // Reversa
+    }
+    return nuevaRuta
+}
+
+fun busquedaLocalCon20PT(
+    P: Array<Array<Pair<Double, Double>>>
+): Array<Array<Pair<Double, Double>>> {
+
+    var huboMejora = true
+    var n = P.size
+    var rutaExistente = P.clone()
+
+    while (huboMejora) {
+        huboMejora = false
+        var mejorDistancia = distanciaTotal(P)
+        for (i in 0 until n-1) {
+            for (j in i+1 until n) {
+                var nuevaRuta = optswap(P, i, j)
+                var nuevaDistancia = distanciaTotal(nuevaRuta)
+                if (nuevaDistancia < mejorDistancia) {
+                    rutaExistente = nuevaRuta
+                    mejorDistancia = nuevaDistancia
+                    huboMejora = true
+                }
+            }
+        }
+    }
+    return rutaExistente
+}
+
+
+
+fun divideAndConquerAndLocalSearchTSP(
+    P: Array<Pair<Double, Double>>
+): Array<Array<Pair<Double, Double>>> {
+    val c1 = divideAndConquerTSP(P)
+    return busquedaLocalCon20PT(c1)
+}
+
 
 fun main(args: Array<String>) {
   val a = arrayOf(Pair(1.0, 2.0), Pair(3.0, 4.0), Pair(5.0, 6.0), Pair(7.0, 8.0))
 
-  val c = divideAndConquerTSP(a)
+  val c = divideAndConquerAndLocalSearchTSP(a)
   for (i in 0 until c.size){
     println(c[i].joinToString())
   }
