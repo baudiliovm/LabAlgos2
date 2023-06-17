@@ -1,26 +1,96 @@
-fun obtenerCoordenadasRectangulo(P: Array<Pair<Int, Int>>): Pair<Pair<Int, Int>, Pair<Int, Int>> {
+fun merge(U: Array<Pair<Double, Double>>, V: Array<Pair<Double, Double>>, T: Array<Pair<Double, Double>>, ejeDeCorte: String) {
+    val m = U.size
+    val n = V.size
+    var i = 0
+    var j = 0
+    if (ejeDeCorte == "X"){
+        for (k in 0 until T.size) {
+            if ((i < m) && (j >= n || U[i].first < V[j].first)) {
+                T[k] = U[i]
+                i += 1
+            } else {
+                T[k] = V[j]
+                j += 1
+            }
+        }
+    }
+    else{
+        for (k in 0 until T.size) {
+            if ((i < m) && (j >= n || U[i].second < V[j].second)) {
+                T[k] = U[i]
+                i += 1
+            } else {
+                T[k] = V[j]
+                j += 1
+            }
+        }
+    }
+}
+
+fun swap(A: Array<Pair<Double, Double>>, i: Int, j: Int) {
+    var temp = A[i]
+    A[i] = A[j]
+    A[j] = temp
+}
+
+fun insertionSort(A: Array<Pair<Double, Double>>, ejeDeCorte: String) {
+    val n = A.size
+    if (ejeDeCorte == "X"){
+        for (i in 1 until n) {
+            var j = i
+            while (j > 0 && A[j].first < A[j - 1].first) {
+                swap(A, j, j - 1)
+                j = j - 1
+            }
+        }
+    }
+    else {
+        for (i in 1 until n) {
+            var j = i
+            while (j > 0 && A[j].second < A[j - 1].second) {
+                swap(A, j, j - 1)
+                j = j - 1
+            }
+        }
+    } 
+}
+
+fun mergesortInsertion(T: Array<Pair<Double, Double>>, ejeDeCorte: String) {
+    if (T.size < 20) {
+        insertionSort(T,ejeDeCorte)
+    } else {
+        val floor = T.size / 2
+        var U = T.copyOfRange(0, floor)
+        var V = T.copyOfRange(floor, T.size)
+        mergesortInsertion(U,ejeDeCorte)
+        mergesortInsertion(V,ejeDeCorte)
+        merge(U, V, T,ejeDeCorte)
+    }
+}
+
+fun obtenerCoordenadasRectangulo(P: Array<Pair<Double, Double>>): Pair<Pair<Double, Double>, Pair<Double, Double>> {
     val xCoords = P.map { it.first }
     val yCoords = P.map { it.second }
-    val xMin = xCoords.minOrNull() ?: 0
-    val xMax = xCoords.maxOrNull() ?: 0
-    val yMin = yCoords.minOrNull() ?: 0
-    val yMax = yCoords.maxOrNull() ?: 0
+    val xMin = xCoords.minOrNull() ?: 0.0
+    val xMax = xCoords.maxOrNull() ?: 0.0
+    val yMin = yCoords.minOrNull() ?: 0.0
+    val yMax = yCoords.maxOrNull() ?: 0.0
     return Pair(Pair(xMin, yMin), Pair(xMax, yMax))
 }
 
 
-fun obtenerPuntoDeCorte(P: Array<Pair<Int, Int>>, ejeDeCorte: String): Pair<Int, Int> {
+fun obtenerPuntoDeCorte(P: Array<Pair<Double, Double>>, ejeDeCorte: String): Pair<Double, Double> {
     val n = P.size
     val pos = (n / 2) - 1
     if (ejeDeCorte == "X") {
-        P.sortWith(compareBy({ it.first }, { it.second }))
+        mergesortInsertion(P,ejeDeCorte)
     } else {
-        P.sortWith(compareBy({ it.second }, { it.first }))
+        mergesortInsertion(P,ejeDeCorte)
     }
     return P[pos]
 }
 
-fun aplicarCorte(ejeDeCorte: String, corte: Pair<Int, Int>, rectangulo: Pair<Pair<Int, Int>, Pair<Int, Int>>): Pair<Pair<Pair<Int, Int>, Pair<Int, Int>>, Pair<Pair<Int, Int>, Pair<Double, Double>>> {
+fun aplicarCorte(ejeDeCorte: String, corte: Pair<Double, Double>, rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>): Pair<Pair<Pair<Double, Double>, Pair<Double, Double>>, Pair<Pair<Double, Double>, Pair<Double, Double>>> {
     val (xc, yc) = corte
     val (rectanguloIzq, rectanguloDer) = if (ejeDeCorte == "X") {
         val rectanguloIzq = Pair(rectangulo.first, Pair(xc, rectangulo.second.second))
