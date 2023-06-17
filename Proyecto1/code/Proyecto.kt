@@ -257,7 +257,7 @@ fun divideAndConquerTSP(P: Array<Pair<Double, Double>>): Array<Array<Pair<Double
         return tour
     }
     else if (n == 3){
-        val tour =  arrayOf(arrayOf(P[0],P[1]), arrayOf(P[0],P[1]), arrayOf(P[1],P[2]))
+        val tour =  arrayOf(arrayOf(P[0],P[1]), arrayOf(P[0],P[2]), arrayOf(P[1],P[2]))
         return tour
     }
     else {
@@ -273,5 +273,8 @@ fun main(args: Array<String>) {
   val a = arrayOf(Pair(1.0, 2.0), Pair(3.0, 4.0), Pair(5.0, 6.0), Pair(7.0, 8.0))
 
   val c = divideAndConquerTSP(a)
+  for (i in 0 until c.size){
+    println(c[i].joinToString())
+  }
   
 }
