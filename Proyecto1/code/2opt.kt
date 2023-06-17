@@ -37,11 +37,14 @@ fun busquedaLocalCon20PT(
             }
         }
     }
+    return rutaExistente
 }
 
 
 
-fun divideAndConquerAndLocalSearchTSP(P: Array<Pair<Double, Double>>) {
+fun divideAndConquerAndLocalSearchTSP(
+    P: Array<Pair<Double, Double>>
+): Array<Array<Pair<Double, Double>>> {
     val c1 = divideAndConquerTSP(P)
     return busquedaLocalCon20PT(c1)
 }
