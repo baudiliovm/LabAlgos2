@@ -1,6 +1,10 @@
 import kotlin.math.sqrt
 import java.io.File
 import kotlin.collections.forEach
+import kotlin.collections.*
+import kotlin.Pair
+import java.lang.*
+import java.util.*
 
 fun distanciaGanada(
     dOLD1: Double, 
@@ -86,40 +90,71 @@ fun combinarCiclos(
             }
         }
     }
+    
+    /*println("a")
+    
+    for (i in 0 until A.size) {
+        println(A[i].joinToString())
+    } 
+    */
 
     var nuevoA = arrayOf<Array<Pair<Double, Double>>>()
     var nuevoB = arrayOf<Array<Pair<Double, Double>>>()
-
+    var contadorA = 0
+    var contadorB = 0
     for (lado in A) {
         var agregar = true
         for (ladoEliminar in ladosEliminarC1) {
+            if (contadorA == ladosEliminarC1.size){
+                break
+            }
             if (lado[0] == ladoEliminar[0] && lado[1] == ladoEliminar[1]) {
+                contadorA++
                 agregar = false
             }
         }
-        if (agregar) {
+        if (agregar == true) {
             nuevoA += arrayOf<Pair<Double, Double>>(lado[0], lado[1])
-        }
+            }
+        
     }
-    
-    // Prueba
-    for (ladoB in B) {
+     for (lado in B) {
         var agregar = true
-        for (ladoEliminarB in ladosEliminarC2) {
-            if (ladoB[0] == ladoEliminarB[0] && ladoB[1] == ladoEliminarB[1]) {
+        for (ladoEliminar in ladosEliminarC2) {
+            if (contadorB == ladosEliminarC2.size){
+                break
+            }
+            if (lado[0] == ladoEliminar[0] && lado[1] == ladoEliminar[1]) {
+                contadorB++
                 agregar = false
             }
         }
-        if (agregar) {
-            nuevoB += arrayOf<Pair<Double, Double>>(ladoB[0], ladoB[1])
-        }
+        if (agregar == true) {
+            nuevoB += arrayOf<Pair<Double, Double>>(lado[0], lado[1])
+            }
+        
     }
-
     
+     println("nuevoA")
 
-    val C = nuevoA + ladosAgregarC1 + ladosAgregarC2 + nuevoB
+    for (i in 0 until nuevoA.size) {
+        println(nuevoA[i].joinToString())
+    } 
+
+    println("nuevoB")
+
+    for (i in 0 until nuevoB.size) {
+        println(nuevoB[i].joinToString())
+    } 
     
-    return C
+    
+    val c = nuevoA + ladosAgregarC1 + ladosAgregarC2 + nuevoB
+    println("C")
+
+    for (i in 0 until c.size) {
+        println(c[i].joinToString())
+    } 
+    return c
     
 }
 
@@ -136,9 +171,21 @@ fun merge(
     var j = 0
     if (ejeDeCorte == "X"){
         for (k in 0 until T.size) {
-            if ((i < m) && (j >= n || U[i].first < V[j].first)) {
-                T[k] = U[i]
-                i += 1
+            if ((i < m) && (j >= n || U[i].first <= V[j].first)) {
+                if(U[i].first < V[j].first){
+                    T[k] = U[i]
+                    i += 1
+                }
+                if(U[i].first == V[j].first){
+                    if(U[i].second <= V[j].second){
+                        T[k] = U[i]
+                        i += 1
+                    }
+                    else {
+                        T[k] = V[j]
+                        j += 1
+                    }
+                }
             } else {
                 T[k] = V[j]
                 j += 1
@@ -147,9 +194,21 @@ fun merge(
     }
     else{
         for (k in 0 until T.size) {
-            if ((i < m) && (j >= n || U[i].second < V[j].second)) {
-                T[k] = U[i]
-                i += 1
+            if ((i < m) && (j >= n || U[i].second <= V[j].second)) {
+                if(U[i].second < V[j].second){
+                    T[k] = U[i]
+                    i += 1
+                }
+                if(U[i].second == V[j].second){
+                    if(U[i].first <= V[j].first){
+                        T[k] = U[i]
+                        i += 1
+                    }
+                    else {
+                        T[k] = V[j]
+                        j += 1
+                    }
+                }
             } else {
                 T[k] = V[j]
                 j += 1
@@ -169,9 +228,17 @@ fun insertionSort(A: Array<Pair<Double, Double>>, ejeDeCorte: String) {
     if (ejeDeCorte == "X"){
         for (i in 1 until n) {
             var j = i
-            while (j > 0 && A[j].first < A[j - 1].first) {
-                swap(A, j, j - 1)
-                j = j - 1
+            while (j > 0 && A[j].first <= A[j - 1].first) {
+                if(A[j].first == A[j - 1].first){
+                    if(A[j].second <= A[j - 1].second){
+                        swap(A, j, j - 1)
+                        j = j - 1
+                    }
+                }
+                else{
+                    swap(A, j, j - 1)
+                    j = j - 1
+                }
             }
         }
     }
@@ -179,8 +246,16 @@ fun insertionSort(A: Array<Pair<Double, Double>>, ejeDeCorte: String) {
         for (i in 1 until n) {
             var j = i
             while (j > 0 && A[j].second < A[j - 1].second) {
-                swap(A, j, j - 1)
-                j = j - 1
+                if(A[j].second == A[j - 1].second){
+                    if(A[j].first <= A[j - 1].first){
+                        swap(A, j, j - 1)
+                        j = j - 1
+                    }
+                }
+                else{
+                    swap(A, j, j - 1)
+                    j = j - 1
+                }
             }
         }
     } 
@@ -231,11 +306,11 @@ fun aplicarCorte(
     val (xc, yc) = corte
     val (rectanguloIzq, rectanguloDer) = if (ejeDeCorte == "X") {
         val rectanguloIzq = Pair(rectangulo.first, Pair(xc, rectangulo.second.second))
-        val rectanguloDer = Pair(Pair(xc, rectangulo.first.second), rectangulo.second)
+        val rectanguloDer = Pair(Pair(xc+1, rectangulo.first.second), rectangulo.second)
         Pair(rectanguloIzq, rectanguloDer)
     } else {
         val rectanguloIzq = Pair(rectangulo.first, Pair(rectangulo.second.first, yc))
-        val rectanguloDer = Pair(Pair(rectangulo.first.first, yc), rectangulo.second)
+        val rectanguloDer = Pair(Pair(rectangulo.first.first, yc+1), rectangulo.second)
         Pair(rectanguloIzq, rectanguloDer)
     }
     return Pair(rectanguloIzq, rectanguloDer)
@@ -317,7 +392,7 @@ fun divideAndConquerTSP(P: Array<Pair<Double, Double>>): Array<Array<Pair<Double
         return tour
     }
     else if (n == 2){
-        val tour = arrayOf(arrayOf(P[0],P[1]), arrayOf(P[0],P[1]))
+        val tour = arrayOf(arrayOf(P[0],P[1]),arrayOf(P[0],P[1]))
         return tour
     }
     else if (n == 3){
@@ -329,6 +404,7 @@ fun divideAndConquerTSP(P: Array<Pair<Double, Double>>): Array<Array<Pair<Double
         val c1 = divideAndConquerTSP(P1)
         val c2 = divideAndConquerTSP(P2)
         return combinarCiclos(c1, c2)
+
     }
 }
 
@@ -439,19 +515,23 @@ fun main(args: Array<String>) {
     println(tourHecho.joinToString())
     
     
-    /* dis = distanciaTotal(c)
-    val d = arrayOf(arrayOf(Pair(1.0, 1.0), Pair(4.0, 0.0), Pair(5.0, 1.0), Pair(7.0, 3.0), Pair(10.0, 7.0), Pair(6.0, 6.0), Pair(3.0, 8.0), Pair(0.0, 9.0), Pair(1.0, 1.0)))
+    val dis = distanciaTotal(c)
+    /*val d = arrayOf(arrayOf(Pair(1.0, 1.0), Pair(4.0, 0.0), Pair(5.0, 1.0), Pair(7.0, 3.0), Pair(10.0, 7.0), Pair(6.0, 6.0), Pair(3.0, 8.0), Pair(0.0, 9.0), Pair(1.0, 1.0)))
 
     val c = arrayOf(arrayOf(Pair(1.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(7.0, 3.0)), arrayOf(Pair(10.0, 7.0), Pair(7.0, 3.0)), arrayOf(Pair(10.0, 7.0), Pair(6.0, 6.0)), arrayOf(Pair(6.0, 6.0), Pair(3.0, 8.0)), arrayOf(Pair(3.0, 8.0), Pair(0.0, 9.0)), arrayOf(Pair(0.0, 9.0), Pair(1.0, 1.0)))
     solucion*/
     
-     
-    for (i in 0 until c.size) {
+     /* 
+   for (i in 0 until c.size) {
         println(c[i].joinToString())
-    }
+    }*/
     
-    /*println(dis)
-
+    println(dis)
+    println(c[0][0])
+    println(ciu.indexOf(c[0][0]))
+    println(ciu[0])
+    /* 
     // ciudadesArchivo(c, "prueba.txt") 
     */
+
 }
