@@ -1,3 +1,6 @@
+import java.io.File
+import kotlin.collections.forEach
+
 fun distanciaTotal(P: Array<Array<Pair<Double, Double>>>): Double {
     var distanciaTotal = 0.0
     for (i in 0 until P.size - 1) {
@@ -42,6 +45,7 @@ fun busquedaLocalCon20PT(
 
 
 
+
 fun divideAndConquerAndLocalSearchTSP(
     P: Array<Pair<Double, Double>>
 ): Array<Array<Pair<Double, Double>>> {
@@ -49,3 +53,12 @@ fun divideAndConquerAndLocalSearchTSP(
     return busquedaLocalCon20PT(c1)
 }
 
+
+
+fun main(args: Array<String>) {
+    val filename = args[0]
+    val lines:Array<String> = File(filename).readLines().toTypedArray()
+
+    lines.forEach {line -> println(line.split("\\s".toRegex())) }
+
+}

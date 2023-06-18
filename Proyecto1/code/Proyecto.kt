@@ -1,4 +1,6 @@
 import kotlin.math.sqrt
+import java.io.File
+import kotlin.collections.forEach
 
 fun distanciaGanada(
     dOLD1: Double, 
@@ -270,8 +272,10 @@ fun divideAndConquerTSP(P: Array<Pair<Double, Double>>): Array<Array<Pair<Double
 
 fun distanciaTotal(P: Array<Array<Pair<Double, Double>>>): Double {
     var distanciaTotal = 0.0
-    for (i in 0 until P.size - 1) {
-        distanciaTotal += distancia(P[i][0], P[i + 1][0])
+    for (i in 0 until P.size) {
+        val x = P[i][0]
+        val y = P[i][1]
+        distanciaTotal += distancia(x, y)
     }
     return distanciaTotal
 }
@@ -320,12 +324,47 @@ fun divideAndConquerAndLocalSearchTSP(
 }
 
 
-fun main(args: Array<String>) {
-  val a = arrayOf(Pair(1.0, 2.0), Pair(3.0, 4.0), Pair(5.0, 6.0), Pair(7.0, 8.0))
 
-  val c = divideAndConquerAndLocalSearchTSP(a)
-  for (i in 0 until c.size){
-    println(c[i].joinToString())
-  }
-  
+fun archivoCiudades(archivo: String): Array<Pair<Double, Double>> {
+    val lineas:Array<String> = File(archivo).readLines().toTypedArray()
+    var ciudades = Array<Pair<Double, Double>>(0) { Pair(0.0, 0.0) }
+
+    for (linea in lineas) {
+        val lineSplit = linea.split("\\s".toRegex()).toTypedArray()
+        try {
+            lineSplit[0].toInt()        // Verifica si es un número
+        } catch (e: NumberFormatException) {
+            continue
+        }
+        val x = lineSplit[1].toDouble()
+        val y = lineSplit[2].toDouble()
+        ciudades += Pair(x, y)          // Agrega la ciudad a la lista
+    }
+    return ciudades
+}
+
+fun ciudadesArchivo(ciudades: Array<Array<Pair<Double, Double>>>, archivo: String) {
+    val writer = File(archivo).bufferedWriter()
+    writer.write("COMMENT : Length ${ciudades.size}")
+    writer.newLine()
+    writer.close()
+}
+
+
+fun main(args: Array<String>) {
+    val a = arrayOf(Pair(1.0, 1.0), Pair(0.0, 9.0), Pair(3.0, 8.0), Pair(4.0, 0.0), Pair(6.0, 6.0), Pair(10.0, 7.0), Pair(5.0, 1.0), Pair(7.0, 3.0))
+    // val c = divideAndConquerTSP(a)
+    val d = arrayOf(arrayOf(Pair(1.0, 1.0), Pair(4.0, 0.0), Pair(5.0, 1.0), Pair(7.0, 3.0), Pair(10.0, 7.0), Pair(6.0, 6.0), Pair(3.0, 8.0), Pair(0.0, 9.0), Pair(1.0, 1.0)))
+
+    val c = arrayOf(arrayOf(Pair(1.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(7.0, 3.0)), arrayOf(Pair(10.0, 7.0), Pair(6.0, 6.0)), arrayOf(Pair(6.0, 6.0), Pair(3.0, 8.0)), arrayOf(Pair(3.0, 8.0), Pair(0.0, 9.0)), arrayOf(Pair(0.0, 9.0), Pair(1.0, 1.0)))
+    /*
+    for (i in 0 until c.size) {
+        println(c[i].joinToString())
+    } 
+    */
+
+    println(distanciaTotal(c))
+    println(distanciaTotal(d))
+
+    // ciudadesArchivo(c, "prueba.txt")
 }
