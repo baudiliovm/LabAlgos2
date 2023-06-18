@@ -1,3 +1,3 @@
 #!/usr/bin/bash
 
-kotlin VerificardorTSPKt.class $*
+kotlin VerificadorTSPKt.class $*

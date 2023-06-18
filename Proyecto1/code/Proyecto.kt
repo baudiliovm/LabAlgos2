@@ -11,10 +11,24 @@ fun distanciaGanada(
     return (dNEW1 + dNEW2) - (dOLD1 + dOLD2)
 }
 
-fun distancia(a: Pair<Double,Double>, b: Pair<Double, Double>): Double {
-    val x = a.first - b.first
-    val y = a.second - b.second
+fun distancia(a: Array<Pair<Double, Double>>): Double {
+    val x = a[1].first - a[0].first
+    val y = a[1].second - a[0].second
     return sqrt(x*x + y*y)
+}
+
+fun distanciaDNew(a: Pair<Double, Double>, b: Pair<Double, Double>): Double{
+    val x = b.first - a.first
+    val y = b.second - a.second
+    return sqrt(x*x  + y*y)
+}
+
+fun distanciaTotal(P: Array<Array<Pair<Double, Double>>>): Double {
+    var distanciaTotal = 0.0
+    for (i in 0 until P.size) {
+        distanciaTotal += distancia(P[i])
+    }
+    return distanciaTotal
 }
 
 fun min(a: Double, b: Double): Double {
@@ -43,47 +57,79 @@ fun combinarCiclos(
 
     for (lado in A) {
         
-            val dOLD1 = distancia(lado[0], lado[1])
+        val dOLD1 = distancia(lado)
 
-            for (ladoB in B) {
+        for (ladoB in B) {
 
-                val dOLD2 = distancia(ladoB[0], ladoB[1])
-                val dNEW1 = distancia(lado[0], ladoB[0])
-                val dNEW2 = distancia(lado[1], ladoB[1])
-                val dNEW3 = distancia(lado[0], ladoB[1])
-                val dNEW4 = distancia(lado[1], ladoB[0])
-                val g1 = distanciaGanada(dOLD1, dOLD2, dNEW1, dNEW2)
-                val g2 = distanciaGanada(dOLD1, dOLD2, dNEW3, dNEW4)
-                var ganancia = min(g1, g2)
+            val dOLD2 = distancia(ladoB)
+            val dNEW1 = distanciaDNew(lado[0], ladoB[0])
+            val dNEW2 = distanciaDNew(lado[1], ladoB[1])
+            val dNEW3 = distanciaDNew(lado[0], ladoB[1])
+            val dNEW4 = distanciaDNew(lado[1], ladoB[0])
+            val g1 = distanciaGanada(dOLD1, dOLD2, dNEW1, dNEW2)
+            val g2 = distanciaGanada(dOLD1, dOLD2, dNEW3, dNEW4)
+            var ganancia = min(g1, g2)
 
-                if (ganancia < minG) {
+            if (ganancia < minG) {
 
-                    minG = ganancia
+                minG = ganancia
 
-                    if (g1 < g2) {
-                        ladosAgregarC1 += arrayOf<Pair<Double, Double>>(lado[0], ladoB[0])
-                        ladosAgregarC2 += arrayOf<Pair<Double, Double>>(lado[1], ladoB[1])
-                    } else {
-                        ladosAgregarC1 += arrayOf<Pair<Double, Double>>(lado[0], ladoB[1])
-                        ladosAgregarC2 += arrayOf<Pair<Double, Double>>(lado[1], ladoB[0])
-                    }
-                    ladosEliminarC1 += arrayOf<Pair<Double, Double>>(lado[0], lado[1])
-                    ladosEliminarC2 += arrayOf<Pair<Double, Double>>(ladoB[0], ladoB[1])
+                if (g1 < g2) {
+                    ladosAgregarC1 += arrayOf<Pair<Double, Double>>(lado[0], ladoB[0])
+                    ladosAgregarC2 += arrayOf<Pair<Double, Double>>(lado[1], ladoB[1])
+                } else {
+                    ladosAgregarC1 += arrayOf<Pair<Double, Double>>(lado[0], ladoB[1])
+                    ladosAgregarC2 += arrayOf<Pair<Double, Double>>(lado[1], ladoB[0])
                 }
+                ladosEliminarC1 += arrayOf<Pair<Double, Double>>(lado[0], lado[1])
+                ladosEliminarC2 += arrayOf<Pair<Double, Double>>(ladoB[0], ladoB[1])
+            }
+        }
+    }
+
+    var nuevoA = arrayOf<Array<Pair<Double, Double>>>()
+    var nuevoB = arrayOf<Array<Pair<Double, Double>>>()
+
+    for (lado in A) {
+        var agregar = true
+        for (ladoEliminar in ladosEliminarC1) {
+            if (lado[0] == ladoEliminar[0] && lado[1] == ladoEliminar[1]) {
+                agregar = false
+            }
+        }
+        if (agregar) {
+            nuevoA += arrayOf<Pair<Double, Double>>(lado[0], lado[1])
         }
     }
     
-    val nuevoA = A.filter { it != ladosEliminarC1 }
-    val nuevoB = B.filter { it != ladosEliminarC2 }
+    // Prueba
+    for (ladoB in B) {
+        var agregar = true
+        for (ladoEliminarB in ladosEliminarC2) {
+            if (ladoB[0] == ladoEliminarB[0] && ladoB[1] == ladoEliminarB[1]) {
+                agregar = false
+            }
+        }
+        if (agregar) {
+            nuevoB += arrayOf<Pair<Double, Double>>(ladoB[0], ladoB[1])
+        }
+    }
+
     
+
     val C = nuevoA + ladosAgregarC1 + ladosAgregarC2 + nuevoB
     
-    return C.toTypedArray()
+    return C
     
 }
 
 
-fun merge(U: Array<Pair<Double, Double>>, V: Array<Pair<Double, Double>>, T: Array<Pair<Double, Double>>, ejeDeCorte: String) {
+fun merge(
+    U: Array<Pair<Double, Double>>, 
+    V: Array<Pair<Double, Double>>, 
+    T: Array<Pair<Double, Double>>, 
+    ejeDeCorte: String
+) {
     val m = U.size
     val n = V.size
     var i = 0
@@ -153,7 +199,9 @@ fun mergesortInsertion(T: Array<Pair<Double, Double>>, ejeDeCorte: String) {
     }
 }
 
-fun obtenerCoordenadasRectangulo(P: Array<Pair<Double, Double>>): Pair<Pair<Double, Double>, Pair<Double, Double>> {
+fun obtenerCoordenadasRectangulo(
+    P: Array<Pair<Double, Double>>
+): Pair<Pair<Double, Double>, Pair<Double, Double>> {
     val xCoords = P.map { it.first }
     val yCoords = P.map { it.second }
     val xMin = xCoords.minOrNull() ?: 0.0
@@ -175,7 +223,11 @@ fun obtenerPuntoDeCorte(P: Array<Pair<Double, Double>>, ejeDeCorte: String): Pai
     return P[pos]
 }
 
-fun aplicarCorte(ejeDeCorte: String, corte: Pair<Double, Double>, rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>): Pair<Pair<Pair<Double, Double>, Pair<Double, Double>>, Pair<Pair<Double, Double>, Pair<Double, Double>>> {
+fun aplicarCorte(
+    ejeDeCorte: String, 
+    corte: Pair<Double, Double>, 
+    rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>
+): Pair<Pair<Pair<Double, Double>, Pair<Double, Double>>, Pair<Pair<Double, Double>, Pair<Double, Double>>> {
     val (xc, yc) = corte
     val (rectanguloIzq, rectanguloDer) = if (ejeDeCorte == "X") {
         val rectanguloIzq = Pair(rectangulo.first, Pair(xc, rectangulo.second.second))
@@ -189,7 +241,10 @@ fun aplicarCorte(ejeDeCorte: String, corte: Pair<Double, Double>, rectangulo: Pa
     return Pair(rectanguloIzq, rectanguloDer)
 }
 
-fun obtenerPuntoDeCorteMitad(rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>, eje: String): Pair<Double, Double> {
+fun obtenerPuntoDeCorteMitad(
+    rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>,
+    eje: String
+): Pair<Double, Double> {
     val (xMin, yMin) = rectangulo.first
     val (xMax, yMax) = rectangulo.second
 
@@ -203,14 +258,19 @@ fun obtenerPuntoDeCorteMitad(rectangulo: Pair<Pair<Double, Double>, Pair<Double,
     return puntoDeCorte
 }
 
-fun obtenerPuntosRectangulo(P: Array<Pair<Double, Double>>, rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>): Array<Pair<Double, Double>> {
+fun obtenerPuntosRectangulo(
+    P: Array<Pair<Double, Double>>, 
+    rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>
+): Array<Pair<Double, Double>> {
     val (xMin, yMin) = rectangulo.first
     val (xMax, yMax) = rectangulo.second
     val particion = P.filter { (x, y) -> x >= xMin && x <= xMax && y >= yMin && y <= yMax }.toTypedArray()
     return particion
 }
 
-fun obtenerDimensiones(rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>): Pair<Double,Double>{
+fun obtenerDimensiones(
+    rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>
+): Pair<Double,Double>{
     val (xMin, yMin) = rectangulo.first
     val (xMax, yMax) = rectangulo.second
     val xDim = xMax - xMin
@@ -218,7 +278,9 @@ fun obtenerDimensiones(rectangulo: Pair<Pair<Double, Double>, Pair<Double, Doubl
     return Pair(xDim,yDim) 
 }
 
-fun obtenerParticiones(P: Array<Pair<Double, Double>>): Pair<Array<Pair<Double, Double>>, Array<Pair<Double, Double>>> {
+fun obtenerParticiones(
+    P: Array<Pair<Double, Double>>
+): Pair<Array<Pair<Double, Double>>, Array<Pair<Double, Double>>> {
     val rectangulo = obtenerCoordenadasRectangulo(P)
     val (Xdim, Ydim) = obtenerDimensiones(rectangulo)
     val ejeDeCorte = if (Xdim > Ydim) "X" else "Y"
@@ -259,7 +321,7 @@ fun divideAndConquerTSP(P: Array<Pair<Double, Double>>): Array<Array<Pair<Double
         return tour
     }
     else if (n == 3){
-        val tour =  arrayOf(arrayOf(P[0],P[1]), arrayOf(P[0],P[2]), arrayOf(P[1],P[2]))
+        val tour =  arrayOf(arrayOf(P[0],P[1]), arrayOf(P[1],P[2]), arrayOf(P[0],P[2]))
         return tour
     }
     else {
@@ -270,17 +332,11 @@ fun divideAndConquerTSP(P: Array<Pair<Double, Double>>): Array<Array<Pair<Double
     }
 }
 
-fun distanciaTotal(P: Array<Array<Pair<Double, Double>>>): Double {
-    var distanciaTotal = 0.0
-    for (i in 0 until P.size) {
-        val x = P[i][0]
-        val y = P[i][1]
-        distanciaTotal += distancia(x, y)
-    }
-    return distanciaTotal
-}
-
-fun optswap(P: Array<Array<Pair<Double, Double>>>, i: Int, j: Int): Array<Array<Pair<Double, Double>>> {
+fun optswap(
+    P: Array<Array<Pair<Double, Double>>>, 
+    i: Int, 
+    j: Int
+): Array<Array<Pair<Double, Double>>> {
     var nuevaRuta = P.clone()
     for (k in i..j) {
         nuevaRuta[k] = P[j - k + i]  // Reversa
@@ -323,7 +379,20 @@ fun divideAndConquerAndLocalSearchTSP(
     return busquedaLocalCon20PT(c1)
 }
 
-
+fun ciudadesVisitadas(ciudades: Array<Pair<Double, Double>>, tour: Array<Array<Pair<Double, Double>>>): Array<Int>{
+    val a = Array<Int>(tour.size+1) {1}
+    a[0] = ciudades.indexOf(tour[0][0])+1
+    a[1] = ciudades.indexOf(tour[0][1])+1
+    for (i in 2 until tour.size+1){
+        if(tour[i-2].indexOf(tour[i-1][0]) == -1){
+            a[i] = ciudades.indexOf(tour[i-1][0])+1
+        }
+        if(tour[i-2].indexOf(tour[i-1][1]) == -1){
+            a[i] = ciudades.indexOf(tour[i-1][1])+1
+        }
+    }
+    return a
+}
 
 fun archivoCiudades(archivo: String): Array<Pair<Double, Double>> {
     val lineas:Array<String> = File(archivo).readLines().toTypedArray()
@@ -343,28 +412,46 @@ fun archivoCiudades(archivo: String): Array<Pair<Double, Double>> {
     return ciudades
 }
 
-fun ciudadesArchivo(ciudades: Array<Array<Pair<Double, Double>>>, archivo: String) {
+fun ciudadesArchivo(ciudades: Array<Array<Pair<Double, Double>>>, archivo: String, archivoInicial: String) {
     val writer = File(archivo).bufferedWriter()
-    writer.write("COMMENT : Length ${ciudades.size}")
+    writer.write("NAME: $archivo.out\nCOMMENT : Length ${distanciaTotal(ciudades)}\nTYPE : TOUR\nDIMENSION : ${ciudades.size}\nTOUR_SECTION")
     writer.newLine()
+
     writer.close()
+
+    //println("$name ${distanciaTotal(tsp)} ${distanciaTotal(ciudades)}")
 }
 
 
 fun main(args: Array<String>) {
-    val a = arrayOf(Pair(1.0, 1.0), Pair(0.0, 9.0), Pair(3.0, 8.0), Pair(4.0, 0.0), Pair(6.0, 6.0), Pair(10.0, 7.0), Pair(5.0, 1.0), Pair(7.0, 3.0))
-    // val c = divideAndConquerTSP(a)
+    /*val nombreArchivo = args[0]
+    val nombreArchivoFinal = args[1]
+    v
+
+ ciudades = archivoCiudades(nombreArchivo)     val tour = divideAndConquerAndLocalSearchTSP(ciudades)
+    ciudadesArchivo(tour,nombreArchivoFinal,nombreArchivo)
+    */  
+
+
+    val ciu = arrayOf(Pair(1.0, 1.0), Pair(0.0, 9.0), Pair(3.0, 8.0), Pair(4.0, 0.0), Pair(6.0, 6.0), Pair(10.0, 7.0), Pair(5.0, 1.0), Pair(7.0, 3.0))
+    val c = divideAndConquerAndLocalSearchTSP(ciu)
+    val tourHecho = ciudadesVisitadas(ciu,c)
+    println(tourHecho.joinToString())
+    
+    
+    /* dis = distanciaTotal(c)
     val d = arrayOf(arrayOf(Pair(1.0, 1.0), Pair(4.0, 0.0), Pair(5.0, 1.0), Pair(7.0, 3.0), Pair(10.0, 7.0), Pair(6.0, 6.0), Pair(3.0, 8.0), Pair(0.0, 9.0), Pair(1.0, 1.0)))
 
-    val c = arrayOf(arrayOf(Pair(1.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(7.0, 3.0)), arrayOf(Pair(10.0, 7.0), Pair(6.0, 6.0)), arrayOf(Pair(6.0, 6.0), Pair(3.0, 8.0)), arrayOf(Pair(3.0, 8.0), Pair(0.0, 9.0)), arrayOf(Pair(0.0, 9.0), Pair(1.0, 1.0)))
-    /*
+    val c = arrayOf(arrayOf(Pair(1.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(7.0, 3.0)), arrayOf(Pair(10.0, 7.0), Pair(7.0, 3.0)), arrayOf(Pair(10.0, 7.0), Pair(6.0, 6.0)), arrayOf(Pair(6.0, 6.0), Pair(3.0, 8.0)), arrayOf(Pair(3.0, 8.0), Pair(0.0, 9.0)), arrayOf(Pair(0.0, 9.0), Pair(1.0, 1.0)))
+    solucion*/
+    
+     
     for (i in 0 until c.size) {
         println(c[i].joinToString())
-    } 
+    }
+    
+    /*println(dis)
+
+    // ciudadesArchivo(c, "prueba.txt") 
     */
-
-    println(distanciaTotal(c))
-    println(distanciaTotal(d))
-
-    // ciudadesArchivo(c, "prueba.txt")
 }
