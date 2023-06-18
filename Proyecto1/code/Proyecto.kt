@@ -43,7 +43,6 @@ fun combinarCiclos(
     A: Array<Array<Pair<Double, Double>>>, 
     B: Array<Array<Pair<Double, Double>>>
 ): Array<Array<Pair<Double, Double>>> {
-
     if (A.size == 0) {
         return B
     }
@@ -90,13 +89,6 @@ fun combinarCiclos(
             }
         }
     }
-    
-    /*println("a")
-    
-    for (i in 0 until A.size) {
-        println(A[i].joinToString())
-    } 
-    */
 
     var nuevoA = arrayOf<Array<Pair<Double, Double>>>()
     var nuevoB = arrayOf<Array<Pair<Double, Double>>>()
@@ -134,26 +126,8 @@ fun combinarCiclos(
             }
         
     }
-    
-     println("nuevoA")
 
-    for (i in 0 until nuevoA.size) {
-        println(nuevoA[i].joinToString())
-    } 
-
-    println("nuevoB")
-
-    for (i in 0 until nuevoB.size) {
-        println(nuevoB[i].joinToString())
-    } 
-    
-    
     val c = nuevoA + ladosAgregarC1 + ladosAgregarC2 + nuevoB
-    println("C")
-
-    for (i in 0 until c.size) {
-        println(c[i].joinToString())
-    } 
     return c
     
 }
@@ -392,11 +366,11 @@ fun divideAndConquerTSP(P: Array<Pair<Double, Double>>): Array<Array<Pair<Double
         return tour
     }
     else if (n == 2){
-        val tour = arrayOf(arrayOf(P[0],P[1]),arrayOf(P[0],P[1]))
+        val tour = arrayOf(arrayOf(P[0],P[1]),arrayOf(P[1],P[0]))
         return tour
     }
     else if (n == 3){
-        val tour =  arrayOf(arrayOf(P[0],P[1]), arrayOf(P[1],P[2]), arrayOf(P[0],P[2]))
+        val tour =  arrayOf(arrayOf(P[0],P[1]), arrayOf(P[1],P[2]), arrayOf(P[2],P[1]))
         return tour
     }
     else {
@@ -428,7 +402,7 @@ fun busquedaLocalCon20PT(
     var n = P.size
     var rutaExistente = P.clone()
 
-    while (huboMejora) {
+    while (!huboMejora) {
         huboMejora = false
         var mejorDistancia = distanciaTotal(P)
         for (i in 0 until n-1) {
@@ -521,15 +495,11 @@ fun main(args: Array<String>) {
     val c = arrayOf(arrayOf(Pair(1.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(7.0, 3.0)), arrayOf(Pair(10.0, 7.0), Pair(7.0, 3.0)), arrayOf(Pair(10.0, 7.0), Pair(6.0, 6.0)), arrayOf(Pair(6.0, 6.0), Pair(3.0, 8.0)), arrayOf(Pair(3.0, 8.0), Pair(0.0, 9.0)), arrayOf(Pair(0.0, 9.0), Pair(1.0, 1.0)))
     solucion*/
     
-     /* 
+     
    for (i in 0 until c.size) {
         println(c[i].joinToString())
-    }*/
+    }
     
-    println(dis)
-    println(c[0][0])
-    println(ciu.indexOf(c[0][0]))
-    println(ciu[0])
     /* 
     // ciudadesArchivo(c, "prueba.txt") 
     */
