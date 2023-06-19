@@ -5,6 +5,14 @@ import java.lang.*
 import java.util.*
 import kotlin.math.roundToInt
 
+/**
+ * Funcion que calcula la distancia ganada al unir dos lados
+ * 
+ * @param dOLD1 Distancia del lado 1
+ * @param dOLD2 Distancia del lado 2
+ * @param dNEW1 Distancia del lado 1 al unirlo con el lado 2
+ * @param dNEW2 Distancia del lado 2 al unirlo con el lado 1
+ */
 fun distanciaGanada(
     dOLD1: Int, 
     dOLD2: Int, 
@@ -14,18 +22,38 @@ fun distanciaGanada(
     return (dNEW1 + dNEW2) - (dOLD1 + dOLD2)
 }
 
+/** 
+ * Funcion que calcula la distancia entre dos lados
+ * 
+ * @param a Arreglo de pares de coordenadas
+ * @return Distancia entre los dos lados
+ */
 fun distancia(a: Array<Pair<Double, Double>>): Int {
     val x = a[1].first - a[0].first
     val y = a[1].second - a[0].second
     return sqrt(x*x + y*y).roundToInt()
 }
 
+
+/**
+ * Funcion que calcula la distancia entre dos puntos
+ * 
+ * @param a Par de coordenadas del primer punto
+ * @param b Par de coordenadas del segundo punto
+ * @return Distancia entre los dos puntos
+ */
 fun distanciaDNew(a: Pair<Double, Double>, b: Pair<Double, Double>): Int{
     val x = b.first - a.first
     val y = b.second - a.second
     return sqrt(x*x  + y*y).roundToInt()
 }
 
+/**
+ * Funcion que calcula la distancia total de un ciclo
+ * 
+ * @param P Arreglo de arreglos de pares de coordenadas
+ * @return Distancia total del ciclo
+ */
 fun distanciaTotal(P: Array<Array<Pair<Double, Double>>>): Int {
     var distanciaTotal = 0.0
     for (i in 0 until P.size) {
@@ -34,10 +62,25 @@ fun distanciaTotal(P: Array<Array<Pair<Double, Double>>>): Int {
     return distanciaTotal.roundToInt()
 }
 
+/**
+ * Funcion que calcula el minimo entre dos enteros
+ * 
+ * @param a Primer entero
+ * @param b Segundo entero
+ * @return Minimo entre los dos enteros
+ */
 fun min(a: Int, b: Int): Int {
     return if (a < b) a else b
 }
 
+
+/**
+ * Funcion que combina dos ciclos
+ * 
+ * @param A Arreglo de arreglos de pares de coordenadas
+ * @param B Arreglo de arreglos de pares de coordenadas
+ * @return Arreglo de arreglos de pares de coordenadas
+ */
 fun combinarCiclos(
     A: Array<Array<Pair<Double, Double>>>, 
     B: Array<Array<Pair<Double, Double>>>
@@ -135,6 +178,9 @@ fun combinarCiclos(
 }
 
 
+/**
+ * Combina 
+ */
 fun merge(
     U: Array<Pair<Double, Double>>, 
     V: Array<Pair<Double, Double>>, 
@@ -169,13 +215,25 @@ fun merge(
     }
 }
 
-
+/**
+ * Intercambia dos elementos de un arreglo de pares de coordenadas
+ * 
+ * @param A Arreglo de pares de coordenadas
+ * @param i Indice del primer elemento a intercambiar
+ * @param j Indice del segundo elemento a intercambiar
+ */
 fun swap(A: Array<Pair<Double, Double>>, i: Int, j: Int) {
     var temp = A[i]
     A[i] = A[j]
     A[j] = temp
 }
 
+/**
+ * Insertion sort para ordenar un arreglo de pares de coordenadas
+ * 
+ * @param A Arreglo de pares de coordenadas
+ * @param ejeDeCorte Eje de corte para ordenar el arreglo
+ */
 fun insertionSort(A: Array<Pair<Double, Double>>, ejeDeCorte: String) {
      val n = A.size
     if (ejeDeCorte == "X"){
@@ -198,7 +256,13 @@ fun insertionSort(A: Array<Pair<Double, Double>>, ejeDeCorte: String) {
     } 
 }
 
-
+/** 
+ * Ordena un arreglo de pares de coordenadas usando mergesort con insertion sort
+ * modificado
+ * 
+ * @param T Arreglo de pares de coordenadas
+ * @param ejeDeCorte Eje de corte para ordenar el arreglo
+ */
 fun mergesortInsertion(T: Array<Pair<Double, Double>>, ejeDeCorte: String) {
     if (T.size < 20) {
         insertionSort(T,ejeDeCorte)
@@ -212,6 +276,12 @@ fun mergesortInsertion(T: Array<Pair<Double, Double>>, ejeDeCorte: String) {
     }
 }
 
+/**
+ * Obtiene las coordenadas del rectangulo que contiene a todos los puntos
+ * 
+ * @param P Arreglo de pares de coordenadas
+ * @return Par de pares de coordenadas que representan las coordenadas del rectangulo
+ */
 fun obtenerCoordenadasRectangulo(
     P: Array<Pair<Double, Double>>
 ): Pair<Pair<Double, Double>, Pair<Double, Double>> {
@@ -224,7 +294,13 @@ fun obtenerCoordenadasRectangulo(
     return Pair(Pair(xMin, yMin), Pair(xMax, yMax))
 }
 
-
+/**
+ * Obtiene el punto de corte de un arreglo de pares de coordenadas
+ * 
+ * @param P Arreglo de pares de coordenadas
+ * @param ejeDeCorte Eje de corte para obtener el punto
+ * @return Par de coordenadas que representan el punto de corte
+ */
 fun obtenerPuntoDeCorte(P: Array<Pair<Double, Double>>, ejeDeCorte: String): Pair<Double, Double> {
     val n = P.size
     val pos = (n / 2) - 1
@@ -236,6 +312,14 @@ fun obtenerPuntoDeCorte(P: Array<Pair<Double, Double>>, ejeDeCorte: String): Pai
     return P[pos]
 }
 
+/**
+ * Aplica el corte a un rectangulo
+ * 
+ * @param ejeDeCorte Eje de corte para aplicar el corte
+ * @param corte Par de coordenadas que representan el punto de corte
+ * @param rectangulo Par de pares de coordenadas que representan las coordenadas del rectangulo
+ * @return Par de pares de coordenadas que representan los rectangulos resultantes del corte
+ */
 fun aplicarCorte(
     ejeDeCorte: String, 
     corte: Pair<Double, Double>, 
@@ -254,6 +338,13 @@ fun aplicarCorte(
     return Pair(rectanguloIzq, rectanguloDer)
 }
 
+/**
+ * Obtiene el punto de corte de un rectangulo en la mitad
+ * 
+ * @param rectangulo Par de pares de coordenadas que representan las coordenadas del rectangulo
+ * @param eje Eje de corte para obtener el punto
+ * @return Par de coordenadas que representan el punto de corte
+ */
 fun obtenerPuntoDeCorteMitad(
     rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>,
     eje: String
@@ -271,6 +362,13 @@ fun obtenerPuntoDeCorteMitad(
     return puntoDeCorte
 }
 
+/**
+ * Obtiene los puntos de un rectangulo
+ * 
+ * @param P Arreglo de pares de coordenadas
+ * @param rectangulo Par de pares de coordenadas que representan las coordenadas del rectangulo
+ * @return Arreglo de pares de coordenadas que representan los puntos del rectangulo
+ */
 fun obtenerPuntosRectangulo(
     P: Array<Pair<Double, Double>>, 
     rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>
@@ -281,6 +379,12 @@ fun obtenerPuntosRectangulo(
     return particion
 }
 
+/**
+ * Obtiene las dimensiones de un rectangulo
+ * 
+ * @param rectangulo Par de pares de coordenadas que representan las coordenadas del rectangulo
+ * @return Par de coordenadas que representan las dimensiones del rectangulo
+ */
 fun obtenerDimensiones(
     rectangulo: Pair<Pair<Double, Double>, Pair<Double, Double>>
 ): Pair<Double,Double>{
@@ -291,6 +395,12 @@ fun obtenerDimensiones(
     return Pair(xDim,yDim) 
 }
 
+/**
+ * Obtiene las particiones de un arreglo de pares de coordenadas
+ * 
+ * @param P Arreglo de pares de coordenadas
+ * @return Par de arreglos de pares de coordenadas que representan las particiones
+ */
 fun obtenerParticiones(
     P: Array<Pair<Double, Double>>
 ): Pair<Array<Pair<Double, Double>>, Array<Pair<Double, Double>>> {
@@ -319,6 +429,12 @@ fun obtenerParticiones(
     return Pair(particionIzq, particionDer)
 }
 
+/**
+ * Dado un arreglo de pares de coordenadas, obtiene el tour de puntos mas cercanos
+ * 
+ * @param P Arreglo de pares de coordenadas
+ * @return Arreglo de arreglos de pares de coordenadas que representan el tour de puntos mas cercanos
+ */
 fun divideAndConquerTSP(P: Array<Pair<Double, Double>>): Array<Array<Pair<Double, Double>>> {
     val n = P.size
     if (n == 0) {
@@ -346,6 +462,14 @@ fun divideAndConquerTSP(P: Array<Pair<Double, Double>>): Array<Array<Pair<Double
     }
 }
 
+/**
+ * Retorna una ruta alternativa a la ruta dada en reversa
+ * 
+ * @param P Arreglo de arreglos de pares de coordenadas que representan la ruta
+ * @param i Indice de inicio de la ruta alternativa
+ * @param j Indice de fin de la ruta alternativa
+ * @return Arreglo de arreglos de pares de coordenadas que representan la ruta alternativa
+ */
 fun optswap(
     P: Array<Array<Pair<Double, Double>>>, 
     i: Int, 
@@ -358,6 +482,12 @@ fun optswap(
     return nuevaRuta
 }
 
+/**
+ * Retorna una mejora del tour dado buscanco una distancia menor
+ * 
+ * @param P Arreglo de arreglos de pares de coordenadas que representan la ruta
+ * @return Arreglo de arreglos de pares de coordenadas que representan la ruta mejorada
+ */
 fun busquedaLocalCon20PT(
     P: Array<Array<Pair<Double, Double>>>
 ): Array<Array<Pair<Double, Double>>> {
@@ -385,7 +515,13 @@ fun busquedaLocalCon20PT(
 }
 
 
-
+/**
+ * Dado un arreglo de pares de coordenadas, obtiene el tour de puntos mas cercanos 
+ * con busqueda local y el algoritmo 2opt
+ * 
+ * @param P Arreglo de pares de coordenadas
+ * @return Arreglo de arreglos de pares de coordenadas que representan el tour de puntos mas cercanos
+ */
 fun divideAndConquerAndLocalSearchTSP(
     P: Array<Pair<Double, Double>>
 ): Array<Array<Pair<Double, Double>>> {
@@ -394,6 +530,13 @@ fun divideAndConquerAndLocalSearchTSP(
     
 }
 
+/**
+ * Retorna un arreglo con la posicion de las ciudades visitadas en el tour
+ * 
+ * @param ciudades Arreglo de pares de coordenadas que representan las ciudades
+ * @param tour Arreglo de arreglos de pares de coordenadas que representan el tour
+ * @return Arreglo de enteros que representan la posicion de las ciudades visitadas en el tour
+ */
 fun ciudadesVisitadas(ciudades: Array<Pair<Double, Double>>, tour: Array<Array<Pair<Double, Double>>>): Array<Int>{
     val a = Array<Int>(tour.size+1) {1}
     a[0] = ciudades.indexOf(tour[0][0])+1
@@ -409,6 +552,12 @@ fun ciudadesVisitadas(ciudades: Array<Pair<Double, Double>>, tour: Array<Array<P
     return a
 }
 
+/**
+ * Retorna un arreglo con la posicion de las ciudades dado un archivo
+ * 
+ * @param archivo String que representa el nombre del archivo
+ * @return Arreglo de enteros que representan la posicion de las ciudades visitadas en el tour
+ */
 fun archivoCiudades(archivo: String): Array<Pair<Double, Double>> {
     val lineas:Array<String> = File(archivo).readLines().toTypedArray()
     var ciudades = Array<Pair<Double, Double>>(0) { Pair(0.0, 0.0) }
@@ -427,6 +576,13 @@ fun archivoCiudades(archivo: String): Array<Pair<Double, Double>> {
     return ciudades
 }
 
+/** 
+ * Dada unas ciudades y un archivo, escribe el archivo de salida
+ * 
+ * @param ciudades Arreglo de arreglos de pares de coordenadas que representan el tour
+ * @param archivo String que representa el nombre del archivo
+ * @param archivoInicial String que representa el nombre del archivo inicial
+ */
 fun ciudadesArchivo(ciudades: Array<Array<Pair<Double, Double>>>, archivo: String, archivoInicial: String) {
     val writer = File(archivo).bufferedWriter()
     writer.write("NAME: $archivo.out\nCOMMENT : Length ${distanciaTotal(ciudades)}\nTYPE : TOUR\nDIMENSION : ${ciudades.size}\nTOUR_SECTION")

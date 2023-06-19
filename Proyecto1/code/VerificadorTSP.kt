@@ -12,6 +12,12 @@ fun errorMessage(message: String) {
     exitProcess(1)
 }
 
+/**
+ * Verifica que todas las ciudades estén en el tour.
+ * 
+ * @param ciudades Arreglo de ciudades.
+ * @param tour Arreglo de tours.
+ */
 fun verificarCiudades(ciudades: Array<Pair<Double, Double>>, tour: Array<Array<Pair<Double, Double>>>) {
     for (i in 0 until ciudades.size) {
         val elemento = ciudades[i]
@@ -25,13 +31,25 @@ fun verificarCiudades(ciudades: Array<Pair<Double, Double>>, tour: Array<Array<P
 }
 
 
+/**
+ * Verifica que el tamaño del tour sea el correcto.
+ * 
+ * @param ciudades Arreglo de ciudades.
+ * @param tour Arreglo de tours.
+
+ */
 fun verificarTamano(ciudades: Array<Pair<Double, Double>>, tour: Array<Array<Pair<Double, Double>>>) {
     if (ciudades.size != tour.size/2) {
         errorMessage("Hay duplicados o hay recorridos repetidos en el tour")
     }
 }
 
-
+/**
+ * Abre un archivo de texto y lo convierte en un arreglo de ciudades.
+ * 
+ * @param archivo Nombre del archivo.
+ * @return Arreglo de ciudades.
+ */
 fun abrirCiudades(archivo: String): Array<Pair<Double, Double>> {
     val lineas:Array<String> = File(archivo).readLines().toTypedArray()
     var ciudades = Array<Pair<Double, Double>>(0) { Pair(0.0, 0.0) }
@@ -50,6 +68,12 @@ fun abrirCiudades(archivo: String): Array<Pair<Double, Double>> {
     return ciudades
 }
 
+/** 
+ * Abre un archivo de texto solucion y lo convierte en un arreglo de tours.
+ * 
+ * @param archivo Nombre del archivo.
+ * @return Arreglo de tours.
+ */
 fun abrirSolucion(archivo: String): Array<Int> {
     val lineas:Array<String> = File(archivo).readLines().toTypedArray()
     var ciudades = Array<Int>(0) {0}
