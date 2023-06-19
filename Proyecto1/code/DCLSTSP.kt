@@ -532,28 +532,6 @@ fun divideAndConquerAndLocalSearchTSP(
 }
 
 /**
- * Retorna un arreglo con la posicion de las ciudades visitadas en el tour
- * 
- * @param ciudades Arreglo de pares de coordenadas que representan las ciudades
- * @param tour Arreglo de arreglos de pares de coordenadas que representan el tour
- * @return Arreglo de enteros que representan la posicion de las ciudades visitadas en el tour
- */
-fun ciudadesVisitadas(ciudades: Array<Pair<Double, Double>>, tour: Array<Array<Pair<Double, Double>>>): Array<Int>{
-    val a = Array<Int>(tour.size+1) {1}
-    a[0] = ciudades.indexOf(tour[0][0])+1
-    a[1] = ciudades.indexOf(tour[0][1])+1
-    for (i in 2 until tour.size+1){
-        if(tour[i-2].indexOf(tour[i-1][0]) == -1){
-            a[i] = ciudades.indexOf(tour[i-1][0])+1
-        }
-        if(tour[i-2].indexOf(tour[i-1][1]) == -1){
-            a[i] = ciudades.indexOf(tour[i-1][1])+1
-        }
-    }
-    return a
-}
-
-/**
  * Retorna un arreglo con la posicion de las ciudades dado un archivo
  * 
  * @param archivo String que representa el nombre del archivo
