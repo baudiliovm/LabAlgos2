@@ -1,41 +1,40 @@
 import kotlin.math.sqrt
 import java.io.File
 import kotlin.collections.forEach
-import kotlin.collections.*
-import kotlin.Pair
 import java.lang.*
 import java.util.*
+import kotlin.math.roundToInt
 
 fun distanciaGanada(
-    dOLD1: Double, 
-    dOLD2: Double, 
-    dNEW1: Double, 
-    dNEW2: Double
-): Double {
+    dOLD1: Int, 
+    dOLD2: Int, 
+    dNEW1: Int ,
+    dNEW2: Int
+): Int {
     return (dNEW1 + dNEW2) - (dOLD1 + dOLD2)
 }
 
-fun distancia(a: Array<Pair<Double, Double>>): Double {
+fun distancia(a: Array<Pair<Double, Double>>): Int {
     val x = a[1].first - a[0].first
     val y = a[1].second - a[0].second
-    return sqrt(x*x + y*y)
+    return sqrt(x*x + y*y).roundToInt()
 }
 
-fun distanciaDNew(a: Pair<Double, Double>, b: Pair<Double, Double>): Double{
+fun distanciaDNew(a: Pair<Double, Double>, b: Pair<Double, Double>): Int{
     val x = b.first - a.first
     val y = b.second - a.second
-    return sqrt(x*x  + y*y)
+    return sqrt(x*x  + y*y).roundToInt()
 }
 
-fun distanciaTotal(P: Array<Array<Pair<Double, Double>>>): Double {
+fun distanciaTotal(P: Array<Array<Pair<Double, Double>>>): Int {
     var distanciaTotal = 0.0
     for (i in 0 until P.size) {
         distanciaTotal += distancia(P[i])
     }
-    return distanciaTotal
+    return distanciaTotal.roundToInt()
 }
 
-fun min(a: Double, b: Double): Double {
+fun min(a: Int, b: Int): Int {
     return if (a < b) a else b
 }
 
@@ -51,13 +50,14 @@ fun combinarCiclos(
         return A
     }
 
-    var minG = Double.MAX_VALUE  // INfinito REVISAR
+    var minG = Int.MAX_VALUE  // INfinito REVISAR
 
     var ladosAgregarC1 = arrayOf<Array<Pair<Double, Double>>>()
     var ladosAgregarC2 = arrayOf<Array<Pair<Double, Double>>>()
     var ladosEliminarC1 = arrayOf<Array<Pair<Double, Double>>>()
     var ladosEliminarC2 = arrayOf<Array<Pair<Double, Double>>>()
-
+    println(A.size + B.size)
+    
     for (lado in A) {
         
         val dOLD1 = distancia(lado)
@@ -110,6 +110,7 @@ fun combinarCiclos(
             }
         
     }
+    
      for (lado in B) {
         var agregar = true
         for (ladoEliminar in ladosEliminarC2) {
@@ -128,6 +129,7 @@ fun combinarCiclos(
     }
 
     val c = nuevoA + ladosAgregarC1 + ladosAgregarC2 + nuevoB
+    println(c.size)
     return c
     
 }
@@ -145,21 +147,9 @@ fun merge(
     var j = 0
     if (ejeDeCorte == "X"){
         for (k in 0 until T.size) {
-            if ((i < m) && (j >= n || U[i].first <= V[j].first)) {
-                if(U[i].first < V[j].first){
-                    T[k] = U[i]
-                    i += 1
-                }
-                if(U[i].first == V[j].first){
-                    if(U[i].second <= V[j].second){
-                        T[k] = U[i]
-                        i += 1
-                    }
-                    else {
-                        T[k] = V[j]
-                        j += 1
-                    }
-                }
+            if ((i < m) && (j >= n || U[i].first < V[j].first)) {
+                T[k] = U[i]
+                i += 1
             } else {
                 T[k] = V[j]
                 j += 1
@@ -168,21 +158,9 @@ fun merge(
     }
     else{
         for (k in 0 until T.size) {
-            if ((i < m) && (j >= n || U[i].second <= V[j].second)) {
-                if(U[i].second < V[j].second){
-                    T[k] = U[i]
-                    i += 1
-                }
-                if(U[i].second == V[j].second){
-                    if(U[i].first <= V[j].first){
-                        T[k] = U[i]
-                        i += 1
-                    }
-                    else {
-                        T[k] = V[j]
-                        j += 1
-                    }
-                }
+            if ((i < m) && (j >= n || U[i].second < V[j].second)) {
+                T[k] = U[i]
+                i += 1
             } else {
                 T[k] = V[j]
                 j += 1
@@ -191,6 +169,7 @@ fun merge(
     }
 }
 
+
 fun swap(A: Array<Pair<Double, Double>>, i: Int, j: Int) {
     var temp = A[i]
     A[i] = A[j]
@@ -198,21 +177,13 @@ fun swap(A: Array<Pair<Double, Double>>, i: Int, j: Int) {
 }
 
 fun insertionSort(A: Array<Pair<Double, Double>>, ejeDeCorte: String) {
-    val n = A.size
+     val n = A.size
     if (ejeDeCorte == "X"){
         for (i in 1 until n) {
             var j = i
-            while (j > 0 && A[j].first <= A[j - 1].first) {
-                if(A[j].first == A[j - 1].first){
-                    if(A[j].second <= A[j - 1].second){
-                        swap(A, j, j - 1)
-                        j = j - 1
-                    }
-                }
-                else{
-                    swap(A, j, j - 1)
-                    j = j - 1
-                }
+            while (j > 0 && A[j].first < A[j - 1].first) {
+                swap(A, j, j - 1)
+                j = j - 1
             }
         }
     }
@@ -220,20 +191,13 @@ fun insertionSort(A: Array<Pair<Double, Double>>, ejeDeCorte: String) {
         for (i in 1 until n) {
             var j = i
             while (j > 0 && A[j].second < A[j - 1].second) {
-                if(A[j].second == A[j - 1].second){
-                    if(A[j].first <= A[j - 1].first){
-                        swap(A, j, j - 1)
-                        j = j - 1
-                    }
-                }
-                else{
-                    swap(A, j, j - 1)
-                    j = j - 1
-                }
+                swap(A, j, j - 1)
+                j = j - 1
             }
         }
     } 
 }
+
 
 fun mergesortInsertion(T: Array<Pair<Double, Double>>, ejeDeCorte: String) {
     if (T.size < 20) {
@@ -427,6 +391,7 @@ fun divideAndConquerAndLocalSearchTSP(
 ): Array<Array<Pair<Double, Double>>> {
     val c1 = divideAndConquerTSP(P)
     return busquedaLocalCon20PT(c1)
+    
 }
 
 fun ciudadesVisitadas(ciudades: Array<Pair<Double, Double>>, tour: Array<Array<Pair<Double, Double>>>): Array<Int>{
@@ -447,7 +412,7 @@ fun ciudadesVisitadas(ciudades: Array<Pair<Double, Double>>, tour: Array<Array<P
 fun archivoCiudades(archivo: String): Array<Pair<Double, Double>> {
     val lineas:Array<String> = File(archivo).readLines().toTypedArray()
     var ciudades = Array<Pair<Double, Double>>(0) { Pair(0.0, 0.0) }
-
+    
     for (linea in lineas) {
         val lineSplit = linea.split("\\s".toRegex()).toTypedArray()
         try {
@@ -474,34 +439,11 @@ fun ciudadesArchivo(ciudades: Array<Array<Pair<Double, Double>>>, archivo: Strin
 
 
 fun main(args: Array<String>) {
-    /*val nombreArchivo = args[0]
+    val nombreArchivo = args[0]
     val nombreArchivoFinal = args[1]
-    v
+    
 
- ciudades = archivoCiudades(nombreArchivo)     val tour = divideAndConquerAndLocalSearchTSP(ciudades)
+    val ciudades = archivoCiudades(nombreArchivo)   
+    val tour = divideAndConquerAndLocalSearchTSP(ciudades)
     ciudadesArchivo(tour,nombreArchivoFinal,nombreArchivo)
-    */  
-
-
-    val ciu = arrayOf(Pair(1.0, 1.0), Pair(0.0, 9.0), Pair(3.0, 8.0), Pair(4.0, 0.0), Pair(6.0, 6.0), Pair(10.0, 7.0), Pair(5.0, 1.0), Pair(7.0, 3.0))
-    val c = divideAndConquerAndLocalSearchTSP(ciu)
-    val tourHecho = ciudadesVisitadas(ciu,c)
-    println(tourHecho.joinToString())
-    
-    
-    val dis = distanciaTotal(c)
-    /*val d = arrayOf(arrayOf(Pair(1.0, 1.0), Pair(4.0, 0.0), Pair(5.0, 1.0), Pair(7.0, 3.0), Pair(10.0, 7.0), Pair(6.0, 6.0), Pair(3.0, 8.0), Pair(0.0, 9.0), Pair(1.0, 1.0)))
-
-    val c = arrayOf(arrayOf(Pair(1.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(4.0, 0.0)), arrayOf(Pair(5.0, 1.0), Pair(7.0, 3.0)), arrayOf(Pair(10.0, 7.0), Pair(7.0, 3.0)), arrayOf(Pair(10.0, 7.0), Pair(6.0, 6.0)), arrayOf(Pair(6.0, 6.0), Pair(3.0, 8.0)), arrayOf(Pair(3.0, 8.0), Pair(0.0, 9.0)), arrayOf(Pair(0.0, 9.0), Pair(1.0, 1.0)))
-    solucion*/
-    
-     
-   for (i in 0 until c.size) {
-        println(c[i].joinToString())
-    }
-    
-    /* 
-    // ciudadesArchivo(c, "prueba.txt") 
-    */
-
 }
