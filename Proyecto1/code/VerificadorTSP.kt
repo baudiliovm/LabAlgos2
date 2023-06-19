@@ -74,19 +74,20 @@ fun abrirCiudades(archivo: String): Array<Pair<Double, Double>> {
  * @param archivo Nombre del archivo.
  * @return Arreglo de tours.
  */
-fun abrirSolucion(archivo: String): Array<Int> {
+fun abrirSolucion(archivo: String): Array<Array<Pair<Double, Double>>> {
     val lineas:Array<String> = File(archivo).readLines().toTypedArray()
-    var ciudades = Array<Int>(0) {0}
+    var ciudades = Array<Array<Pair<Double, Double>>>(0) { Array<Pair<Double, Double>>(0) { Pair(0.0, 0.0) } }
 
     for (linea in lineas) {
         val lineSplit = linea.split("\\s".toRegex()).toTypedArray()
         try {
-            val num = lineSplit[0].toInt()        // Verifica si es un número
-            ciudades += num
+            val x = lineSplit[0].toDouble()
+            val y = lineSplit[1].toDouble()
         } catch (e: NumberFormatException) {
             continue
         }
-
+        
+        
     }
     return ciudades
 }
@@ -99,14 +100,8 @@ fun main(args: Array<String>) {
     val ciudades = abrirCiudades(instancia)
     val tour = abrirSolucion(solucion)
 
-    println(ciudades.size)
-    println(ciudades.joinToString(", "))
-    println(tour.size)
-    println(tour.joinToString(", "))
-
-
-    // verificarCiudades(ciudades, tour)
-    // verificarTamano(ciudades, tour)
+    verificarCiudades(ciudades, tour)
+    verificarTamano(ciudades, tour)
 
     println("todo correcto")
 }
