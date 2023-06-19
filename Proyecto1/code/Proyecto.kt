@@ -4,6 +4,7 @@ import kotlin.collections.forEach
 import java.lang.*
 import java.util.*
 import kotlin.math.roundToInt
+import distanciaTotal
 
 /**
  * Funcion que calcula la distancia ganada al unir dos lados
@@ -99,7 +100,6 @@ fun combinarCiclos(
     var ladosAgregarC2 = arrayOf<Array<Pair<Double, Double>>>()
     var ladosEliminarC1 = arrayOf<Array<Pair<Double, Double>>>()
     var ladosEliminarC2 = arrayOf<Array<Pair<Double, Double>>>()
-    println(A.size + B.size)
     
     for (lado in A) {
         
@@ -136,7 +136,7 @@ fun combinarCiclos(
     var nuevoA = arrayOf<Array<Pair<Double, Double>>>()
     var nuevoB = arrayOf<Array<Pair<Double, Double>>>()
     var contadorA = 0
-    var contadorB = 0
+    var contadorB = 0   
     for (lado in A) {
         var agregar = true
         for (ladoEliminar in ladosEliminarC1) {
@@ -172,7 +172,7 @@ fun combinarCiclos(
     }
 
     val c = nuevoA + ladosAgregarC1 + ladosAgregarC2 + nuevoB
-    println(c.size)
+
     return c
     
 }
@@ -526,6 +526,7 @@ fun divideAndConquerAndLocalSearchTSP(
     P: Array<Pair<Double, Double>>
 ): Array<Array<Pair<Double, Double>>> {
     val c1 = divideAndConquerTSP(P)
+    println(distanciaTotal(c1))
     return busquedaLocalCon20PT(c1)
     
 }
@@ -584,22 +585,26 @@ fun archivoCiudades(archivo: String): Array<Pair<Double, Double>> {
  * @param archivoInicial String que representa el nombre del archivo inicial
  */
 fun ciudadesArchivo(ciudades: Array<Array<Pair<Double, Double>>>, archivo: String, archivoInicial: String) {
-    val writer = File(archivo).bufferedWriter()
-    writer.write("NAME: $archivo.out\nCOMMENT : Length ${distanciaTotal(ciudades)}\nTYPE : TOUR\nDIMENSION : ${ciudades.size}\nTOUR_SECTION")
-    writer.newLine()
+    val writer = File("${archivo}.txt").bufferedWriter()
 
+    writer.write("NAME: $archivoInicial\nCOMMENT : Length ${distanciaTotal(ciudades)}\nTYPE : TOUR\nDIMENSION : ${ciudades.size}\nTOUR_SECTION\n")
+    for (i in 0 until ciudades.size) {
+        writer.write("(${ciudades[i][0].first.toInt()},${ciudades[i][0].second.toInt()}) (${ciudades[i][1].first.toInt()},${ciudades[i][1].second.toInt()})\n")
+    }
+    writer.write("-1\nEOF")
     writer.close()
-
-    //println("$name ${distanciaTotal(tsp)} ${distanciaTotal(ciudades)}")
+    println(distanciaTotal(ciudades))
 }
 
 
 fun main(args: Array<String>) {
     val nombreArchivo = args[0]
     val nombreArchivoFinal = args[1]
+    println(nombreArchivo)
     
-
     val ciudades = archivoCiudades(nombreArchivo)   
     val tour = divideAndConquerAndLocalSearchTSP(ciudades)
     ciudadesArchivo(tour,nombreArchivoFinal,nombreArchivo)
+
+
 }
