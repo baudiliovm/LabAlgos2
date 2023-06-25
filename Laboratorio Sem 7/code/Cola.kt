@@ -1,13 +1,18 @@
 import kotlin.system.exitProcess
 
 class Cola(val MAX: Int) {
+    
+    init {
+        if (MAX < 1) {
+            println("El valor maximo de la cola debe ser mayor o igual a 0")
+            exitProcess(1)
+        }
+        println("--> Una nueva cola de maximo $MAX elementos fue creada")
+        
+    }
+    
     private val contenido = ListaCircular()
     private var size = 0
-
-    fun crearCola(): Cola{
-        assert(MAX > 0)
-        return Cola(MAX)
-    }
 
     fun encolar(e: Int) {
         if (size < MAX) {

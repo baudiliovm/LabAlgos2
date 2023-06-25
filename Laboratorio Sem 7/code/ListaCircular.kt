@@ -1,5 +1,6 @@
 class ListaCircular {
-    private var head: Nodo? = null
+    var head: Nodo? = null
+    var tail: Nodo? = head?.prev
 
 
     

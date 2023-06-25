@@ -1,13 +1,17 @@
 import kotlin.system.exitProcess
 
 class Pila(val MAX: Int) {
+    
+    init {
+        if (MAX < 1) {
+            println("El valor maximo de la pila debe ser mayor o igual a 0")
+            exitProcess(1)
+        }
+        println("--> Una nueva pila de maximo $MAX elementos fue creada")
+    }
+    
     private val contenido = ListaCircular()
     private var size = 0
-
-    fun crearPila(): Pila{
-        assert(MAX > 0)
-        return Pila(MAX)
-    }
 
     fun empilar(e: Int) {
         if (size < MAX) {
@@ -38,7 +42,7 @@ class Pila(val MAX: Int) {
 
     override fun toString(): String {
         var str = "["
-        var current = contenido.tail()
+        var current = contenido.head()
         for (i in 0 until size) {
             str += "${current?.value}"
             if (i < size - 1) str += ", "
