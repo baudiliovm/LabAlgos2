@@ -1,6 +1,8 @@
 class ListaCircular {
     private var head: Nodo? = null
 
+
+    
     fun agregarAlFrente(value: Int) {
         val newNode = Nodo(value)
         if (head == null) {
@@ -17,7 +19,7 @@ class ListaCircular {
         }
     }
 
-    fun agregarAFinal(value: Int) {
+    fun agregarAlFinal(value: Int) {
         val newNode = Nodo(value)
         if (head == null) {
             newNode.next = newNode
@@ -31,10 +33,10 @@ class ListaCircular {
             tail!!.next = newNode
         }
     }
-
+    
     fun buscar(value: Int): Nodo? {
         if (head == null) return null
-
+        
         var current = head!!
         while (current.value != value) {
             current = current.next!!
@@ -42,10 +44,10 @@ class ListaCircular {
         }
         return current
     }
-
+    
     fun eliminar(nodo: Nodo?) {
         if (nodo == null || head == null) return
-
+        
         if (nodo == head && nodo.next == head) {
             head = null
         } else {
@@ -53,5 +55,27 @@ class ListaCircular {
             nodo.next!!.prev = nodo.prev!!
             if (nodo == head) head = nodo.next!!
         }
+    }
+    
+    fun head(): Nodo? {
+        return head
+    }
+    
+    fun tail(): Nodo? {
+        return head?.prev
+    }
+
+    override fun toString(): String {
+        var str = "["
+        if (head != null) {
+            var current = head!!
+            while (current.next != head) {
+                str += "${current.value}, "
+                current = current.next!!
+            }
+            str += "${current.value}"
+        }
+        str += "]"
+        return str
     }
 }

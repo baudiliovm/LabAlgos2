@@ -2,7 +2,7 @@ class Pila(val MAX: Int) {
     private val contenido = ListaCircular()
     private var size = 0
 
-     fun crearPila(): Pila{
+    fun crearPila(): Pila{
         assert(MAX > 0)
         return Pila(MAX)
     }
@@ -16,7 +16,7 @@ class Pila(val MAX: Int) {
 
     fun desempilar() {
         if (size > 0) {
-            contenido.eliminar(contenido.buscar(0))
+            contenido.eliminar(contenido.head())
             size--
         }
     }
