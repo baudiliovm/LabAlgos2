@@ -1,3 +1,5 @@
+import kotlin.system.exitProcess
+
 class Pila(val MAX: Int) {
     private val contenido = ListaCircular()
     private var size = 0
@@ -9,20 +11,25 @@ class Pila(val MAX: Int) {
 
     fun empilar(e: Int) {
         if (size < MAX) {
-            contenido.agregarAlFrente(e)
+            contenido.agregarAlFinal(e)
             size++
+        } else {
+            println("La pila esta llena")
         }
     }
 
     fun desempilar() {
         if (size > 0) {
-            contenido.eliminar(contenido.head())
+            contenido.eliminar(contenido.tail())
             size--
+        } else {
+            println("La pila esta vacia")
         }
     }
 
+
     fun tope(): Int? {
-        return if (size > 0) contenido.buscar(0)?.value as Int else null
+        return if (size > 0) contenido.tail()?.value as Int else null
     }
 
     fun estaVacia(): Boolean {
@@ -31,7 +38,7 @@ class Pila(val MAX: Int) {
 
     override fun toString(): String {
         var str = "["
-        var current = contenido.buscar(0)
+        var current = contenido.tail()
         for (i in 0 until size) {
             str += "${current?.value}"
             if (i < size - 1) str += ", "
