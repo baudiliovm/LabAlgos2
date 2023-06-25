@@ -1,6 +1,6 @@
 fun main(args: Array<String>) {
 
-    /* var lista = ListaCircular()
+    /*var lista = ListaCircular()
     println(lista.toString())
     lista.agregarAlFrente(1)
     println(lista.toString())
@@ -31,9 +31,7 @@ fun main(args: Array<String>) {
     println(lista.tail()) */
 
 
-    
-
-    var cola = Cola(4)
+    /*var cola = Cola(4)
     println(cola.toString())
     cola.encolar(1)
     println(cola.toString())
@@ -50,17 +48,24 @@ fun main(args: Array<String>) {
     println(cola.toString())
     cola.desencolar()
     println(cola.toString())
-    println(cola.primero())
+    println(cola.primero())*/
 
 
-    /* 
-    val Cola = Cola(4)
-    Cola.encolar(1)
-    Cola.encolar(2)
-    Cola.encolar(3)
-    Cola.encolar(4)
-    println(Cola)
-    println(Cola.primero())
-    println(Cola) */
+   var pila = Pila(4)
+    println(pila.toString())
+    println(pila.estaVacia())
+    pila.empilar(1)
+    println(pila.toString())
+    pila.empilar(2)
+    println(pila.toString())
+    pila.empilar(3)
+    println(pila.toString())
+    pila.empilar(4)
+    println(pila.toString())
 
+    println(pila.tope())
+    println(pila.estaVacia())
+    pila.desempilar()
+    println(pila.toString())
+    
 }
