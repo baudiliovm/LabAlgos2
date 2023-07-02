@@ -3,12 +3,13 @@ class HashTableChaining() {
     private var tabla: Array<CircularList?> = arrayOfNulls(7)
     private var tamano: Int = tabla.size
     private var factorDeCarga: Double = 0.0
-    factorDeCarga = elementos / tamano
     private var elementos: Int = 0
     
     // Hash metodo de division
     private fun hash(key: Int) = key % tamano
-   
+    
+    factorDeCarga = elementos / tamano.toDouble()
+    
     private fun rehash() {
         val nuevoTamano = (3 * (tamano + 16)) / 2
         val tablaCopia = tabla
@@ -36,7 +37,7 @@ class HashTableChaining() {
         tabla[hashValor]?.agregarLista(HashTableEntry(key, valor))
 
         elementos++
-        factorDeCarga = elementos.toDouble() / tamano.toDouble()
+        factorDeCarga = elementos / tamano.toDouble()
 
         if (factorDeCarga >= 0.7) rehash()
     }
