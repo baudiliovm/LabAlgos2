@@ -72,5 +72,5 @@ fun main(args: Array<String>) {
 
     val promedio1 = sumaTiempo1 / 5
     println("   Tiempo promedio de ejecucion Cuckoo: $promedio1 segundos")
-    println("   Desviacion estandar: ${standardDeviation(promedio, arregloTiempos)} segundos")
+    println("   Desviacion estandar: ${standardDeviation(promedio1, arregloTiempos1)} segundos")
 }
