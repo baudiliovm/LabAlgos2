@@ -12,28 +12,42 @@ fun main(args: Array<String>) {
     println("Cantidad pares: $n")
     println("Intervalo: [0, $inter]")
 
-    var createHash = HashTableChaining()
-    val begin = System.nanoTime()
-    for ((i,j) in pares) {
-        if (createHash.buscar(i) == null) {
-            createHash.agregar(i, j)
-        } else {
-            createHash.eliminar(i)
+
+    var sumaTiempo = 0.0
+    var sumaTiempo1 = 0.0
+
+    for (i in 0..4) {
+        var chaining = HashTableChaining()
+        val begin = System.nanoTime()
+        for ((clave, valor) in pares) {
+            if (chaining.buscar(clave) == null) {
+                chaining.agregar(clave, valor)
+            } else {
+                chaining.eliminar(clave)
+            }
         }
-    }
-    val end = System.nanoTime()
-    val time = end - begin / 1e9
-
-
-    /* var createCuckoo = CuckooHashTable()
-
-    for ((i,j) in pares) {
-        if (createCuckoo.buscar(i) == null) {
-            createCuckoo.agregar(i, j)
-        } else {
-            createCuckoo.eliminar(i)
+        val end = System.nanoTime()
+        val time = (end - begin) / 1e9
+        sumaTiempo += time
+    
+        var cuckoo = CuckooHashTable(7)
+        val begin1 = System.nanoTime()
+        for ((clave, valor) in pares) {
+            if (cuckoo.buscar(clave) == null) {
+                cuckoo.agregar(clave, valor)
+            } else {
+                cuckoo.eliminar(clave)
+            }
         }
+        val end1 = System.nanoTime()
+        val time1 = (end1 - begin1) / 1e9
+        sumaTiempo1 += time1
     }
-    */
-    println("Tiempo de ejecucion: $time segundos")
+
+    val promedio = sumaTiempo / 5
+    val promedio1 = sumaTiempo1 / 5
+
+   
+    println("Tiempo promedio de ejecucion Chaining: $promedio segundos")
+    println("Tiempo promedio de ejecucion Cuckoo: $promedio1 segundos")
 }
