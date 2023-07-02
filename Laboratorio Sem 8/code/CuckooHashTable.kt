@@ -20,13 +20,12 @@ class CuckooHashTable() {
         if(buscar(key) != null){
             return true
         }
-
+        elementos++
         val temp1 = tabla1[index1]
         tabla1[index1] = entrada
         entrada = temp1
         
         if (entrada.key == -1) {
-            elementos++
             return true
         }
         
@@ -35,10 +34,10 @@ class CuckooHashTable() {
         entrada = temp2
 
         if (entrada.key == -1) {
-            elementos++
             return true
         }
         if (entrada.key != -1) {
+            elementos--
             rehash()
             agregar(entrada.key,entrada.value)
         }
@@ -90,9 +89,8 @@ class CuckooHashTable() {
     }
 
     private fun rehash() {
-        val newSize = valorI * 2
-        val newtabla1 = Array(newSize) { CuckooHashTableEntry(-1, "") }
-        val newtabla2 = Array(newSize) { CuckooHashTableEntry(-1, "") }
+        val newtabla1 = Array(valorI * 2) { CuckooHashTableEntry(-1, "") }
+        val newtabla2 = Array(valorI * 2) { CuckooHashTableEntry(-1, "") }
 
         for (i in 0 until valorI) {
             val entradaActual1 = tabla1[i]
@@ -110,7 +108,7 @@ class CuckooHashTable() {
 
         tabla1 = newtabla1
         tabla2 = newtabla2
-        valorI = newSize
+        valorI = valorI * 2
     }
 
     override fun toString(): String {
