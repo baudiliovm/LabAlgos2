@@ -117,10 +117,9 @@ class CuckooHashTable(var valorInicial: Int) {
             if (entrada.key != -1) {
                 builder.append("${entrada.toString()}\n")
             }
-
             entrada = tabla2[i]
             if (entrada.key != -1) {
-                builder.append("  tabla2[${i}] = ${entrada.toString()}\n")
+                builder.append("${entrada.toString()}\n")
             }
         }
         builder.append("}")
