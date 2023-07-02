@@ -1,18 +1,22 @@
-class CuckooHashTable(valorInicial: Int) {
+class CuckooHashTable() {
     
     
-    private var valorI = valorInicial
+    private var valorI = 7
     private var tabla1 = Array(valorI) { CuckooHashTableEntry(-1, "") }
     private var tabla2 = Array(valorI) { CuckooHashTableEntry(-1, "") }
+    private var elementos = 0
     
 
     
     
     fun agregar(key: Int, value: String): Boolean {
-    
+        if((1.0*elementos)/valorI >= 0.7){
+            rehash()
+        }
         var entrada = CuckooHashTableEntry(key, value)
         val index1 = hash1(key)
         val index2 = hash2(key)
+        
         if(buscar(key) != null){
             return true
         }
@@ -20,8 +24,9 @@ class CuckooHashTable(valorInicial: Int) {
         val temp1 = tabla1[index1]
         tabla1[index1] = entrada
         entrada = temp1
-
+        
         if (entrada.key == -1) {
+            elementos++
             return true
         }
         
@@ -30,6 +35,7 @@ class CuckooHashTable(valorInicial: Int) {
         entrada = temp2
 
         if (entrada.key == -1) {
+            elementos++
             return true
         }
         if (entrada.key != -1) {
@@ -58,11 +64,13 @@ class CuckooHashTable(valorInicial: Int) {
         val index1 = hash1(key)
         if (tabla1[index1].key == key) {
             tabla1[index1] = CuckooHashTableEntry(-1, "")
+            elementos--
             return true
         }
         val index2 = hash2(key)
         if (tabla2[index2].key == key) {
             tabla2[index2] = CuckooHashTableEntry(-1, "")
+            elementos--
             return true
         }
 
