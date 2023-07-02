@@ -77,6 +77,10 @@ class CuckooHashTable() {
         return false
     }
 
+    fun numElementos(): Int{
+        return elementos
+    }
+
     private fun hash1(key: Int): Int {
         return key % valorI
     }
@@ -111,15 +115,15 @@ class CuckooHashTable() {
 
     override fun toString(): String {
         val builder = StringBuilder()
-        builder.append("CuckooHashTable {\n")
+        builder.append("{")
         for (i in 0 until valorI) {
             var entrada = tabla1[i]
             if (entrada.key != -1) {
-                builder.append("${entrada.toString()}\n")
+                builder.append("${entrada.toString()} ")
             }
             entrada = tabla2[i]
             if (entrada.key != -1) {
-                builder.append("${entrada.toString()}\n")
+                builder.append("${entrada.toString()} ")
             }
         }
         builder.append("}")
