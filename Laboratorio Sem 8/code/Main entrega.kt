@@ -41,6 +41,4 @@ fun main(args: Array<String>) {
     val end1 = System.nanoTime()
     val time1 = (end1 - begin1) / 1e9
     println("   Tiempo promedio de ejecucion Cuckoo: $time1 segundos")
-    println("   Con # elementos: ${cuckoo.numElementos()}")
-
 }
