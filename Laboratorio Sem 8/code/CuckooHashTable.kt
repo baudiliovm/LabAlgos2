@@ -31,7 +31,6 @@ class CuckooHashTable() {
         entrada = temp1
         
         if (entrada.clave == -1) {
-            elementos++
             return true
         }
         
@@ -40,10 +39,10 @@ class CuckooHashTable() {
         entrada = temp2
 
         if (entrada.clave == -1) {
-            elementos++
             return true
         }
         if (entrada.clave != -1) {
+            elementos--
             rehash()
             agregar(entrada.clave, entrada.valor)
         }
@@ -67,7 +66,7 @@ class CuckooHashTable() {
             return tabla2[index2].valor
         }
         
-        throw Exception("La clave $clave no existe")
+        return null
     }
 
     /**
@@ -89,7 +88,7 @@ class CuckooHashTable() {
             return true
         }
 
-        throw Exception("La clave $clave no existe")
+        return false
     }
 
     /**
