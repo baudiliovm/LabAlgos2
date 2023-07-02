@@ -157,7 +157,7 @@ class CuckooHashTable() {
      */
     override fun toString(): String {
         val builder = StringBuilder()
-        builder.append("{")
+        builder.append("{ ")
         for (i in 0 until valorI) {
             var entrada = tabla1[i]
             if (entrada.clave != -1) {
