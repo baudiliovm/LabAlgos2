@@ -35,5 +35,5 @@ fun main(args: Array<String>) {
         }
     }
     */
-    println("Tiempo de ejecucion: $time")
+    println("Tiempo de ejecucion: $time segundos")
 }

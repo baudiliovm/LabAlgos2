@@ -3,7 +3,8 @@ import kotlin.system.exitProcess
 class HashTableChaining() {
 
     private var tabla: Array<CircularList?> = arrayOfNulls(7)
-    private var tamano: Int = tabla.size
+    private var tamano: Int = 0
+        get() = tabla.size
     private var factorDeCarga: Double = 0.0
         get() = elementos / tamano.toDouble()
     private var elementos: Int = 0
@@ -43,7 +44,7 @@ class HashTableChaining() {
         tabla[hashValor]?.agregarLista(HashTableEntry(key, valor))
 
         elementos++
-
+        
         if (factorDeCarga >= 0.7) rehash()
     }
 
