@@ -1,10 +1,9 @@
-class HashTableChaining(tamano: Int) {
+class HashTableChaining() {
 
     private var tabla: Array<CircularList?> = arrayOfNulls(7)
-    private var tamano: Int = tamano
+    private var tamano: Int = tabla.size
     private var factorDeCarga: Double = 0.0
     factorDeCarga = elementos / tamano
-
     private var elementos: Int = 0
     
     // Hash metodo de division
