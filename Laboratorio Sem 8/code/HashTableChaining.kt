@@ -80,9 +80,7 @@ class HashTableChaining() {
         val hashValor = hash(clave)
         var actual = tabla[hashValor]?.buscarLista(clave)
 
-        if (actual == null) throw Exception("La clave $clave no existe")
-
-        return actual.valor
+        return actual?.valor
     }
 
     /**
@@ -134,7 +132,7 @@ class HashTableChaining() {
      * @return la tabla en forma de cadena String
      */
     override fun toString(): String {
-        var cadena = "[ "
+        var cadena = "{ "
         for (i in tabla) {
             if (i != null) {
                 var x: HashTableEntry? = i.cabeza
@@ -144,7 +142,7 @@ class HashTableChaining() {
                 }
             }
         }
-        cadena += "]"
+        cadena += "}"
         return cadena
     }
 }

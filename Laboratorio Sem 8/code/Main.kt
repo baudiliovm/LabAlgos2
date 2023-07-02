@@ -47,7 +47,6 @@ fun main(args: Array<String>) {
         val time = (end - begin) / 1e9
         arregloTiempos[it] = time
         sumaTiempo += time
-        println(chaining.toString())
     }
 
     val promedio = sumaTiempo / 5
@@ -69,7 +68,6 @@ fun main(args: Array<String>) {
         val time1 = (end1 - begin1) / 1e9
         arregloTiempos1[it] = time1
         sumaTiempo1 += time1
-        println(cuckoo.toString())
     }
 
     val promedio1 = sumaTiempo1 / 5
