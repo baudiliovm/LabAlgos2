@@ -1,52 +1,44 @@
-class CuckooHashTable(var valorInicial: Int) {
+class CuckooHashTable(valorInicial: Int) {
+    
+    
+    private var valorI = valorInicial
+    private var tabla1 = Array(valorI) { CuckooHashTableEntry(-1, "") }
+    private var tabla2 = Array(valorI) { CuckooHashTableEntry(-1, "") }
+    
 
-    private var tabla1 = Array(valorInicial) { CuckooHashTableEntry(-1, "") }
-    private var tabla2 = Array(valorInicial) { CuckooHashTableEntry(-1, "") }
-    public var size = 0
-
-    fun agregar(key: Int, value: String) {
-        if (size / valorInicial >= 0.7) {
-            rehash()
-        }
-
+    
+    
+    fun agregar(key: Int, value: String): Boolean {
+    
+        var entrada = CuckooHashTableEntry(key, value)
         val index1 = hash1(key)
         val index2 = hash2(key)
-
-        if (tabla1[index1].key == -1) {
-            tabla1[index1] = CuckooHashTableEntry(key, value)
-            size++
-            return
+        if(buscar(key) != null){
+            return true
         }
 
-        if (tabla2[index2].key == -1) {
-            tabla2[index2] = CuckooHashTableEntry(key, value)
-            size++
-            return
-        }
+        val temp1 = tabla1[index1]
+        tabla1[index1] = entrada
+        entrada = temp1
 
+        if (entrada.key == -1) {
+            return true
+        }
         
-        var tablaActual = tabla1
-        var tablaProxima = tabla2
+        val temp2 = tabla2[index2]
+        tabla2[index2] = entrada
+        entrada = temp2
 
-        while (true) {
-            val entradaV = tablaActual[index1]
-
-            
-            tablaProxima[hash2(entradaV.key)] = entradaV
-
-            
-            val currentIndex = hash1(key)
-            if (tablaActual[currentIndex].key == -1) {
-                tablaActual[currentIndex] = CuckooHashTableEntry(key, value)
-                size++
-                return
-            }
-
-            
-            tablaActual = tablaProxima
-            tablaProxima = tablaActual
+        if (entrada.key == -1) {
+            return true
         }
+        if (entrada.key != -1) {
+            rehash()
+            agregar(entrada.key,entrada.value)
+        }
+        return true
     }
+
 
     fun buscar(key: Int): String? {
         val index1 = hash1(key)
@@ -78,19 +70,19 @@ class CuckooHashTable(var valorInicial: Int) {
     }
 
     private fun hash1(key: Int): Int {
-        return key % valorInicial
+        return key % valorI
     }
 
     private fun hash2(key: Int): Int {
-        return (key * 0.6180339887).toInt() % valorInicial
+        return (key * 0.6180339887).toInt() % valorI
     }
 
     private fun rehash() {
-        val newSize = valorInicial * 2
+        val newSize = valorI * 2
         val newtabla1 = Array(newSize) { CuckooHashTableEntry(-1, "") }
         val newtabla2 = Array(newSize) { CuckooHashTableEntry(-1, "") }
 
-        for (i in 0 until valorInicial) {
+        for (i in 0 until valorI) {
             val entradaActual1 = tabla1[i]
             if (entradaActual1.key != -1) {
                 val index1 = hash1(entradaActual1.key)
@@ -106,13 +98,13 @@ class CuckooHashTable(var valorInicial: Int) {
 
         tabla1 = newtabla1
         tabla2 = newtabla2
-        valorInicial = newSize
+        valorI = newSize
     }
 
     override fun toString(): String {
         val builder = StringBuilder()
         builder.append("CuckooHashTable {\n")
-        for (i in 0 until valorInicial) {
+        for (i in 0 until valorI) {
             var entrada = tabla1[i]
             if (entrada.key != -1) {
                 builder.append("${entrada.toString()}\n")
