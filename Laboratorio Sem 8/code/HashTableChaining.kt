@@ -83,7 +83,7 @@ class HashTableChaining() {
     }
     
     override fun toString(): String {
-        var cadena = "["
+        var cadena = "[ "
         for (i in tabla) {
             if (i != null) {
                 var x: HashTableEntry? = i.cabeza
