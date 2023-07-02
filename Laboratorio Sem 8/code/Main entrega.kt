@@ -26,6 +26,7 @@ fun main(args: Array<String>) {
     val end = System.nanoTime()
     val time = (end - begin) / 1e9
     println("   Tiempo de ejecucion Chaining: $time segundos")
+    println("   Con # elementos: ${chaining.numElementos()}")
 
     println("Para CuckooHashTable: ")
     var cuckoo = CuckooHashTable()
@@ -40,4 +41,6 @@ fun main(args: Array<String>) {
     val end1 = System.nanoTime()
     val time1 = (end1 - begin1) / 1e9
     println("   Tiempo promedio de ejecucion Cuckoo: $time1 segundos")
+    println("   Con # elementos: ${cuckoo.numElementos()}")
+
 }
