@@ -1,5 +1,3 @@
-import kotlin.system.exitProcess
-
 /**
  * Implementacion de tabla de hash dinamica con encadenamiento con listas circulares
  * doblemente enlazadas
