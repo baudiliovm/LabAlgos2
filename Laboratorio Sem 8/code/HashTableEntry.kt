@@ -1,4 +1,4 @@
-class HashTableEntry(var clave: Int, var valor: String) {
+class HashTableEntry(val clave: Int,val valor: String) {
     var siguiente: HashTableEntry? = null
     var anterior: HashTableEntry? = null
 
