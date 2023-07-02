@@ -1,14 +1,15 @@
+import kotlin.system.exitProcess
+
 class HashTableChaining() {
 
     private var tabla: Array<CircularList?> = arrayOfNulls(7)
     private var tamano: Int = tabla.size
     private var factorDeCarga: Double = 0.0
+        get() = elementos / tamano.toDouble()
     private var elementos: Int = 0
     
     // Hash metodo de division
     private fun hash(key: Int) = key % tamano
-    
-    factorDeCarga = elementos / tamano.toDouble()
     
     private fun rehash() {
         val nuevoTamano = (3 * (tamano + 16)) / 2
@@ -30,6 +31,11 @@ class HashTableChaining() {
 
     fun agregar(key: Int, valor: String) {
 
+        if (existe(key)) {
+            println("La clave ya existe")
+            exitProcess(1)
+        }
+
         val hashValor = hash(key)
 
         if (tabla[hashValor] == null) tabla[hashValor] = CircularList()
@@ -37,7 +43,6 @@ class HashTableChaining() {
         tabla[hashValor]?.agregarLista(HashTableEntry(key, valor))
 
         elementos++
-        factorDeCarga = elementos / tamano.toDouble()
 
         if (factorDeCarga >= 0.7) rehash()
     }
