@@ -1,7 +1,14 @@
-fun main(args: String) {
+fun main(args: Array<String>) {
     
-    // Iniciamos CodigoMorse
-    val codigoMorse = CodigoMorse()
-    // Retorna el mensaje dado
-    codigoMorse.decodificarMensaje(args)
+    // Unimos la entrada en un solo string
+    var mensaje = ""
+    for (letra in args) {
+        mensaje += letra + " "
+    }
+    
+    var CodigoMorse = CodigoMorse()
+    
+    // Imprime el mensaje dado
+    println(CodigoMorse.decodificarMensaje(mensaje))
+
 }
