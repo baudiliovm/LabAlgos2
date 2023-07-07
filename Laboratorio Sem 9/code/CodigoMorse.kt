@@ -1,15 +1,15 @@
 class CodigoMorse {
-    private val arbolMorse: Nodo
+    private val morseTree: Nodo
 
     init {
-        arbolMorse = Nodo()
+        morseTree = Nodo()
         val letras = arrayOf("E", "T", "I", "A", "N", "M", "S", "U", "R", "W", "D", "K", "G", "O", "H", "V", "F", "", "L", "", "P", "J", "B", "X", "C", "Y", "Z", "Q")
         val codigos = arrayOf(".", "-", "..", ".-", "-.", "--", "...", "..-", ".-.", ".--", "-..", "-.-", "--.", "---",
             "....", "...-", "..-.", "", ".-..", "", ".--.", ".---",
             "-...", "-..-", "-.-.", "-.--",
             "--..","--.-")
         for (i in letras.indices) {
-            insertar(arbolMorse, codigos[i], letras[i])
+            insertar(morseTree, codigos[i], letras[i])
         }
     }
 
@@ -29,5 +29,45 @@ class CodigoMorse {
             }
             insertar(nodo.derecha!!, codigo.substring(1), letra)
         }
+    }
+
+    fun decodificarLetra(secuencia: String): String? {
+        var nodoActual = morseTree
+        for (simbolo in secuencia) {
+            if (simbolo == '.') {
+                if (nodoActual.izquierda != null) {
+                    nodoActual = nodoActual.izquierda!!
+                } else {
+                    return null
+                }
+            } else if (simbolo == '-') {
+                if (nodoActual.derecha != null) {
+                    nodoActual = nodoActual.derecha!!
+                } else {
+                    return null
+                }
+            } else {
+                return null
+            }
+        }
+        return nodoActual.letra
+    }
+
+    fun decodificarMensaje(frase: String): String? {
+        val palabras = frase.split("/")
+        val resultado = StringBuilder()
+        for (palabra in palabras) {
+            val letras = palabra.split(" ")
+            for (letra in letras) {
+                val decodificacion = decodificarLetra(letra)
+                if (decodificacion != null) {
+                    resultado.append(decodificacion)
+                } else {
+                    return null
+                }
+            }
+            resultado.append(" ")
+        }
+        return resultado.toString().trim()
     }
 }
