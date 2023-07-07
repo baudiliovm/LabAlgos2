@@ -1,9 +1,7 @@
 fun main(args: String) {
     
-    // Separamos la entrada por palabras
-    var delim = "/"
-    val mensaje = args.split(delim).toTypedArray()
-
+    // Iniciamos CodigoMorse
+    val codigoMorse = CodigoMorse()
     // Retorna el mensaje dado
-    CodigoMorse().decodificarMensaje(mensaje)
+    codigoMorse.decodificarMensaje(args)
 }
