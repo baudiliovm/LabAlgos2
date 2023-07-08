@@ -1,5 +1,9 @@
+/** 
+ * Main para probar la clase CodigoMorse
+ * 
+ * @param args Mensaje en codigo morse
+ */
 fun main(args: Array<String>) {
-    
     // Unimos la entrada en un solo string
     var mensaje = ""
     for (letra in args) {
@@ -11,5 +15,4 @@ fun main(args: Array<String>) {
     
     // Imprime el mensaje dado
     println(morse.decodificarMensaje(mensaje))
-
 }

@@ -1,9 +1,15 @@
+/**
+ * Clase que representa un arbol de Codigo Morse y permite decodificar mensajes
+ * dados en codigo morse
+ */
 public class CodigoMorse {
-    private val arbolMorse: Nodo
-
+    private val arbolMorse: NodoArbol
+    /**
+     * Inicializa el arbol de Codigo Morse
+     */
     init {
-        println("Creamos un arbol de Codigo Morse")
-        arbolMorse = Nodo()
+        println("Creamos un arbol de Codigo Morse...\n")
+        arbolMorse = NodoArbol()
         val letras = arrayOf("E", "T", "I", "A", "N", "M", "S", "U", "R", "W", "D", "K", "G", "O", "H", "V", "F", "", "L", "", "P", "J", "B", "X", "C", "Y", "Z", "Q")
         val codigos = arrayOf(".", "-", "..", ".-", "-.", "--", "...", "..-", ".-.", ".--", "-..", "-.-", "--.", "---",
             "....", "...-", "..-.", "", ".-..", "", ".--.", ".---",
@@ -14,24 +20,37 @@ public class CodigoMorse {
         }
     }
 
-    private fun insertar(nodo: Nodo, codigo: String, letra: String) {
+    /** 
+     * Inserta un codigo en el arbol
+     * 
+     * @param nodo Nodo actual
+     * @param codigo Codigo a insertar
+     * @param letra Letra a insertar
+     */
+    private fun insertar(nodo: NodoArbol, codigo: String, letra: String) {
         if (codigo.isEmpty()) {
             nodo.letra = letra
             return
         }
         if (codigo[0] == '.') {
             if (nodo.izquierda == null) {
-                nodo.izquierda = Nodo()
+                nodo.izquierda = NodoArbol()
             }
             insertar(nodo.izquierda!!, codigo.substring(1), letra)
         } else {
             if (nodo.derecha == null) {
-                nodo.derecha = Nodo()
+                nodo.derecha = NodoArbol()
             }
             insertar(nodo.derecha!!, codigo.substring(1), letra)
         }
     }
 
+    /**
+     * De una secuencia de codigo morse, decodifica la letra correspondiente
+     * 
+     * @param secuencia Secuencia de codigo morse
+     * @return Letra decodificada
+     */
     fun decodificarLetra(secuencia: String): String? {
         var nodoActual = arbolMorse
         for (simbolo in secuencia) {
@@ -54,6 +73,13 @@ public class CodigoMorse {
         return nodoActual.letra
     }
 
+
+    /**
+     * Decodifica un mensaje en codigo morse
+     * 
+     * @param frase Frase en codigo morse
+     * @return Frase decodificada
+     */
     fun decodificarMensaje(frase: String): String? {
         val palabras = frase.split("/")
         val resultado = StringBuilder()
@@ -69,6 +95,6 @@ public class CodigoMorse {
             }
             resultado.append(" ")
         }
-        return resultado.toString().trim()
+        return "Mensaje decodificado: ${resultado.toString().trim()}"
     }
 }

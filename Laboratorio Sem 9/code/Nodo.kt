@@ -1,1 +1,0 @@
-class Nodo(var letra: String? = null, var izquierda: Nodo? = null, var derecha: Nodo? = null)
