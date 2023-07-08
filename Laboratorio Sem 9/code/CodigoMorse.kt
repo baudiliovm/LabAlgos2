@@ -1,4 +1,4 @@
-class CodigoMorse {
+public class CodigoMorse {
     private val arbolMorse: Nodo
 
     init {
