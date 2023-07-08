@@ -6,9 +6,10 @@ fun main(args: Array<String>) {
         mensaje += letra + " "
     }
     
-    var CodigoMorse = CodigoMorse()
+    // Init CodigoMorse
+    val morse = CodigoMorse()
     
     // Imprime el mensaje dado
-    println(CodigoMorse.decodificarMensaje(mensaje))
+    println(morse.decodificarMensaje(mensaje))
 
 }

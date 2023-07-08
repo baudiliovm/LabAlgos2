@@ -2,6 +2,7 @@ class CodigoMorse {
     private val arbolMorse: Nodo
 
     init {
+        println("Creamos un arbol de Codigo Morse")
         arbolMorse = Nodo()
         val letras = arrayOf("E", "T", "I", "A", "N", "M", "S", "U", "R", "W", "D", "K", "G", "O", "H", "V", "F", "", "L", "", "P", "J", "B", "X", "C", "Y", "Z", "Q")
         val codigos = arrayOf(".", "-", "..", ".-", "-.", "--", "...", "..-", ".-.", ".--", "-..", "-.-", "--.", "---",
@@ -63,7 +64,7 @@ class CodigoMorse {
                 if (decodificacion != null) {
                     resultado.append(decodificacion)
                 } else {
-                    return null
+                    return "Error: Codigo Morse invalido"
                 }
             }
             resultado.append(" ")
