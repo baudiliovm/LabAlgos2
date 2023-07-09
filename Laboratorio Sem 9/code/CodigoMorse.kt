@@ -8,7 +8,6 @@ public class CodigoMorse {
      * Inicializa el arbol de Codigo Morse
      */
     init {
-        println("Creamos un arbol de Codigo Morse...\n")
         arbolMorse = NodoArbol()
         val letras = arrayOf("E", "T", "I", "A", "N", "M", "S", "U", "R", "W", "D", "K", "G", "O", "H", "V", "F", "", "L", "", "P", "J", "B", "X", "C", "Y", "Z", "Q")
         val codigos = arrayOf(".", "-", "..", ".-", "-.", "--", "...", "..-", ".-.", ".--", "-..", "-.-", "--.", "---",
@@ -90,11 +89,11 @@ public class CodigoMorse {
                 if (decodificacion != null) {
                     resultado.append(decodificacion)
                 } else {
-                    return "Error: Codigo Morse invalido"
+                    return null
                 }
             }
             resultado.append(" ")
         }
-        return "Mensaje decodificado: ${resultado.toString().trim()}"
+        return resultado.toString().trim()
     }
 }

@@ -11,8 +11,15 @@ fun main(args: Array<String>) {
     }
     
     // Init CodigoMorse
+    println("Creamos un arbol de Codigo Morse...\n")
     val morse = CodigoMorse()
-    
+    val decodificacion = morse.decodificarMensaje(mensaje)
     // Imprime el mensaje dado
-    println(morse.decodificarMensaje(mensaje))
+    if (decodificacion != null){
+        println("Mensaje decodificado: ${decodificacion}")
+    }
+    else {
+        println("Error: Codigo Morse invalido")
+    }
+
 }
