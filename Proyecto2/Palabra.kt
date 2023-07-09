@@ -1,4 +1,4 @@
-class Palabra {
+class Palabras {
     var palabra: String = ""
 
     private fun length(): Int {
@@ -10,7 +10,7 @@ class Palabra {
         return regex.matches(letra)
     }
 
-    fun esPalabraValida(palabra: String): Boolean {
+    fun esPalabraValida(): Boolean {
         if (length() < 0) {
             return false
         }
