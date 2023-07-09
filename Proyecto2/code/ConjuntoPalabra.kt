@@ -1,4 +1,6 @@
 import kotlin.system.exitProcess
+import kotlin.math.absoluteValue
+
 /**
  * Implementacion de tabla de hash dinamica con encadenamiento con listas circulares
  * doblemente enlazadas
@@ -6,7 +8,6 @@ import kotlin.system.exitProcess
  * Soporta las operaciones de agregar, eliminar, buscar y existencia.
  */
 class ConjuntoPalabra() {
-
     private var palabras: Array<CircularList?> = arrayOfNulls(3)
     private var tamano: Int = 0
         get() = palabras.size
@@ -15,7 +16,7 @@ class ConjuntoPalabra() {
     private var elementos: Int = 0
     
     private fun hash(key: String): Int {
-        return (key.hashCode() % tamano)
+        return (key.hashCode() % tamano).absoluteValue
     }
 
     private fun rehash() {
@@ -38,13 +39,18 @@ class ConjuntoPalabra() {
 
     fun agregar(palabra: String) {
 
-        val hashValor = hash(palabra)
+        if (!Palabra(palabra).esPalabraValida()) {
+            println("La palabra $palabra no es valida")
+            return
+        }
         
         if (existe(palabra)) {
             println("La palabra $palabra ya existe en el conjunto")
             return
         }
         
+        val hashValor = hash(palabra)
+
         if (palabras[hashValor] == null) palabras[hashValor] = CircularList()
 
         palabras[hashValor]?.agregarLista(Palabra(palabra))
@@ -59,7 +65,7 @@ class ConjuntoPalabra() {
         
         val hashValor = hash(palabra)
         var actual = palabras[hashValor]?.buscarLista(palabra)
-
+        
         return actual?.valor
     }
 
