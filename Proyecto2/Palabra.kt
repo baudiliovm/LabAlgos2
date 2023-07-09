@@ -13,25 +13,19 @@ class Palabras() {
         get() = elementos / tamano.toDouble()
     private var elementos: Int = 0
     
-    var palabra: String = ""
-        set(value) {
-            field = value
-        }
-        
-    private fun length(): Int {
-        return palabra.length
-    }
+    
+    private fun length(palabra: String) = palabra.length
     
     fun esLetraValida(letra: String): Boolean {
         val regex = Regex("[a-zñ]")
         return regex.matches(letra)
     }
 
-    fun esPalabraValida(): Boolean {
-        if (length() < 0) {
+    fun esPalabraValida(palabra: String): Boolean {
+        if (length(palabra) < 0) {
             return false
         }
-        for (letra in 0 until length()) {
+        for (letra in 0 until length(palabra)) {
             if (!esLetraValida(palabra[letra].toString())) {
                 return false
             }
