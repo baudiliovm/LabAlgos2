@@ -1,6 +1,6 @@
 class PMLI(l: Char) {
     private var letra: Char = l
-    private var palabras = palabra()
+    private var palabras = Palabra()
 
     fun agregarPalabra(p: String) {
         if (p[0] == letra) {
