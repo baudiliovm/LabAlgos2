@@ -10,14 +10,13 @@ class CircularList {
 
     fun eliminarLista(clave: Palabra) {
         if (clave.anterior == null) cabeza = clave.siguiente
-            
         clave.anterior?.siguiente = clave.siguiente
         clave.siguiente?.anterior = clave.anterior
     }
 
     fun buscarLista(clave: String): Palabra? {
         var c: Palabra? = cabeza
-        while (c != null && c.palabra != clave) c = c.siguiente
+        while (c != null && c.valor != clave) c = c.siguiente
         return c
     }
 }

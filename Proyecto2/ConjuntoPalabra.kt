@@ -1,33 +1,23 @@
+import kotlin.system.exitProcess
 /**
  * Implementacion de tabla de hash dinamica con encadenamiento con listas circulares
  * doblemente enlazadas
  * 
  * Soporta las operaciones de agregar, eliminar, buscar y existencia.
  */
-class Palabras() {
+class ConjuntoPalabra() {
 
-    private var palabras: Array<CircularList?> = arrayOfNulls(7)
+    private var palabras: Array<CircularList?> = arrayOfNulls(3)
     private var tamano: Int = 0
         get() = palabras.size
     private var factorDeCarga: Double = 0.0
         get() = elementos / tamano.toDouble()
     private var elementos: Int = 0
     
-    /**
-     * Metodo de la division para obtener el indice de la tabla
-     * 
-     * @param key la clave del elemento
-     * @return el indice de la tabla
-     */
-    private fun hash(key: String) = key.hashCode()
-    
-    /**
-     * Rehashing de la tabla
-     * 
-     * Se crea una nueva tabla con un tamaño 3 veces el tamaño anterior + 16
-     * dividido entre 2, y se reasignan los elementos de la tabla anterior 
-     * a la nueva tabla.
-     */
+    private fun hash(key: String): Int {
+        return (key.hashCode() % tamano)
+    }
+
     private fun rehash() {
         val nuevoTamano = 2 * tamano
         val tablaCopia = palabras
@@ -39,86 +29,69 @@ class Palabras() {
             if (i != null) {
                 var x: Palabra? = i.cabeza
                 while (x != null) {
-                    agregar(x.palabra)
+                    agregar(x.valor)
                     x = x.siguiente
                 }
             }
         }
     }
 
-    /**
-     * Agrega un elemento a la tabla
-     * 
-     * @param key la clave del elemento
-     * @param valor el valor del elemento
-     */
-    fun agregar(clave: String) {
+    fun agregar(palabra: String) {
 
-        if (existe(clave)) throw Exception("La palabra $clave ya existe")
-
-        val hashValor = hash(clave)
-
+        val hashValor = hash(palabra)
+        
+        if (existe(palabra)) {
+            println("La palabra $palabra ya existe en el conjunto")
+            return
+        }
+        
         if (palabras[hashValor] == null) palabras[hashValor] = CircularList()
 
-        palabras[hashValor]?.agregarLista(Palabra(clave))
+        palabras[hashValor]?.agregarLista(Palabra(palabra))
 
         elementos++
         
         if (factorDeCarga >= 0.7) rehash()
     }
 
-    /**
-     * Busca un elemento en la tabla
-     * 
-     * @param clave la clave del elemento
-     * @return el valor del elemento
-     */
-    fun buscar(clave: String): String? {
+    
+    fun buscar(palabra: String): String? {
+        
+        val hashValor = hash(palabra)
+        var actual = palabras[hashValor]?.buscarLista(palabra)
 
-        val hashValor = hash(clave)
-        var actual = palabras[hashValor]?.buscarLista(clave)
-
-        return actual?.palabra
+        return actual?.valor
     }
 
-    /**
-     * Elimina un elemento de la tabla
-     * 
-     * @param clave la clave del elemento
-     */
-    fun eliminar(clave: String) {
 
-        val hashValor = hash(clave)
-        var borra = palabras[hashValor]?.buscarLista(clave)
+    fun eliminar(palabra: String) {
+
+        val hashValor = hash(palabra)
+        var borra = palabras[hashValor]?.buscarLista(palabra)
 
         if (borra != null) {
             palabras[hashValor]?.eliminarLista(borra)
         } else {
-            throw Exception("La clave $clave no existe")
+            println("La palabra $palabra no existe en el conjunto")
+            return
         }
         
         if (palabras[hashValor]?.cabeza == null) palabras[hashValor] = null
         elementos--
     }
 
-    /**
-     * Verifica si un elemento existe en la tabla
-     * 
-     * @param clave la clave del elemento
-     * @return true si el elemento existe, false en otro caso
-     */
-    fun existe(clave: String): Boolean {
+    fun existe(palabra: String): Boolean {
 
-        val hash = hash(clave)
-        var valor = palabras[hash]?.buscarLista(clave)
+        val hash = hash(palabra)
+        var valor = palabras[hash]?.buscarLista(palabra)
 
         return valor != null
     }
     
     /**
-     * Devuelve el numero de elementos en la tabla
+     * Devuelve el numero de palabras en la tabla
      * 
-     * @return el numero de elementos en la tabla
+     * @return el numero de palabras en la tabla
      */
     fun numElementos(): Int {
         return elementos

@@ -1,8 +1,8 @@
-class Palabra(val palabra: String) {
+class Palabra(val valor: String) {
 
     var siguiente: Palabra? = null
     var anterior: Palabra? = null
-
+    
     private fun length(palabra: String) = palabra.length
     
     private fun esLetraValida(letra: String): Boolean {
@@ -11,11 +11,11 @@ class Palabra(val palabra: String) {
     }
 
     fun esPalabraValida(): Boolean {
-        if (length(palabra) < 0) {
+        if (length(valor) < 0) {
             return false
         }
-        for (letra in 0 until length(palabra)) {
-            if (!esLetraValida(palabra[letra].toString())) {
+        for (letra in 0 until length(valor)) {
+            if (!esLetraValida(valor[letra].toString())) {
                 return false
             }
         }
@@ -26,6 +26,6 @@ class Palabra(val palabra: String) {
      * Representación en String de la entrada de clave y valor
      */
     override fun toString(): String {
-        return palabra
+        return valor
     }
 }
