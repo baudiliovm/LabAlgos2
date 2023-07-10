@@ -28,8 +28,6 @@ class AyudanteOrtografico {
         val output = File(foutput)
         input.forEachLine { line ->
             val palabras = line.split(Regex("\\s+"))
-            println(palabras.joinToString())
-            println(palabras[0])
             for (palabra in palabras) {
                 if (esPalabraValida(palabra)) {
                     val index = palabra.get(0) - 'a'
