@@ -24,11 +24,8 @@ class PMLI(val letra: String) {
     }
 
     fun mostrarPalabras() {
-        val sortedPalabras = palabras.ordenar()
-        println(sortedPalabras.toString())/* 
-        for (p in sortedPalabras) {
-            println(p)
-        } */
+        palabras.ordenarr()
+        println(palabras.toString())
     }
     
 

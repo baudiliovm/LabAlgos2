@@ -103,9 +103,15 @@ class ConjuntoPalabra {
         return elementos
     }
     
-    fun ordenar() {
-        palabras.sort()
+    fun ordenarr() {
+        for (i in 0 until tamano) {
+            if (palabras[i] != null) {
+                palabras[i]?.ordenar()
+            }
+        }
     }
+
+    
 
     /**
      * Imprime la tabla
