@@ -5,9 +5,11 @@ class Palabra(val valor: String) {
     
     private fun length(palabra: String) = palabra.length
     
-    private fun esLetraValida(letra: String): Boolean {
-        val regex = Regex("[a-zñ]")
-        return regex.matches(letra)
+    companion object {
+        fun esLetraValida(letra: String): Boolean {
+            val regex = Regex("[a-zñ]")
+            return regex.matches(letra)
+        }
     }
 
     fun esPalabraValida(): Boolean {
@@ -21,7 +23,7 @@ class Palabra(val valor: String) {
         }
         return true
     }
-
+    
     /**
      * Representación en String de la entrada de clave y valor
      */

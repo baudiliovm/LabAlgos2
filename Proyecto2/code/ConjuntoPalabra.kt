@@ -7,7 +7,7 @@ import kotlin.math.absoluteValue
  * 
  * Soporta las operaciones de agregar, eliminar, buscar y existencia.
  */
-class ConjuntoPalabra() {
+class ConjuntoPalabra {
     private var palabras: Array<CircularList?> = arrayOfNulls(3)
     private var tamano: Int = 0
         get() = palabras.size
@@ -18,7 +18,7 @@ class ConjuntoPalabra() {
     private fun hash(key: String): Int {
         return (key.hashCode() % tamano).absoluteValue
     }
-
+    
     private fun rehash() {
         val nuevoTamano = 2 * tamano
         val tablaCopia = palabras
@@ -103,6 +103,10 @@ class ConjuntoPalabra() {
         return elementos
     }
     
+    fun ordenar() {
+        palabras.sort()
+    }
+
     /**
      * Imprime la tabla
      * 
