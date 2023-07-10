@@ -26,7 +26,7 @@ class PMLI(val letra: String) {
 
     fun mostrarPalabras() {
         println("Palabras con la letra $letra:")
-        palabras.sort()
+        palabras.ordenarConjunto()
     }
     
 
