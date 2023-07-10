@@ -33,16 +33,7 @@ class AyudanteOrtografico {
             pmli.mostrarPalabras()
         }
     }
-
-    fun esLetraValida(letra: String): Boolean {
-            if (letra.length != 1) {
-                return false
-            }
-            val regex = Regex("[a-zñ]")
-            return regex.matches(letra)
-    }
     
-
     fun esPalabraValida(s: String): Boolean {
         for (i in 0 until s.length) {
             if (s[i] !in 'a'..'z') {
