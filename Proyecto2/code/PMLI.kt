@@ -1,6 +1,7 @@
 import kotlin.system.exitProcess
 import kotlin.io.println
 
+
 class PMLI(val letra: String) {
 
     init {
@@ -24,11 +25,15 @@ class PMLI(val letra: String) {
         }
     }
 
+    fun arrayPalabras(): Array<String>{
+        val array = palabras.obtenerArray()
+        return array
+    }
+
     fun mostrarPalabras() {
         println("Palabras con la letra $letra:")
         palabras.ordenar()
     }
-    
 
     fun buscarPalabra(p: String): Boolean {
         if (p.first().toString() == letra) {

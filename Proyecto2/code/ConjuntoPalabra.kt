@@ -117,7 +117,22 @@ class ConjuntoPalabra {
         val sorted = list.sortedBy { it.valor }
         println(sorted)
     }
-    
+
+    fun obtenerArray(): Array<String> {
+        val array = Array(elementos) { "" }
+        var i = 0
+        for (j in palabras) {
+            if (j != null) {
+                var x: Palabra? = j.cabeza
+                while (x != null) {
+                    array[i] = x.valor
+                    i++
+                    x = x.siguiente
+                }
+            }
+        }
+        return array
+    }
 
     /**
      * Imprime la tabla

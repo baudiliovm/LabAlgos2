@@ -24,7 +24,27 @@ class AyudanteOrtografico {
 
     
     fun corregirTexto(finput: String, foutput: String) {
-        //
+        val input = File(finput)
+        val output = File(foutput)
+        input.forEachLine { line ->
+            val palabras = line.split(Regex("\\s+"))
+            println(palabras.joinToString())
+            println(palabras[0])
+            for (palabra in palabras) {
+                if (esPalabraValida(palabra)) {
+                    val index = palabra.get(0) - 'a'
+                    if (!dicc[index].buscarPalabra(palabra)) {
+                        val arrayPmli = dicc[index].arrayPalabras()
+                        val arrayPair = Array<Pair<String, Int>>(arrayPmli.size) {Pair("",0)}
+                        for (i in 0 until arrayPmli.size){
+                            arrayPair[i] = Pair(arrayPmli[i], distancia(palabra,arrayPmli[i]))
+                        }
+                        val sugerencia = arrayPair.sortedBy { it.second }.take(4).joinToString(", ") { it.first }
+                        output.appendText("$palabra $sugerencia\n")
+                    }
+                }
+            }
+        }
     }
     
 
