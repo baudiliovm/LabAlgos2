@@ -103,7 +103,7 @@ class ConjuntoPalabra {
         return elementos
     }
 
-    fun ordenarConjunto() {
+    fun ordenar() {
         val list = mutableListOf<Palabra>()
         for (i in 0 until tamano) {
             if (palabras[i] != null) {

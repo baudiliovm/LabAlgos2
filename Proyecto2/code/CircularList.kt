@@ -19,22 +19,6 @@ class CircularList {
         while (c != null && c.valor != clave) c = c.siguiente
         return c
     }
-
-    fun ordenar() {
-        var actual = cabeza
-        var nodoAnterior: Palabra? = null
-        while (actual != null) {
-            var siguiente = actual.siguiente
-            if (nodoAnterior != null && actual.valor.compareTo(nodoAnterior.valor) < 0) {
-                nodoAnterior.siguiente = siguiente
-                actual.siguiente = cabeza
-                cabeza = actual
-            }
-            nodoAnterior = actual
-            actual = siguiente
-        }
-    }
-
 }
 
 
