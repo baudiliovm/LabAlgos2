@@ -1,5 +1,14 @@
 import java.io.File
 
+fun esPalabraValida(s: String): Boolean {
+        for (i in 0 until s.length) {
+            if (s[i] !in 'a'..'z') {
+                return false
+            }
+        }
+        return true
+    }
+
 fun main() {
     val ayudante = AyudanteOrtografico()
     var option = 0

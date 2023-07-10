@@ -1,8 +1,8 @@
 import java.io.File
 
 class AyudanteOrtografico {
-    private val MAX = 27
-    private val dicc = Array(MAX) { i -> PMLI('a' + i) }
+    private val max = arrayOf("a", "b", "c", "d", "e", "f", "g","h", "i", "j", "k", "l", "m", "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
+    private val dicc = Array(max.size) { i -> PMLI(max[i]) }
 
     fun cargarDiccionario(fname: String) {
         val file = File(fname)
@@ -13,6 +13,7 @@ class AyudanteOrtografico {
             }
         }
     }
+    
 
     fun borrarPalabra(p: String) {
         if (esPalabraValida(p)) {
@@ -21,13 +22,33 @@ class AyudanteOrtografico {
         }
     }
 
+    
     fun corregirTexto(finput: String, foutput: String) {
-        ///
+        //
     }
+    
 
     fun imprimirDiccionario() {
         for (pmli in dicc) {
             pmli.mostrarPalabras()
         }
+    }
+
+    fun esLetraValida(letra: String): Boolean {
+            if (letra.length != 1) {
+                return false
+            }
+            val regex = Regex("[a-zñ]")
+            return regex.matches(letra)
+    }
+    
+
+    fun esPalabraValida(s: String): Boolean {
+        for (i in 0 until s.length) {
+            if (s[i] !in 'a'..'z') {
+                return false
+            }
+        }
+        return true
     }
 }
