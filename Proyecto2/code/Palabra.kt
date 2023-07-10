@@ -3,10 +3,13 @@ class Palabra(val valor: String) {
     var siguiente: Palabra? = null
     var anterior: Palabra? = null
     
-    private fun length(palabra: String) = palabra.length
     
     companion object {
+        private fun length(palabra: String) = palabra.length
         fun esLetraValida(letra: String): Boolean {
+            if (length(letra) != 1) {
+                return false
+            }
             val regex = Regex("[a-zñ]")
             return regex.matches(letra)
         }
