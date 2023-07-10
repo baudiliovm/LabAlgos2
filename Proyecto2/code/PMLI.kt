@@ -1,4 +1,5 @@
 import kotlin.system.exitProcess
+import kotlin.io.println
 
 class PMLI(val letra: String) {
 
@@ -24,8 +25,8 @@ class PMLI(val letra: String) {
     }
 
     fun mostrarPalabras() {
-        palabras.ordenarr()
-        println(palabras.toString())
+        println("Palabras con la letra $letra:")
+        palabras.sort()
     }
     
 

@@ -25,7 +25,7 @@ class CircularList {
         var nodoAnterior: Palabra? = null
         while (actual != null) {
             var siguiente = actual.siguiente
-            if (nodoAnterior != null && actual.valor < nodoAnterior.valor) {
+            if (nodoAnterior != null && actual.valor.compareTo(nodoAnterior.valor) < 0) {
                 nodoAnterior.siguiente = siguiente
                 actual.siguiente = cabeza
                 cabeza = actual

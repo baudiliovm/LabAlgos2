@@ -111,6 +111,20 @@ class ConjuntoPalabra {
         }
     }
 
+    fun sort() {
+        val list = mutableListOf<Palabra>()
+        for (i in 0 until tamano) {
+            if (palabras[i] != null) {
+                var x: Palabra? = palabras[i]?.cabeza
+                while (x != null) {
+                    list.add(x)
+                    x = x.siguiente
+                }
+            }
+        }
+        val sorted = list.sortedBy { it.valor }
+        println(sorted)
+    }
     
 
     /**

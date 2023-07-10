@@ -8,6 +8,7 @@ fun main(args: Array<String>) {
     println(conjunto.buscarPalabra("avion"))
     conjunto.eliminarPalabra("avion")
     println(conjunto.buscarPalabra("avion"))
+    conjunto.agregarPalabra("bau")
     conjunto.mostrarPalabras()
    
 }

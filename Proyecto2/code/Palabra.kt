@@ -3,7 +3,6 @@ class Palabra(val valor: String) {
     var siguiente: Palabra? = null
     var anterior: Palabra? = null
     
-    
     companion object {
         private fun length(palabra: String) = palabra.length
         fun esLetraValida(letra: String): Boolean {
@@ -15,7 +14,7 @@ class Palabra(val valor: String) {
         }
     }
 
-    fun esPalabraValida(): Boolean {
+    public fun esPalabraValida(): Boolean {
         if (length(valor) < 0) {
             return false
         }
