@@ -30,8 +30,7 @@ class AyudanteOrtografico {
         val input = File(finput)
         val output = File(foutput)
         input.forEachLine { line ->
-            val palabras = line.split(Regex("\\s+"))
-            println(palabras.joinToString())
+            var palabras = line.split(Regex("\\s+|[\n\r\t,.—;:¡!¿?()]")).filter { it.isNotEmpty() }
             for (palabra in palabras) {
                 if (esPalabraValida(palabra)) {
                     var index = palabra.get(0) - 'a'
