@@ -1,6 +1,6 @@
 fun main(args: Array<String>) {
 
-    var conjunto = PMLI("a")
+    var conjunto = PMLI("ñ")
     for (i in 0 until args.size) {
         conjunto.agregarPalabra(args[i])
     }

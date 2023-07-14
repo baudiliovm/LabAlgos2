@@ -1,18 +1,10 @@
 import java.io.File
 
-fun esPalabraValida(s: String): Boolean {
-    for (i in 0 until s.length) {
-        if (s[i] !in 'a'..'z') {
-            return false
-        }
-    }
-    return true
-}
-
 fun main() {
     val ayudante = AyudanteOrtografico()
     var option = 0
     while (option != 6) {
+        println()
         println("Menú:")
         println("1. Crear un nuevo ayudante ortográfico.")
         println("2. Cargar un diccionario.")
@@ -39,7 +31,7 @@ fun main() {
             3 -> {
                 print("Ingrese la palabra a eliminar: ")
                 val palabra = readLine() ?: ""
-                if (esPalabraValida(palabra)) {
+                if (Palabra(palabra).esPalabraValida()) {
                     ayudante.borrarPalabra(palabra)
                     println("Palabra eliminada.")
                 } else {
