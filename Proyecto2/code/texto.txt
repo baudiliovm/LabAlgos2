@@ -9381,7 +9381,6 @@ zedillo
 zona 
 zonas 
 zumo 
-ñame
 ña
 ñácara
 ñaco
