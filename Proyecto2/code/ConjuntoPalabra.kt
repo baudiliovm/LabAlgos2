@@ -19,10 +19,6 @@ class ConjuntoPalabra {
         return (key.hashCode() % tamano).absoluteValue
     }
     
-    /**
-     * Rehashing de la tabla de hash que duplica el tamaño de la tabla y reinserta
-     * todos los elementos en la nueva tabla
-     */
     private fun rehash() {
         val nuevoTamano = 2 * tamano
         val tablaCopia = palabras
@@ -41,11 +37,6 @@ class ConjuntoPalabra {
         }
     }
 
-    /** 
-     * Agrega una palabra a la tabla de hash
-     * 
-     * @param palabra la palabra a agregar
-     */
     fun agregar(palabra: String) {
 
         if (!Palabra(palabra).esPalabraValida()) {
