@@ -5,7 +5,9 @@ import java.io.File
  * un texto
  */
 class AyudanteOrtografico {
-    private val max = arrayOf("a", "b", "c", "d", "e", "f", "g","h", "i", "j", "k", "l", "m", "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
+    private val max = arrayOf("a", "b", "c", "d", "e", "f", "g","h", "i", "j", 
+    "k", "l", "m", "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", 
+    "y", "z")
     private val dicc = Array(max.size) { i -> PMLI(max[i]) }
 
     /**
