@@ -5,9 +5,7 @@ import java.io.File
  * un texto
  */
 class AyudanteOrtografico {
-    private val max = arrayOf("a", "b", "c", "d", "e", "f", "g","h", "i", "j", 
-    "k", "l", "m", "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", 
-    "y", "z")
+    private val max = arrayOf("a", "b", "c", "d", "e", "f", "g","h", "i", "j", "k", "l", "m", "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
     private val dicc = Array(max.size) { i -> PMLI(max[i]) }
 
     /**
@@ -16,10 +14,9 @@ class AyudanteOrtografico {
     fun cargarDiccionario(fname: String) {
         val file = File(fname)
         file.forEachLine { line ->
-            val palabra = line.trim()
-            if (Palabra(palabra).esPalabraValida()) {
-                var index = max.indexOf(palabra.get(0).toString())
-                dicc[index].agregarPalabra(palabra)
+            if (Palabra(line).esPalabraValida()) {
+                var index = max.indexOf(line.get(0).toString())
+                dicc[index].agregarPalabra(line)
             }
         }
     }
@@ -34,6 +31,14 @@ class AyudanteOrtografico {
         }
     }
 
+    fun arrayTodoDiccionario(): Array<String> {
+        var array = dicc[0].arrayPalabras()
+        for (i in 1 until 27){
+            array = array + dicc[i].arrayPalabras()
+        }
+        return array
+    }
+    
     /**
      * Procesa un archivo de texto y genera un archivo de salida con las palabras
      * mal escritas y sus sugerencias utilizando la distancia de Levenshtein
@@ -47,7 +52,7 @@ class AyudanteOrtografico {
                 if (Palabra(palabra).esPalabraValida()) {
                     var index = max.indexOf(palabra.get(0).toString())
                     if (!dicc[index].buscarPalabra(palabra)) {
-                        val arrayPmli = dicc[index].arrayPalabras()
+                        val arrayPmli = arrayTodoDiccionario()
                         val arrayPair = Array<Pair<String, Int>>(arrayPmli.size) {Pair("",0)}
                         for (i in 0 until arrayPmli.size){
                             arrayPair[i] = Pair(arrayPmli[i], distancia(palabra,arrayPmli[i]))
