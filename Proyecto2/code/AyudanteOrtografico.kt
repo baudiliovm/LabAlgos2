@@ -40,16 +40,14 @@ class AyudanteOrtografico {
                     if (palabra.get(0) == 'ñ'){
                         index = 26
                     }
-                    println(index)
                     if (!dicc[index].buscarPalabra(palabra)) {
                         val arrayPmli = dicc[index].arrayPalabras()
                         val arrayPair = Array<Pair<String, Int>>(arrayPmli.size) {Pair("",0)}
                         for (i in 0 until arrayPmli.size){
                             arrayPair[i] = Pair(arrayPmli[i], distancia(palabra,arrayPmli[i]))
                         }
-                        val sugerencia = arrayPair.sortedBy { it.second }.take(4).joinToString(", ") { it.first }
-                        println(sugerencia)
-                        output.appendText("$palabra $sugerencia\n")
+                        val sugerencia = arrayPair.sortedBy { it.second }.take(4).joinToString(",") { it.first }
+                        output.appendText("$palabra,$sugerencia\n")
                     }
                 }
             }
