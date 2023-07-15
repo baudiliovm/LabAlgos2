@@ -31,6 +31,9 @@ class AyudanteOrtografico {
         }
     }
 
+    /**
+     * Retorna un array de palabras de todo el diccionario
+     */
     fun arrayTodoDiccionario(): Array<String> {
         var array = dicc[0].arrayPalabras()
         for (i in 1 until 27){
