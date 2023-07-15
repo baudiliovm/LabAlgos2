@@ -15,10 +15,7 @@ class AyudanteOrtografico {
         val file = File(fname)
         file.forEachLine { line ->
             if (Palabra(line).esPalabraValida()) {
-                var index = line.get(0) - 'a'
-                if (line.get(0) == 'ñ') {
-                    index = 14
-                }
+                var index = max.indexOf(line.get(0).toString())
                 dicc[index].agregarPalabra(line)
             }
         }
@@ -29,10 +26,7 @@ class AyudanteOrtografico {
      */
     fun borrarPalabra(palabra: String) {
         if (Palabra(palabra).esPalabraValida()) {
-            var index = palabra[0] - 'a'
-            if (palabra.get(0) == 'ñ') {
-                index = 14
-            }
+            var index = max.indexOf(palabra.get(0).toString())
             dicc[index].eliminarPalabra(palabra)
         }
     }
@@ -48,10 +42,7 @@ class AyudanteOrtografico {
             var palabras = line.split(Regex("\\s+|[\n\r\t,.—;:¡!¿?()]")).filter { it.isNotEmpty() }
             for (palabra in palabras) {
                 if (Palabra(palabra).esPalabraValida()) {
-                    var index = palabra.get(0) - 'a'
-                    if (palabra.get(0) == 'ñ') {
-                        index = 14
-                    }
+                    var index = max.indexOf(palabra.get(0).toString())
                     if (!dicc[index].buscarPalabra(palabra)) {
                         val arrayPmli = dicc[index].arrayPalabras()
                         val arrayPair = Array<Pair<String, Int>>(arrayPmli.size) {Pair("",0)}
