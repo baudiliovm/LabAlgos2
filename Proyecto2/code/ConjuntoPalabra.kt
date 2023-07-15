@@ -3,7 +3,7 @@ import kotlin.math.absoluteValue
 
 /**
  * Implementacion de tabla de hash dinamica con encadenamiento con listas circulares
- * doblemente enlazadas para el uso de un conjunto de palabras.
+ * doblemente enlazadas para simular un conjunto de palabras.
  * 
  * Soporta las operaciones de agregar, eliminar, buscar y existencia.
  */
@@ -76,7 +76,11 @@ class ConjuntoPalabra {
         if (factorDeCarga >= 0.7) rehash()
     }
 
-    
+    /**
+     * Busca una palabra en el conjuntoPalabra
+     * 
+     * @param palabra la palabra a buscar
+     */
     fun buscar(palabra: String): String? {
         
         val hashValor = hash(palabra)
@@ -85,7 +89,11 @@ class ConjuntoPalabra {
         return actual?.valor
     }
 
-
+    /**
+     * Elimina una palabra del conjuntoPalabra
+     * 
+     * @param palabra la palabra a eliminar
+     */
     fun eliminar(palabra: String) {
 
         val hashValor = hash(palabra)
@@ -102,6 +110,12 @@ class ConjuntoPalabra {
         elementos--
     }
 
+    /**
+     * Verifica si una palabra existe en el conjuntoPalabra
+     * 
+     * @param palabra la palabra a verificar
+     * @return true si la palabra existe, false en caso contrario
+     */
     fun existe(palabra: String): Boolean {
 
         val hash = hash(palabra)
@@ -111,14 +125,19 @@ class ConjuntoPalabra {
     }
     
     /**
-     * Devuelve el numero de palabras en la tabla
+     * Devuelve el numero de palabras en el ConjuntoPalabra
      * 
-     * @return el numero de palabras en la tabla
+     * @return el numero de palabras en el ConjuntoPalabra
      */
     fun numElementos(): Int {
         return elementos
     }
 
+    /**
+     * Ordena las palabras en el ConjuntoPalabra en orden alfabetico
+     * 
+     * @return la lista ordenada
+     */
     fun ordenar() {
         val list = mutableListOf<Palabra>()
         for (i in 0 until tamano) {
@@ -134,6 +153,11 @@ class ConjuntoPalabra {
         println(sorted)
     }
 
+    /**
+     * Devuelve un array con todas las palabras en el ConjuntoPalabra
+     * 
+     * @return un array con todas las palabras en el ConjuntoPalabra
+     */
     fun obtenerArray(): Array<String> {
         val array = Array(elementos) { "" }
         var i = 0
