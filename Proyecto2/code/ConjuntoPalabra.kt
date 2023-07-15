@@ -3,7 +3,7 @@ import kotlin.math.absoluteValue
 
 /**
  * Implementacion de tabla de hash dinamica con encadenamiento con listas circulares
- * doblemente enlazadas
+ * doblemente enlazadas para el uso de un conjunto de palabras.
  * 
  * Soporta las operaciones de agregar, eliminar, buscar y existencia.
  */
@@ -15,10 +15,22 @@ class ConjuntoPalabra {
         get() = elementos / tamano.toDouble()
     private var elementos: Int = 0
     
-    private fun hash(key: String): Int {
-        return (key.hashCode() % tamano).absoluteValue
+
+    /**
+     * Funcion hash para obtener el indice de la tabla, usando el metodo de 
+     * la division
+     * 
+     * @param llave la palabra a agregar
+     */
+    private fun hash(llave: String): Int {
+        return (llave.hashCode() % tamano).absoluteValue
     }
     
+
+    /**
+     * Funcion de rehash para aumentar el tamaño de la tabla dos veces su tamaño
+     * cuando el factor de carga es mayor o igual a 0,7
+     */
     private fun rehash() {
         val nuevoTamano = 2 * tamano
         val tablaCopia = palabras
@@ -37,6 +49,11 @@ class ConjuntoPalabra {
         }
     }
 
+    /**
+     * Funcion para agregar una palabra al ConjuntoPalabra
+     * 
+     * @param palabra la palabra a agregar
+     */
     fun agregar(palabra: String) {
 
         if (!Palabra(palabra).esPalabraValida()) {
@@ -45,7 +62,6 @@ class ConjuntoPalabra {
         }
         
         if (existe(palabra)) {
-            println("La palabra $palabra ya existe en el conjunto de palabras")
             return
         }
         
