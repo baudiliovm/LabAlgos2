@@ -1,9 +1,16 @@
 import java.io.File
 
+/**
+ * Clase que utiliza PMLI para almacenar las palabras del diccionario y corregir
+ * un texto
+ */
 class AyudanteOrtografico {
     private val max = arrayOf("a", "b", "c", "d", "e", "f", "g","h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "ñ")
     private val dicc = Array(max.size) { i -> PMLI(max[i]) }
 
+    /**
+     * Lee el archivo de texto y carga las palabras en el diccionario
+     */
     fun cargarDiccionario(fname: String) {
         val file = File(fname)
         file.forEachLine { line ->
@@ -17,6 +24,9 @@ class AyudanteOrtografico {
         }
     }
     
+    /**
+     * Recibe una palabra de entrada y la borra del diccionario
+     */
     fun borrarPalabra(palabra: String) {
         if (Palabra(palabra).esPalabraValida()) {
             var index = palabra[0] - 'a'
@@ -27,6 +37,10 @@ class AyudanteOrtografico {
         }
     }
 
+    /**
+     * Procesa un archivo de texto y genera un archivo de salida con las palabras
+     * mal escritas y sus sugerencias utilizando la distancia de Levenshtein
+     */
     fun corregirTexto(finput: String, foutput: String) {
         val input = File(finput)
         val output = File(foutput)
@@ -52,6 +66,9 @@ class AyudanteOrtografico {
         }
     }
     
+    /**
+     * Imprime el diccionario las palabras del PMLI en orden léxicografico
+     */
     fun imprimirDiccionario() {
         for (pmli in dicc) {
             pmli.mostrarPalabras()
