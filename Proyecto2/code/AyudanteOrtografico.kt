@@ -5,7 +5,7 @@ import java.io.File
  * un texto
  */
 class AyudanteOrtografico {
-    private val max = arrayOf("a", "b", "c", "d", "e", "f", "g","h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "ñ")
+    private val max = arrayOf("a", "b", "c", "d", "e", "f", "g","h", "i", "j", "k", "l", "m", "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
     private val dicc = Array(max.size) { i -> PMLI(max[i]) }
 
     /**
@@ -17,7 +17,7 @@ class AyudanteOrtografico {
             if (Palabra(line).esPalabraValida()) {
                 var index = line.get(0) - 'a'
                 if (line.get(0) == 'ñ') {
-                    index = 26
+                    index = 14
                 }
                 dicc[index].agregarPalabra(line)
             }
@@ -31,7 +31,7 @@ class AyudanteOrtografico {
         if (Palabra(palabra).esPalabraValida()) {
             var index = palabra[0] - 'a'
             if (palabra.get(0) == 'ñ') {
-                index = 26
+                index = 14
             }
             dicc[index].eliminarPalabra(palabra)
         }
@@ -50,7 +50,7 @@ class AyudanteOrtografico {
                 if (Palabra(palabra).esPalabraValida()) {
                     var index = palabra.get(0) - 'a'
                     if (palabra.get(0) == 'ñ') {
-                        index = 26
+                        index = 14
                     }
                     if (!dicc[index].buscarPalabra(palabra)) {
                         val arrayPmli = dicc[index].arrayPalabras()
