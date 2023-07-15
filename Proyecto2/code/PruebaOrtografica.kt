@@ -34,7 +34,6 @@ fun main() {
                 val palabra = readLine() ?: ""
                 if (Palabra(palabra).esPalabraValida()) {
                     ayudante.borrarPalabra(palabra)
-                    println("Palabra eliminada.")
                 } else {
                     println("La palabra no es válida.")
                 }
@@ -46,7 +45,7 @@ fun main() {
                     print("Ingrese el nombre del archivo de salida: ")
                     val foutput = readLine() ?: ""
                     ayudante.corregirTexto(finput, foutput)
-                    println("Texto corregido.")
+                    println("Sugerencias creadas.")
                 } else {
                     println("El archivo de entrada no existe.")
                 }

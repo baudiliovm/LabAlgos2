@@ -101,8 +101,9 @@ class ConjuntoPalabra {
 
         if (borra != null) {
             palabras[hashValor]?.eliminarLista(borra)
+            println("Palabra eliminada.")
         } else {
-            println("La palabra $palabra no existe en el conjunto")
+            println("La palabra $palabra no existe en el diccionario")
             return
         }
         
