@@ -51,13 +51,13 @@ class AyudanteOrtografico {
     fun corregirTexto(finput: String, foutput: String) {
         val input = File(finput)
         val output = File(foutput)
+        val arrayPmli = arrayTodoDiccionario()
         input.forEachLine { line ->
             var palabras = line.split(Regex("\\s+|[\n\r\t,.—;:¡!¿?()]")).filter { it.isNotEmpty() }
             for (palabra in palabras) {
                 if (Palabra(palabra).esPalabraValida()) {
                     var index = max.indexOf(palabra.get(0).toString())
                     if (!dicc[index].buscarPalabra(palabra)) {
-                        val arrayPmli = arrayTodoDiccionario()
                         val arrayPair = Array<Pair<String, Int>>(arrayPmli.size) {Pair("",0)}
                         for (i in 0 until arrayPmli.size){
                             arrayPair[i] = Pair(arrayPmli[i], distancia(palabra,arrayPmli[i]))
