@@ -1,11 +1,10 @@
 import kotlin.system.exitProcess
 import kotlin.io.println
 
-
 class PMLI(val letra: String) {
 
     init {
-        if (Palabra.esLetraValida(letra) == false) {
+        if (!Palabra.esLetraValida(letra)) {
             println("La letra $letra no es valida")
             exitProcess(1)
         }
@@ -13,15 +12,15 @@ class PMLI(val letra: String) {
 
     var palabras = ConjuntoPalabra()
     
-    fun agregarPalabra(p: String) {
-        if (p.first().toString() == letra) {
-            palabras.agregar(p)
+    fun agregarPalabra(palabra: String) {
+        if (palabra.first().toString() == letra) {
+            palabras.agregar(palabra)
         }
     }
 
-    fun eliminarPalabra(p: String) {
-        if (p.first().toString() == letra) {
-            palabras.eliminar(p)
+    fun eliminarPalabra(palabra: String) {
+        if (palabra.first().toString() == letra) {
+            palabras.eliminar(palabra)
         }
     }
 
@@ -35,9 +34,9 @@ class PMLI(val letra: String) {
         palabras.ordenar()
     }
 
-    fun buscarPalabra(p: String): Boolean {
-        if (p.first().toString() == letra) {
-            return (palabras.buscar(p) != null)
+    fun buscarPalabra(palabra: String): Boolean {
+        if (palabra.first().toString() == letra) {
+            return (palabras.buscar(palabra) != null)
         }
         return false
     }

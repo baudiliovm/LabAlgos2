@@ -9,7 +9,7 @@ class AyudanteOrtografico {
         file.forEachLine { line ->
             if (Palabra(line).esPalabraValida()) {
                 var index = line.get(0) - 'a'
-                if (line.get(0) == 'ñ'){
+                if (line.get(0) == 'ñ') {
                     index = 26
                 }
                 dicc[index].agregarPalabra(line)
@@ -17,18 +17,16 @@ class AyudanteOrtografico {
         }
     }
     
-
     fun borrarPalabra(palabra: String) {
         if (Palabra(palabra).esPalabraValida()) {
             var index = palabra[0] - 'a'
-            if (palabra.get(0) == 'ñ'){
+            if (palabra.get(0) == 'ñ') {
                 index = 26
             }
             dicc[index].eliminarPalabra(palabra)
         }
     }
 
-    
     fun corregirTexto(finput: String, foutput: String) {
         val input = File(finput)
         val output = File(foutput)
@@ -37,7 +35,7 @@ class AyudanteOrtografico {
             for (palabra in palabras) {
                 if (Palabra(palabra).esPalabraValida()) {
                     var index = palabra.get(0) - 'a'
-                    if (palabra.get(0) == 'ñ'){
+                    if (palabra.get(0) == 'ñ') {
                         index = 26
                     }
                     if (!dicc[index].buscarPalabra(palabra)) {
@@ -54,7 +52,6 @@ class AyudanteOrtografico {
         }
     }
     
-
     fun imprimirDiccionario() {
         for (pmli in dicc) {
             pmli.mostrarPalabras()

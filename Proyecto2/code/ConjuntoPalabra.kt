@@ -45,7 +45,7 @@ class ConjuntoPalabra {
         }
         
         if (existe(palabra)) {
-            println("La palabra $palabra ya existe en el conjunto")
+            println("La palabra $palabra ya existe en el conjunto de palabras")
             return
         }
         
