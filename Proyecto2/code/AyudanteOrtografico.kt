@@ -14,9 +14,10 @@ class AyudanteOrtografico {
     fun cargarDiccionario(fname: String) {
         val file = File(fname)
         file.forEachLine { line ->
-            if (Palabra(line).esPalabraValida()) {
-                var index = max.indexOf(line.get(0).toString())
-                dicc[index].agregarPalabra(line)
+            val palabra = line.trim()
+            if (Palabra(palabra).esPalabraValida()) {
+                var index = max.indexOf(palabra.get(0).toString())
+                dicc[index].agregarPalabra(palabra)
             }
         }
     }
